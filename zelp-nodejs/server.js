@@ -1,6 +1,7 @@
 var express = require("express");
 var bodyParser = require("body-parser");
 const mongoose = require("mongoose");
+
 mongoose.connect("mongodb://localhost/webdev-summer1-2018");
 
 var app = express();
@@ -57,18 +58,7 @@ function getSession(req, res) {
   res.send(value);
 }
 
-var userModel = require("./models/user/user.model.server");
-// userModel.createUser({
-//   username: "bob",
-//   password: "bob"
-// });
-
-var users = [];
-var users = userModel.findAllUsers().then(function(users) {
-  console.log(users);
-});
-
-// var userService = require("./services/user.service.server");
-// userService(app);
+var userService = require("./services/user.service.server");
+userService(app);
 
 app.listen(4000);
