@@ -1,6 +1,7 @@
 import { Component } from '@angular/core';
 import { OnInit } from '@angular/core';
 import { Router } from '@angular/router';
+import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { UserServiceClient } from '../services/user.service.client';
 import {AlertServiceClient} from '../services/alert.service.client';
 
@@ -10,28 +11,50 @@ import {AlertServiceClient} from '../services/alert.service.client';
   styleUrls: ['./register.component.css']
 })
 export class RegisterComponent implements OnInit {
+  registerForm: FormGroup;
+  submitted = false;
 
-  constructor(private router: Router,
+  constructor(private formBuilder: FormBuilder,
+              private router: Router,
               private service: UserServiceClient,
               private alertService: AlertServiceClient) { }
 
-  username;
-  password;
-  password2;
-  register(username, password, password2) {
-    console.log([username, password, password2]);
+  register(username, password, verifyPassword) {
+    this.submitted = true;
+
+    console.log([username, password, verifyPassword]);
+
+    if (password !== verifyPassword) {
+      this.alertService.error('password needs to match!');
+      return;
+    }
+
+    // Stop if there exists invalid form
+    if (this.registerForm.invalid) {
+      return;
+    }
+
+    // No invalid form so proceed.
     this.service
       .createUser(username, password)
       .then(data => this.success(),
-          error => this.alertService.error(error));
+          error => this.alertService.error(error, false));
   }
 
+  get form() { return this.registerForm.controls; }
+
+  // initial setting
   ngOnInit() {
+    this.registerForm = this.formBuilder.group({
+      username: ['', Validators.required],
+      password: ['', [Validators.required, Validators.minLength(6)]],
+      verifyPassword: ['', Validators.required]
+    });
   }
 
   success() {
     this.router.navigate(['login'])
-      .then(() => this.alertService.success('Registration successful!', true));
+      .then(() => this.alertService.success('Registration successful!', false));
   }
 
 }
