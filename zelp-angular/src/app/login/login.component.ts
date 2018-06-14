@@ -22,10 +22,8 @@ export class LoginComponent implements OnInit {
 
   success(data) {
     console.log(data);
-    if (data.id != null) {
-      this.router.navigate(['profile'])
-        .then(() => this.alertService.success('Login successful!', true));
-    }
+    this.router.navigate(['profile'])
+      .then(() => this.alertService.success('Login successful!', true));
   }
 
   constructor(private router: Router,
