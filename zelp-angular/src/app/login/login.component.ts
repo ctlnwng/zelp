@@ -1,8 +1,8 @@
 
 import { Component, OnInit } from '@angular/core';
-import {Route, Router} from '@angular/router';
-import {AlertServiceClient} from '../services/alert.service.client';
-import {UserServiceClient} from '../services/user.service.client';
+import { Route, Router } from '@angular/router';
+import { AlertServiceClient } from '../services/alert.service.client';
+import { UserServiceClient } from '../services/user.service.client';
 
 
 @Component({
@@ -14,21 +14,28 @@ export class LoginComponent implements OnInit {
   username;
   password;
   login(username, password) {
-    console.log('Login process check!')
-    console.log([username, password]);
     this.service
-      .loginUser(username, password)
-      .then(data => this.success(),
-      error => this.alertService.error(error))
+      .login(username, password)
+      .then(data => this.success(data),
+        error => this.alertService.error(error));
   }
 
+  success(data) {
+    console.log(data)
+    console.log('success!')
+    if (data.id != null) {
+      this.router.navigate(['profile'])
+        .then(() => this.alertService.success('Login successful!', true));
+    }
+  }
+
+  alert(msg) {
+    this.alertService.success(msg, true);
+  }
   constructor(private router: Router,
               private service: UserServiceClient,
               private alertService: AlertServiceClient) { }
-  success() {
-    this.router.navigate(['login'])
-      .then(() => this.alertService.success('Login successful!', true));
-  }
+
 
   ngOnInit() {}
 }
