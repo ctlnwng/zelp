@@ -19,8 +19,15 @@ export class RegisterComponent implements OnInit {
               private service: UserServiceClient,
               private alertService: AlertServiceClient) { }
 
-  register(username, password, password2) {
+  register(username, password, verifyPassword) {
     this.submitted = true;
+
+    console.log([username, password, verifyPassword]);
+
+    if (password !== verifyPassword) {
+      this.alertService.error('password needs to match!');
+      return;
+    }
 
     // Stop if there exists invalid form
     if (this.registerForm.invalid) {
@@ -31,7 +38,7 @@ export class RegisterComponent implements OnInit {
     this.service
       .createUser(username, password)
       .then(data => this.success(),
-          error => this.alertService.error(error));
+          error => this.alertService.error(error, false));
   }
 
   get form() { return this.registerForm.controls; }
@@ -41,13 +48,13 @@ export class RegisterComponent implements OnInit {
     this.registerForm = this.formBuilder.group({
       username: ['', Validators.required],
       password: ['', [Validators.required, Validators.minLength(6)]],
-      verifyPassword: ['', [Validators.required]]
+      verifyPassword: ['', Validators.required]
     });
   }
 
   success() {
     this.router.navigate(['login'])
-      .then(() => this.alertService.success('Registration successful!', true));
+      .then(() => this.alertService.success('Registration successful!', false));
   }
 
 }

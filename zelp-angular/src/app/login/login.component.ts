@@ -31,9 +31,12 @@ export class LoginComponent implements OnInit {
   get form() { return this.loginForm.controls; }
 
   success(data) {
-    // FIXME need to check if the data contains credential values.
-    this.router.navigate(['profile'])
-      .then(() => this.alertService.success('Login successful!', true));
+    if (data != null) {
+      this.router.navigate(['profile'])
+        .then(() => this.alertService.success('Login successful!', false));
+    } else {
+      this.alertService.error('Invalid username and password combination.', false);
+    }
   }
 
   constructor(private formBuilder: FormBuilder,
