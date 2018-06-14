@@ -1,20 +1,20 @@
 export class UserServiceClient {
   findUserById(userId) {
-    return fetch("http://localhost:4000/api/user/" + userId).then(response =>
+    return fetch('http://localhost:4000/api/user/' + userId).then(response =>
       response.json()
     );
   }
 
   profile() {
-    return fetch("http://localhost:4000/api/profile", {
-      credentials: "include" // include, same-origin, *omit
+    return fetch('http://localhost:4000/api/profile', {
+      credentials: 'include' // include, same-origin, *omit
     }).then(response => response.json());
   }
 
   logout() {
-    return fetch("http://localhost:4000/api/logout", {
-      method: "post",
-      credentials: "include"
+    return fetch('http://localhost:4000/api/logout', {
+      method: 'post',
+      credentials: 'include'
     });
   }
 
@@ -24,12 +24,12 @@ export class UserServiceClient {
       password: password
     };
 
-    return fetch("http://localhost:4000/api/login", {
-      method: "post",
+    return fetch('http://localhost:4000/api/login', {
+      method: 'POST',
       body: JSON.stringify(credentials),
-      credentials: "include",
+      credentials: 'include',
       headers: {
-        "content-type": "application/json"
+        'content-type': 'application/json'
       }
     });
   }
@@ -39,12 +39,12 @@ export class UserServiceClient {
       username: username,
       password: password
     };
-    return fetch("http://localhost:4000/api/user", {
+    return fetch('http://localhost:4000/api/user', {
       body: JSON.stringify(user),
-      credentials: "include", // include, same-origin, *omit
-      method: "post",
+      credentials: 'include', // include, same-origin, *omit
+      method: 'post',
       headers: {
-        "content-type": "application/json"
+        'content-type': 'application/json'
       }
     });
   }

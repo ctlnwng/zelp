@@ -1,5 +1,8 @@
 import { BrowserModule } from '@angular/platform-browser';
+import { FormsModule } from '@angular/forms';
 import { NgModule } from '@angular/core';
+import { HttpClientModule, HTTP_INTERCEPTORS } from '@angular/common/http';
+
 import { routing } from './app.routing';
 
 import { AppComponent } from './app.component';
@@ -7,8 +10,10 @@ import { LoginComponent } from './login/login.component';
 import { ProfileComponent } from './profile/profile.component';
 import { RegisterComponent } from './register/register.component';
 import { HomePageComponent } from './home-page/home-page.component';
-import { FormsModule } from '@angular/forms';
 import {UserServiceClient} from './services/user.service.client';
+import { SearchComponent } from './search/search.component';
+import { AlertComponent } from './alert/alert.component';
+import {AlertServiceClient} from './services/alert.service.client';
 
 @NgModule({
   declarations: [
@@ -16,14 +21,20 @@ import {UserServiceClient} from './services/user.service.client';
     LoginComponent,
     ProfileComponent,
     RegisterComponent,
-    HomePageComponent
+    HomePageComponent,
+    SearchComponent,
+    AlertComponent
   ],
   imports: [
     BrowserModule,
     FormsModule,
+    HttpClientModule,
     routing
   ],
-  providers: [UserServiceClient],
+  providers: [
+    UserServiceClient,
+    AlertServiceClient
+  ],
   bootstrap: [AppComponent]
 })
 export class AppModule { }
