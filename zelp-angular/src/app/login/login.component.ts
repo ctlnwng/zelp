@@ -21,17 +21,13 @@ export class LoginComponent implements OnInit {
   }
 
   success(data) {
-    console.log(data)
-    console.log('success!')
+    console.log(data);
     if (data.id != null) {
       this.router.navigate(['profile'])
         .then(() => this.alertService.success('Login successful!', true));
     }
   }
 
-  alert(msg) {
-    this.alertService.success(msg, true);
-  }
   constructor(private router: Router,
               private service: UserServiceClient,
               private alertService: AlertServiceClient) { }

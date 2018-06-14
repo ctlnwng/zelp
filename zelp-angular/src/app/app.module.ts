@@ -1,6 +1,7 @@
 import { BrowserModule } from '@angular/platform-browser';
 import { FormsModule } from '@angular/forms';
 import { NgModule } from '@angular/core';
+import { HttpClientModule, HTTP_INTERCEPTORS } from '@angular/common/http';
 
 import { routing } from './app.routing';
 
@@ -27,6 +28,7 @@ import {AlertServiceClient} from './services/alert.service.client';
   imports: [
     BrowserModule,
     FormsModule,
+    HttpClientModule,
     routing
   ],
   providers: [
