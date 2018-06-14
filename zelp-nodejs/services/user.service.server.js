@@ -3,6 +3,7 @@ module.exports = function(app) {
   app.get("/api/user/:userId", findUserById);
   app.post("/api/user", createUser);
   app.get("/api/profile", profile);
+  app.post("/api/logout", logout);
 
   var userModel = require("../models/user/user.model.server");
 
@@ -15,6 +16,11 @@ module.exports = function(app) {
 
   function profile(req, res) {
     res.send(req.session["currentUser"]);
+  }
+
+  function logout(req, res) {
+    req.session.destroy();
+    res.sendStatus(200);
   }
 
   function createUser(req, res) {
