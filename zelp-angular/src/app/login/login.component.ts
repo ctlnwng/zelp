@@ -1,7 +1,9 @@
+
 import { Component, OnInit } from '@angular/core';
 import {Route, Router} from '@angular/router';
 import {AlertServiceClient} from '../services/alert.service.client';
 import {UserServiceClient} from '../services/user.service.client';
+
 
 @Component({
   selector: 'app-login',
@@ -9,7 +11,6 @@ import {UserServiceClient} from '../services/user.service.client';
   styleUrls: ['./login.component.css']
 })
 export class LoginComponent implements OnInit {
-
   username;
   password;
   login(username, password) {
@@ -24,13 +25,10 @@ export class LoginComponent implements OnInit {
   constructor(private router: Router,
               private service: UserServiceClient,
               private alertService: AlertServiceClient) { }
-
-  ngOnInit() {
-  }
-
   success() {
     this.router.navigate(['login'])
       .then(() => this.alertService.success('Login successful!', true));
   }
 
+  ngOnInit() {}
 }
