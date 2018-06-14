@@ -13,6 +13,7 @@ export class ProfileComponent implements OnInit {
   constructor(private service: UserServiceClient, private router: Router) {}
 
   user: User = new User();
+
   update(user: User) {
     console.log(user);
   }
