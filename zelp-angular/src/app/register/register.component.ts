@@ -12,30 +12,38 @@ import {AlertServiceClient} from '../services/alert.service.client';
 })
 export class RegisterComponent implements OnInit {
   registerForm: FormGroup;
+  submitted = false;
 
   constructor(private formBuilder: FormBuilder,
               private router: Router,
               private service: UserServiceClient,
               private alertService: AlertServiceClient) { }
 
-  // username;
-  // password;
-  // password2;
-
   register(username, password, password2) {
     console.log([username, password, password2]);
+    this.submitted = true;
+
+    // stop here if form is invalid
+    if (this.registerForm.invalid) {
+      return;
+    }
     this.service
       .createUser(username, password)
       .then(data => this.success(),
           error => this.alertService.error(error));
   }
 
+  get form() { return this.registerForm.controls; }
+
+  // initial setting
   ngOnInit() {
     this.registerForm = this.formBuilder.group({
       firstName: ['', Validators.required],
       lastName: ['', Validators.required],
       username: ['', Validators.required],
-      password: ['', [Validators.required, Validators.minLength(6)]]
+      password: ['', [Validators.required, Validators.minLength(6)]],
+      password2: ['', [Validators.required]]
+
     });
   }
 
