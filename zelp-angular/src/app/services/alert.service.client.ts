@@ -20,13 +20,13 @@ export class AlertServiceClient {
     });
   }
 
-  success(message: string, keepAfterNavigationChange = false) {
-    this.locationChange = keepAfterNavigationChange;
+  success(message: string, locationChange = false) {
+    this.locationChange = locationChange;
     this.subject.next({ type: 'success', text: message });
   }
 
-  error(message: string, keepAfterNavigationChange = false) {
-    this.locationChange = keepAfterNavigationChange;
+  error(message: string, locationChange = false) {
+    this.locationChange = locationChange;
     this.subject.next({ type: 'error', text: message });
   }
 

@@ -28,7 +28,7 @@ export class UserServiceClient {
     });
   }
 
-  //FIXME: made up fetch url for now!!!
+  // FIXME: made up fetch url for now!!!
   loginUser(username, password) {
     const user = {
       username: username,
