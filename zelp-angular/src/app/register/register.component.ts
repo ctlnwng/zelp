@@ -1,6 +1,7 @@
 import { Component } from '@angular/core';
 import { OnInit } from '@angular/core';
 import { Router } from '@angular/router';
+import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { UserServiceClient } from '../services/user.service.client';
 import {AlertServiceClient} from '../services/alert.service.client';
 
@@ -10,14 +11,17 @@ import {AlertServiceClient} from '../services/alert.service.client';
   styleUrls: ['./register.component.css']
 })
 export class RegisterComponent implements OnInit {
+  registerForm: FormGroup;
 
-  constructor(private router: Router,
+  constructor(private formBuilder: FormBuilder,
+              private router: Router,
               private service: UserServiceClient,
               private alertService: AlertServiceClient) { }
 
-  username;
-  password;
-  password2;
+  // username;
+  // password;
+  // password2;
+
   register(username, password, password2) {
     console.log([username, password, password2]);
     this.service
@@ -27,6 +31,12 @@ export class RegisterComponent implements OnInit {
   }
 
   ngOnInit() {
+    this.registerForm = this.formBuilder.group({
+      firstName: ['', Validators.required],
+      lastName: ['', Validators.required],
+      username: ['', Validators.required],
+      password: ['', [Validators.required, Validators.minLength(6)]]
+    });
   }
 
   success() {
