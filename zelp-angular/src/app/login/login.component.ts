@@ -1,5 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import {Route, Router} from '@angular/router';
+import {AlertServiceClient} from '../services/alert.service.client';
+import {UserServiceClient} from '../services/user.service.client';
 
 @Component({
   selector: 'app-login',
@@ -11,13 +13,24 @@ export class LoginComponent implements OnInit {
   username;
   password;
   login(username, password) {
+    console.log('Login process check!')
     console.log([username, password]);
-    this.router.navigate(['profile']);
+    this.service
+      .loginUser(username, password)
+      .then(data => this.success(),
+      error => this.alertService.error(error))
   }
 
-  constructor(private router: Router) { }
+  constructor(private router: Router,
+              private service: UserServiceClient,
+              private alertService: AlertServiceClient) { }
 
   ngOnInit() {
+  }
+
+  success() {
+    this.router.navigate(['login'])
+      .then(() => this.alertService.success('Login successful!', true));
   }
 
 }

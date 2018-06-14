@@ -11,6 +11,8 @@ import { RegisterComponent } from './register/register.component';
 import { HomePageComponent } from './home-page/home-page.component';
 import {UserServiceClient} from './services/user.service.client';
 import { SearchComponent } from './search/search.component';
+import { AlertComponent } from './alert/alert.component';
+import {AlertServiceClient} from './services/alert.service.client';
 
 @NgModule({
   declarations: [
@@ -19,14 +21,18 @@ import { SearchComponent } from './search/search.component';
     ProfileComponent,
     RegisterComponent,
     HomePageComponent,
-    SearchComponent
+    SearchComponent,
+    AlertComponent
   ],
   imports: [
     BrowserModule,
     FormsModule,
     routing
   ],
-  providers: [UserServiceClient],
+  providers: [
+    UserServiceClient,
+    AlertServiceClient
+  ],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

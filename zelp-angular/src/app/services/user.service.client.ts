@@ -27,4 +27,21 @@ export class UserServiceClient {
       }
     });
   }
+
+  //FIXME: made up fetch url for now!!!
+  loginUser(username, password) {
+    const user = {
+      username: username,
+      password: password
+    };
+    return fetch('http://localhost:4000/api/user/login', {
+      body: JSON.stringify(user),
+      credentials: 'include', // include, same-origin, *omit
+      method: 'post',
+      headers: {
+        'content-type': 'application/json'
+      }
+    });
+  }
+
 }
