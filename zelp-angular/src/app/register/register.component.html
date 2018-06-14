@@ -1,40 +1,40 @@
 <div class="container-fluid">
-<h2>Register</h2>
-<form [formGroup]="registerForm">
-  <div class="form-group">
-    <label>Username</label>
-    <input type="text" formControlName="username" class="form-control" [ngClass]="{ 'is-invalid': submitted && form.username.errors }" />
-    <div *ngIf="submitted && form.username.errors" class="invalid-feedback">
-      <div *ngIf="form.username.errors.required">Username is required</div>
+  <h2>Register</h2>
+  <form [formGroup]="registerForm">
+    <div class="form-group">
+      <label>Username</label>
+      <input type="text" formControlName="username" class="form-control" [ngClass]="{ 'is-invalid': submitted && form.username.errors }" />
+      <div *ngIf="submitted && form.username.errors" class="invalid-feedback">
+        <div *ngIf="form.username.errors.required">Username is required</div>
+      </div>
     </div>
-  </div>
-  <div class="form-group">
-    <label>Password</label>
-    <input type="password" formControlName="password" class="form-control" [ngClass]="{ 'is-invalid': submitted && form.password.errors }" />
-    <div *ngIf="submitted && form.password.errors" class="invalid-feedback">
-      <div *ngIf="form.password.errors.required">Password is required</div>
-      <div *ngIf="form.password.errors.minlength">Password must be at least 6 characters</div>
+    <div class="form-group">
+      <label>Password</label>
+      <input type="password" formControlName="password" class="form-control" [ngClass]="{ 'is-invalid': submitted && form.password.errors }" />
+      <div *ngIf="submitted && form.password.errors" class="invalid-feedback">
+        <div *ngIf="form.password.errors.required">Password is required</div>
+        <div *ngIf="form.password.errors.minlength">Password must be at least 6 characters</div>
+      </div>
     </div>
-  </div>
-  <div class="form-group">
-    <label>Verify Password</label>
-    <input type="password" formControlName="password" class="form-control" [ngClass]="{ 'is-invalid': submitted && form.password2.errors }" />
-    <div *ngIf="submitted && form.password2.errors" class="invalid-feedback">
-      <div *ngIf="form.password2.errors.required">Password is required</div>
-      <div *ngIf="form.password != form.password2">Passwords must match</div>
+    <div class="form-group">
+      <label>Verify Password</label>
+      <input type="password" formControlName="verifyPassword" class="form-control" [ngClass]="{ 'is-invalid': submitted && form.verifyPassword.errors }" />
+      <div *ngIf="submitted && form.verifyPassword.errors" class="invalid-feedback">
+        <div *ngIf="form.verifyPassword.errors.required">Password is required</div>
+        <div *ngIf="form.password != form.verifyPassword">Passwords must match</div>
+      </div>
     </div>
-  </div>
 
-  <button (click)="register(form.username, form.password, form.password2)"
-          class="btn btn-primary btn-block">
-    Register
-  </button>
+    <button (click)="register(form.username.value, form.password.value, form.verifyPassword.value)"
+            class="btn btn-primary btn-block">
+      Register
+    </button>
 
-  <br/>
-  <a routerLink="/login">Login</a>
-  <br/>
-  <a routerLink="/home">Home</a>
+    <br/>
+    <a routerLink="/login">Login</a>
+    <br/>
+    <a routerLink="/home">Home</a>
 
-</form>
+  </form>
 </div>
 

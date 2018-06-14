@@ -20,13 +20,14 @@ export class RegisterComponent implements OnInit {
               private alertService: AlertServiceClient) { }
 
   register(username, password, password2) {
-    console.log([username, password, password2]);
     this.submitted = true;
 
-    // stop here if form is invalid
+    // Stop if there exists invalid form
     if (this.registerForm.invalid) {
       return;
     }
+
+    // No invalid form so proceed.
     this.service
       .createUser(username, password)
       .then(data => this.success(),
@@ -38,12 +39,9 @@ export class RegisterComponent implements OnInit {
   // initial setting
   ngOnInit() {
     this.registerForm = this.formBuilder.group({
-      firstName: ['', Validators.required],
-      lastName: ['', Validators.required],
       username: ['', Validators.required],
       password: ['', [Validators.required, Validators.minLength(6)]],
-      password2: ['', [Validators.required]]
-
+      verifyPassword: ['', [Validators.required]]
     });
   }
 
