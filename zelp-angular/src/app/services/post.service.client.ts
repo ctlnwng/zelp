@@ -19,6 +19,6 @@ export class PostServiceClient {
       headers: {
         "content-type": "application/json"
       }
-    });
+    }).then(response => response.json());
   }
 }

@@ -3,16 +3,21 @@
     Home Page
   </h1>
 
+  <h2>Search</h2>
+  <h4> (Just to see search from yelp api works or not) </h4>
   <form class="center-form" action="/search" method=post>
     <div class="input-group">
-      <input type="text" class="form-control input-lg" placeholder="Search it up!" name="search"/>
-      <span class="input-group-btn">
-                <button class="btn btn-info btn-lg" type="submit">
-                    <i class="fa fa-search"></i>
-                </button>
-            </span>
+      <input type="text" class="form-control" placeholder="Name"/>
+      &nbsp;
+      <input type="text" class="form-control" placeholder="Location"/>
+      <button class="btn btn-info btn-lg" type="submit">
+        <i class="fa fa-search"></i>
+      </button>
     </div>
+
+    <br/>
   </form>
+
 
   <h2>
     Some kind of Posts
@@ -22,5 +27,7 @@
   <a routerLink="/login">Login</a>
   <br/>
   <a routerLink="/register">Register</a>
+  <br/>
+  <a routerLink="/new-post">Create New Post</a>
 
 </div>
