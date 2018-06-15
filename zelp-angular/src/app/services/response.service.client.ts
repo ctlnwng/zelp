@@ -16,9 +16,11 @@ export class ResponseServiceClient {
 
   createResponse(postId, restaurant, description) {
     const response = {
-      postId: postId, // FIXME might not be needed since this will be also loaded from param path.
-      restaurant: restaurant,
-      description: description
+      postId: postId,
+      description: description,
+      restaurantName: restaurant.name, // FIXME not the ideal way.
+      restaurantURL: restaurant.url,
+      restaurantImageURL: restaurant.imageUrl,
     };
 
     return fetch(API_URL + "post/" + postId + "/response", {
