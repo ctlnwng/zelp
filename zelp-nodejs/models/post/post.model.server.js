@@ -14,10 +14,16 @@ function findAllPost() {
     return postModel.find();
 }
 
+function deletePost(pid, userId) {
+    // FIXME filter out responses first (might not need if findOneAndRemove works
+    return postModel.findOneAndRemove({_id: pid, author: userId});
+}
+
 var api = {
     createPost: createPost,
     findAllPosts: findAllPost,
-    findPostById: findPostById
+    findPostById: findPostById,
+    deletePost: deletePost
 };
 
 module.exports = api;
