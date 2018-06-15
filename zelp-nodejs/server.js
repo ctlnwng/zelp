@@ -4,14 +4,23 @@ const mongoose = require("mongoose");
 
 require('dotenv').config({path: './.env'})
 
-mongoose.connect("mongodb://localhost/webdev-summer1-2018");
+const CONNECTION_URI =
+  process.env.MONGODB_URI || "mongodb://localhost/webdev-summer1-2018";
+
+mongoose.connect(CONNECTION_URI);
+
 
 var app = express();
+const PORT = process.env.PORT || 4000;
 
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: true }));
 
 app.use(function(req, res, next) {
+  res.header(
+    "Access-Control-Allow-Origin",
+    "https://cs4550-zelp-angular.herokuapp.com"
+  );
   res.header("Access-Control-Allow-Origin", "http://localhost:4200");
   res.header(
     "Access-Control-Allow-Headers",
@@ -73,4 +82,4 @@ var yelpService = require("./services/yelp.service.server")
 yelpService(app);
 
 
-app.listen(4000);
+app.listen(PORT);

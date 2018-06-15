@@ -14,6 +14,9 @@ import { UserServiceClient } from "./services/user.service.client";
 import { SearchComponent } from "./search/search.component";
 import { AlertComponent } from "./alert/alert.component";
 import { AlertServiceClient } from "./services/alert.service.client";
+import { NewPostComponent } from "./new-post/new-post.component";
+import { PostServiceClient } from "./services/post.service.client";
+import { PostComponent } from './post/post.component';
 
 @NgModule({
   declarations: [
@@ -23,7 +26,9 @@ import { AlertServiceClient } from "./services/alert.service.client";
     RegisterComponent,
     HomePageComponent,
     SearchComponent,
-    AlertComponent
+    AlertComponent,
+    NewPostComponent,
+    PostComponent
   ],
   imports: [
     BrowserModule,
@@ -32,7 +37,7 @@ import { AlertServiceClient } from "./services/alert.service.client";
     HttpClientModule,
     routing
   ],
-  providers: [UserServiceClient, AlertServiceClient],
+  providers: [UserServiceClient, AlertServiceClient, PostServiceClient],
   bootstrap: [AppComponent]
 })
 export class AppModule {}
