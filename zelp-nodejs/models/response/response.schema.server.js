@@ -9,6 +9,10 @@ var responseSchema = mongoose.Schema(
             type: mongoose.Schema.Types.ObjectId,
             ref: 'UserModel'
         },
+        restaurantId: {
+            type: mongoose.Schema.Types.ObjectId,
+            ref: 'RestaurantModel'
+        },
         upVotes: Number,
         downVotes: Number,
         descriptions: String

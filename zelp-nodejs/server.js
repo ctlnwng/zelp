@@ -2,6 +2,8 @@ var express = require("express");
 var bodyParser = require("body-parser");
 const mongoose = require("mongoose");
 
+require('dotenv').config({path: './.env'})
+
 mongoose.connect("mongodb://localhost/webdev-summer1-2018");
 
 var app = express();
@@ -66,6 +68,9 @@ var postService = require("./services/post.service.server")
 postService(app);
 var restaurantService = require("./services/restaurant.service.server")
 restaurantService(app);
+
+var yelpService = require("./services/yelp.service.server")
+yelpService(app);
 
 
 app.listen(4000);
