@@ -27,7 +27,11 @@ module.exports = function(app) {
             restaurantId: req.body.restaurantId,
             upVotes: 0,
             downVotes: 0,
-            descriptions: req.body.description
+            descriptions: req.body.description,
+            restaurantName: req.body.restaurantName,
+            restaurantURL: req.body.restaurantURL,
+            restaurantImageURL: req.body.restaurantImageURL
+
         };
         responseModel.createResponse(response).then(function(response) {
             res.send(response);
