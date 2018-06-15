@@ -21,6 +21,7 @@ import { SearchServiceClient } from "./services/search.service.client";
 import { NewResponseComponent } from "./new-response/new-response.component";
 import { RestaurantComponent } from './restaurant/restaurant.component';
 import {RestaurantServiceClient} from './services/restaurant.service.client';
+import {ResponseServiceClient} from './services/response.service.client';
 
 @NgModule({
   declarations: [
@@ -48,7 +49,8 @@ import {RestaurantServiceClient} from './services/restaurant.service.client';
     AlertServiceClient,
     PostServiceClient,
     SearchServiceClient,
-    RestaurantServiceClient
+    RestaurantServiceClient,
+    ResponseServiceClient
   ],
   bootstrap: [AppComponent]
 })
