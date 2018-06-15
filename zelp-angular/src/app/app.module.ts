@@ -23,6 +23,7 @@ import { NavComponent } from './nav/nav.component';
 import { RestaurantComponent } from './restaurant/restaurant.component';
 import {RestaurantServiceClient} from './services/restaurant.service.client';
 import {ResponseServiceClient} from './services/response.service.client';
+import { ResponseComponent } from './response/response.component';
 
 @NgModule({
   declarations: [
@@ -37,7 +38,8 @@ import {ResponseServiceClient} from './services/response.service.client';
     PostComponent,
     NewResponseComponent,
     NavComponent,
-    RestaurantComponent
+    RestaurantComponent,
+    ResponseComponent
   ],
   imports: [
     BrowserModule,

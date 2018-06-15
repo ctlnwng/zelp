@@ -15,12 +15,14 @@ export class ResponseServiceClient {
   }
 
   createResponse(postId, restaurant, description) {
+    console.log("hi")
+    console.log(restaurant)
     const response = {
       postId: postId,
       description: description,
       restaurantName: restaurant.name, // FIXME not the ideal way.
       restaurantURL: restaurant.url,
-      restaurantImageURL: restaurant.imageUrl,
+      restaurantImageURL: restaurant.image_url,
     };
 
     return fetch(API_URL + "post/" + postId + "/response", {

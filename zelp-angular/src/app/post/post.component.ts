@@ -3,7 +3,9 @@ import { AlertServiceClient } from "../services/alert.service.client";
 import { Router, ActivatedRoute } from "@angular/router";
 import { PostServiceClient } from "../services/post.service.client";
 import { Post } from "../models/post.model.client";
+import { Response } from "../models/response.model.client"
 import { UserServiceClient } from "../services/user.service.client";
+import {ResponseServiceClient} from '../services/response.service.client';
 
 @Component({
   selector: "app-post",
@@ -13,6 +15,7 @@ import { UserServiceClient } from "../services/user.service.client";
 export class PostComponent implements OnInit {
   showResponseForm = false;
   constructor(
+    private responseService: ResponseServiceClient,
     private postService: PostServiceClient,
     private userService: UserServiceClient,
     private router: Router,
@@ -25,6 +28,7 @@ export class PostComponent implements OnInit {
   post: Post = new Post();
   authorUsername: String;
   postId: Number;
+  responses: Response[] = [];
 
   loadPost(postId) {
     this.postService.findPostById(postId).then(post => {
@@ -32,7 +36,8 @@ export class PostComponent implements OnInit {
       this.post = post;
       this.userService
         .findUserById(post.author)
-        .then(user => (this.authorUsername = user.username));
+        .then(user => (this.authorUsername = user.username))
+        .then(() => this.loadResponses());
     });
   }
 
@@ -42,5 +47,12 @@ export class PostComponent implements OnInit {
     this.showResponseForm = true;
   }
 
-  ngOnInit() {}
+  loadResponses() {
+    this.responseService.findResponseByPostId(this.postId)
+      .then(responses => (this.responses = responses))
+      .then(() => console.log(this.responses));
+  }
+
+  ngOnInit() {
+  }
 }

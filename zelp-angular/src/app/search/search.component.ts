@@ -35,7 +35,6 @@ export class SearchComponent implements OnInit {
   success(data) {
     this.searchable = true;
     this.restaurant = data;
-    console.log(this.restaurant);
     this.sendMessage();
   }
 

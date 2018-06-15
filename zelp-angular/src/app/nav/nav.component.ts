@@ -14,7 +14,6 @@ export class NavComponent implements OnInit {
               private router: Router) {}
 
   validate(user) {
-    console.log(user);
     if (user._id) {
       this.loggedIn = true;
     } else {
