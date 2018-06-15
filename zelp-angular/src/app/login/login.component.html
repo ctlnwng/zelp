@@ -1,29 +1,31 @@
-<div class="container-fluid">
-  <h1>Login</h1>
+<div class="container">
+  <h3>Login</h3>
 
   <form [formGroup]="loginForm">
     <div class="form-group">
       <label>Username</label>
-      <input type="text" formControlName="username" class="form-control" [ngClass]="{ 'is-invalid': submitted && form.username.errors }" />
+      <input type="text" formControlName="username" class="form-control" [ngClass]="{ 'is-invalid': submitted && form.username.errors }"
+      />
       <div *ngIf="submitted && form.username.errors" class="invalid-feedback">
         <div *ngIf="form.username.errors.required">Username is required</div>
       </div>
     </div>
     <div class="form-group">
       <label>Password</label>
-      <input type="password" formControlName="password" class="form-control" [ngClass]="{ 'is-invalid': submitted && form.password.errors }" />
+      <input type="password" formControlName="password" class="form-control" [ngClass]="{ 'is-invalid': submitted && form.password.errors }"
+      />
       <div *ngIf="submitted && form.password.errors" class="invalid-feedback">
         <div *ngIf="form.password.errors.required">Password is required</div>
         <div *ngIf="form.password.errors.minlength">Password must be at least 6 characters</div>
       </div>
     </div>
 
-  <button (click)="login(form.username.value, form.password.value)" class="btn btn-primary btn-block">
-    Login
-  </button>
+    <button (click)="login(form.username.value, form.password.value)" class="btn btn-primary btn-block col-md-2">
+      Login
+    </button>
 
   </form>
-  <a routerLink="/register">Register</a>
-  <br/>
-  <a routerLink="/home">Home</a>
+  <div style="margin-top: 20px">
+    <a routerLink="/register">First time? Sign up here</a>
+  </div>
 </div>
