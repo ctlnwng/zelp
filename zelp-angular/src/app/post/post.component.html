@@ -1,5 +1,18 @@
 <div class="container-fluid">
-  <h1>Search Results</h1>
-  <input [(ngModel)]="post.title" readonly class="form-control" />
-  <input [(ngModel)]="post.description" readonly class="form-control" />
+  <h1>{{post.title}}</h1>
+  <p>Posted by {{authorUsername}}</p>
+  <h3>{{post.description}}</h3>
+
+  <button (click)="" class="btn btn-primary btn-block ">
+    Add Recommendation
+  </button>
+
+  <h3>Responses</h3>
+  <ul class="list-group">
+    <li class="list-group-item">Example Response</li>
+    <li class="list-group-item">Example Response</li>
+    <li class="list-group-item">Example Response</li>
+  </ul>
+
+  <a routerLink="/home ">Home</a>
 </div>

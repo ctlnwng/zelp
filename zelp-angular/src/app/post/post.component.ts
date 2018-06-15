@@ -1,24 +1,43 @@
-import { Component, OnInit } from '@angular/core';
-import {AlertServiceClient} from '../services/alert.service.client';
-import {Router} from '@angular/router';
-import {Restaurant} from '../models/restaurant.model.client';
-import {PostServiceClient} from '../services/post.service.client';
-import {Post} from '../models/post.model.client';
+import { Component, OnInit } from "@angular/core";
+import { AlertServiceClient } from "../services/alert.service.client";
+import { Router, ActivatedRoute } from "@angular/router";
+import { PostServiceClient } from "../services/post.service.client";
+import { Post } from "../models/post.model.client";
+import { UserServiceClient } from "../services/user.service.client";
 
 @Component({
-  selector: 'app-post',
-  templateUrl: './post.component.html',
-  styleUrls: ['./post.component.css']
+  selector: "app-post",
+  templateUrl: "./post.component.html",
+  styleUrls: ["./post.component.css"]
 })
 export class PostComponent implements OnInit {
-  constructor(private service: PostServiceClient, private router: Router, private alertService: AlertServiceClient) {}
+  constructor(
+    private postService: PostServiceClient,
+    private userService: UserServiceClient,
+    private router: Router,
+    private alertService: AlertServiceClient,
+    private route: ActivatedRoute
+  ) {
+    this.route.params.subscribe(params => this.loadPost(params["postId"]));
+  }
 
   post: Post = new Post();
+  authorUsername: String;
+  postId: Number;
 
-
-  ngOnInit() {
-    this.service.findPostById('5b23bfe75b20fa59e852af95')
-      .then(post => (this.post = post),
-      error => this.alertService.error(error));
+  loadPost(postId) {
+    this.postService.findPostById(postId).then(post => {
+      this.postId = postId;
+      this.post = post;
+      this.userService
+        .findUserById(post.author)
+        .then(user => (this.authorUsername = user.username));
+    });
   }
+
+  createResponse() {
+    this.router.navigate(["post", this.postId, "new-response"]);
+  }
+
+  ngOnInit() {}
 }
