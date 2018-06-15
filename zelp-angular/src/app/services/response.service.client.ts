@@ -9,14 +9,14 @@ export class ResponseServiceClient {
   }
 
   findResponseByPostId(postId) {
-    return fetch(API_URL + "post/" + postId + "/response").then(response =>
-      response.json()
+    return fetch(API_URL + "post/" + postId + "/response").then(responses =>
+      responses.json()
     );
   }
 
   createResponse(postId, restaurant, description) {
     const response = {
-      postId: postId,
+      postId: postId, // FIXME might not be needed since this will be also loaded from param path.
       restaurant: restaurant,
       description: description
     };
