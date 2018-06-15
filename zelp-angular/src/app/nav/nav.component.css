@@ -1,0 +1,22 @@
+.navbar-brand {
+  font-size: 30px;
+  font-weight: 700;
+  color: #9053a2;
+}
+
+a.navbar-brand:hover {
+  color: rgba(144, 83, 162, 0.7);
+}
+
+a.navbar-brand:visited {
+  color: #9053a2;
+}
+
+.form-control {
+  border-radius: 1.5rem;
+}
+
+#search-posts-btn {
+  background-color: transparent;
+  color: #9053a2;
+}

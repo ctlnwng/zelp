@@ -19,6 +19,7 @@ import { PostServiceClient } from "./services/post.service.client";
 import { PostComponent } from "./post/post.component";
 import { SearchServiceClient } from "./services/search.service.client";
 import { NewResponseComponent } from "./new-response/new-response.component";
+import { NavComponent } from './nav/nav.component';
 import { RestaurantComponent } from './restaurant/restaurant.component';
 import {RestaurantServiceClient} from './services/restaurant.service.client';
 import {ResponseServiceClient} from './services/response.service.client';
@@ -35,6 +36,7 @@ import {ResponseServiceClient} from './services/response.service.client';
     NewPostComponent,
     PostComponent,
     NewResponseComponent,
+    NavComponent,
     RestaurantComponent
   ],
   imports: [
