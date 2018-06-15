@@ -11,13 +11,13 @@
     </div>
     <div class="form-group">
       <label>Description</label>
-      <input type="description" formControlName="description" class="form-control" />
+      <textarea type="description" formControlName="description" class="form-control" rows="3"></textarea>
     </div>
 
-    <button (click)="createPost(form.title.value, form.description.value)" class="btn btn-primary btn-block">
+    <button (click)=" createPost(form.title.value, form.description.value) " class="btn btn-primary btn-block ">
       Create
     </button>
     <br/>
-    <a routerLink="/home">Home</a>
+    <a routerLink="/home ">Home</a>
   </form>
 </div>
