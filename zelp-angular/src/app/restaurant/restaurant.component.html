@@ -1,0 +1,12 @@
+<div class="container-fluid">
+
+
+  <div>
+    <h1>Search Results</h1>
+    <input [(ngModel)]="restaurant.name" readonly class="form-control" />
+    <input [(ngModel)]="restaurant.url" readonly class="form-control" />
+    <input [(ngModel)]="restaurant.image_url" readonly class="form-control" />
+    <h3>Food Picture :)</h3>
+    <img src={{restaurant.image_url}} alt="Food Picture" style="width:200px"/>
+  </div>
+</div>

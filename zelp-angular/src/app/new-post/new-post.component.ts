@@ -13,7 +13,7 @@ import { Post } from "../models/post.model.client";
 })
 export class NewPostComponent implements OnInit {
   postForm: FormGroup;
-  submitted = false;
+  submitted = true;
 
   constructor(
     private formBuilder: FormBuilder,
@@ -24,8 +24,6 @@ export class NewPostComponent implements OnInit {
 
   createPost(title, description) {
     this.submitted = true;
-
-    console.log("Create" + title + description);
 
     if (this.postForm.invalid) {
       return;
