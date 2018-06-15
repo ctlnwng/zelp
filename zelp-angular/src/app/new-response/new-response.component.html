@@ -1,12 +1,18 @@
 <div class="container-fluid">
   <h2>Create New Response for post {{postId}}</h2>
-  <div class="form-group">
-    <app-search></app-search>
 
+  <div class="form-group">
+    <app-search (messageEvent)= "receiveMessage($event)"></app-search>
     <label>Description</label>
     <textarea type="description" class="form-control" rows="3"></textarea>
   </div>
-  <button class="btn btn-primary btn-block ">
+
+
+  <button (click) = "check()" class="btn btn-info btn-lg">
+    check
+  </button>
+
+  <button (click) = "createResponse()" class="btn btn-primary btn-block ">
     Create
   </button>
 </div>

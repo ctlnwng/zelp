@@ -13,7 +13,7 @@ import { Post } from "../models/post.model.client";
 })
 export class NewPostComponent implements OnInit {
   postForm: FormGroup;
-  submitted = false;
+  submitted = true;
 
   constructor(
     private formBuilder: FormBuilder,

@@ -1,1 +1,30 @@
-<h1>Search coming soon</h1>
+<h2>Search Restaurant</h2>
+<form [formGroup]="searchForm">
+
+  <div *ngIf="!searchable" class="input-group">
+    <input type="text" formControlName="name" class="form-control" placeholder="Name" [ngClass]="{ 'is-invalid': submitted && form.name.errors }" />
+    <div *ngIf="submitted && form.name.errors" class="invalid-feedback">
+      <div *ngIf="form.name.errors.required">Please enter the name of the place.</div>
+    </div>
+
+    <input type="text" formControlName="location" class="form-control" placeholder="Location" [ngClass]="{ 'is-invalid': submitted && form.location.errors }" />
+    <div *ngIf="submitted && form.location.errors" class="invalid-feedback">
+      <div *ngIf="form.location.errors.required">Please enter the location.</div>
+    </div>
+
+    <button (click)=" searchRestaurant(form.name.value, form.location.value) " class="btn btn-info btn-lg" type="submit">
+      <i class="fa fa-search"></i>
+    </button>
+  </div>
+
+  <div *ngIf="searchable">
+  <h2>Result</h2>
+    <h4>Name: {{restaurant.name}}</h4>
+    <a href={{restaurant.url}}>For More</a>
+  </div>
+
+  <button *ngIf="searchable" (click)=" cancel() " class="btn btn-danger">
+    <i class="fa fa-times"></i>
+  </button>
+
+</form>
