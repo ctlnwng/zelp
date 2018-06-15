@@ -1,5 +1,6 @@
 import { Component, OnInit } from "@angular/core";
 import { UserServiceClient } from "../services/user.service.client";
+import {Router} from '@angular/router';
 
 @Component({
   selector: "app-nav",
@@ -7,7 +8,26 @@ import { UserServiceClient } from "../services/user.service.client";
   styleUrls: ["./nav.component.css"]
 })
 export class NavComponent implements OnInit {
-  constructor(private userService: UserServiceClient) {}
+  loggedIn = false
 
-  ngOnInit() {}
+  constructor(private service: UserServiceClient,
+              private router: Router) {}
+
+  validate(user) {
+    console.log(user);
+    if (user._id) {
+      this.loggedIn = true;
+    } else {
+      this.loggedIn = false;
+    }
+  }
+
+  logout() {
+    this.service.logout();
+  }
+
+  ngOnInit() {
+    this.service.profile()
+      .then((user) => this.validate(user));
+  }
 }
