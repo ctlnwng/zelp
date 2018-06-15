@@ -2,6 +2,9 @@ const API_URL = "http://localhost:4000/api/";
 // const API_URL = "https://cs4550-zelp-nodejs.herokuapp.com/api/";
 
 export class PostServiceClient {
+  findAllPosts() {
+    return fetch(API_URL + "post").then(response => response.json());
+  }
   findPostById(postID) {
     return fetch(API_URL + "post/" + postID).then(response => response.json());
   }

@@ -8,9 +8,15 @@
 
 .description.col-md-7 {
   padding: 0;
+  margin-bottom: 50px;
 }
 
 .primary-text {
   color: #9053a2;
   font-weight: 700;
+}
+
+.list-group-item {
+  background-color: #f8f9fa;
+  border-color: #f8f9fa;
 }
