@@ -14,10 +14,16 @@ function findAllResponses() {
     return responseModel.find();
 }
 
+function deleteResponse(responseId, userId) {
+    // FIXME filter out responses first (might not need if findOneAndRemove works
+    return responseModel.findOneAndRemove({_id: responseId, userId: userId});
+}
+
 var api = {
     createResponse: createResponse,
     findAllResponses: findAllResponses,
-    findResponseById: findResponseById
+    findResponseById: findResponseById,
+    deleteResponse: deleteResponse
 };
 
 module.exports = api;
