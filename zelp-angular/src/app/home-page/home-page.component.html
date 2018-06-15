@@ -11,12 +11,20 @@
     <span class="primary-text">honest</span> recommendations on where to eat.</h5>
 
 
-  <h2>
-    Some kind of Posts
-  </h2>
+  <h3 class="title">Recent posts</h3>
+  <ul *ngFor="let post of posts" class="list-group">
+    <li class="list-group-item">
+      <h5>
+        <a routerLink="/post/{{post._id}}">{{post.title}}</a>
+      </h5>
+      posted by {{post.author}}
+    </li>
 
-  <a routerLink="/new-post">Create New Post</a>
+  </ul>
+
+
+  <a routerLink=" /new-post ">Create New Post</a>
   <br/>
-  <a routerLink="/restaurant">Test Yelp Search Function</a>
+  <a routerLink="/restaurant ">Test Yelp Search Function</a>
 
 </div>
