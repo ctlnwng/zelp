@@ -23,14 +23,20 @@ export class PostComponent implements OnInit {
 
   post: Post = new Post();
   authorUsername: String;
+  postId: Number;
 
   loadPost(postId) {
     this.postService.findPostById(postId).then(post => {
+      this.postId = postId;
       this.post = post;
       this.userService
         .findUserById(post.author)
         .then(user => (this.authorUsername = user.username));
     });
+  }
+
+  createResponse() {
+    this.router.navigate(["post", this.postId, "new-response"]);
   }
 
   ngOnInit() {}
