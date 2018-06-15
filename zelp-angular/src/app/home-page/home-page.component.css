@@ -19,4 +19,6 @@
 .list-group-item {
   background-color: #f8f9fa;
   border-color: #f8f9fa;
+  border-radius: 20px;
+  margin-bottom: 20px;
 }

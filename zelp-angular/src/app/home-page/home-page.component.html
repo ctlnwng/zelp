@@ -10,21 +10,22 @@
     <span class="primary-text">personalized</span> and
     <span class="primary-text">honest</span> recommendations on where to eat.</h5>
 
+  <button routerLink="/new-post" class="btn btn-primary btn-block col-md-2">
+    Create a post!
+  </button>
+
+  <br/>
+  <br/>
 
   <h3 class="title">Recent posts</h3>
-  <ul *ngFor="let post of posts" class="list-group">
-    <li class="list-group-item">
+  <br/>
+  <ul class="list-group">
+    <li *ngFor="let post of posts" class="list-group-item">
       <h5>
         <a routerLink="/post/{{post._id}}">{{post.title}}</a>
       </h5>
       posted by {{post.author}}
     </li>
-
   </ul>
-
-
-  <a routerLink=" /new-post ">Create New Post</a>
-  <br/>
-  <a routerLink="/restaurant ">Test Yelp Search Function</a>
 
 </div>
