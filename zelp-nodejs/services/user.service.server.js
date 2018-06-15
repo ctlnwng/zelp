@@ -1,5 +1,4 @@
 module.exports = function(app) {
-  app.get("/api/loggedin", findCurrentUser);
   app.get("/api/user", findAllUsers);
   app.get("/api/user/:userId", findUserById);
   app.post("/api/user", createUser);
@@ -8,10 +7,6 @@ module.exports = function(app) {
   app.post("/api/login", login);
 
   var userModel = require("../models/user/user.model.server");
-
-  function findCurrentUser(req, res) {
-    res.send(req.session["currentUser"]);
-  }
 
   function findUserById(req, res) {
     var id = req.params["userId"];
