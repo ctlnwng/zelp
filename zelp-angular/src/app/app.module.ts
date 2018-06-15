@@ -18,6 +18,7 @@ import { NewPostComponent } from "./new-post/new-post.component";
 import { PostServiceClient } from "./services/post.service.client";
 import { PostComponent } from "./post/post.component";
 import { SearchServiceClient } from "./services/search.service.client";
+import { NewResponseComponent } from "./new-response/new-response.component";
 
 @NgModule({
   declarations: [
@@ -29,7 +30,8 @@ import { SearchServiceClient } from "./services/search.service.client";
     SearchComponent,
     AlertComponent,
     NewPostComponent,
-    PostComponent
+    PostComponent,
+    NewResponseComponent
   ],
   imports: [
     BrowserModule,
