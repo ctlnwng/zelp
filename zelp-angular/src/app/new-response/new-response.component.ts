@@ -38,7 +38,7 @@ export class NewResponseComponent implements OnInit {
       this.alertService.error('Please Search The restaurant', false);
       return;
     }
-    
+
     // Stop if there exists invalid form
     if (this.responseForm.invalid) {
       return;
