@@ -1,5 +1,5 @@
 <div class="container-fluid">
-  <h1>Search Results</h1>
-  <input [(ngModel)]="post.title" readonly class="form-control" />
-  <input [(ngModel)]="post.description" readonly class="form-control" />
+  <h1>{{post.title}}</h1>
+  <p>Posted by {{authorUsername}}</p>
+  <h3>{{post.description}}</h3>
 </div>
