@@ -17,6 +17,7 @@ import { AlertServiceClient } from "./services/alert.service.client";
 import { NewPostComponent } from "./new-post/new-post.component";
 import { PostServiceClient } from "./services/post.service.client";
 import { PostComponent } from './post/post.component';
+import {SearchServiceClient} from './services/search.service.client';
 
 @NgModule({
   declarations: [
@@ -37,7 +38,7 @@ import { PostComponent } from './post/post.component';
     HttpClientModule,
     routing
   ],
-  providers: [UserServiceClient, AlertServiceClient, PostServiceClient],
+  providers: [UserServiceClient, AlertServiceClient, PostServiceClient, SearchServiceClient],
   bootstrap: [AppComponent]
 })
 export class AppModule {}

@@ -1,15 +1,13 @@
 // COMBINED WITH RESTAURANT MODEL FOR NOW
 
-require('dotenv').config({path: '../../.env'})
 'use strict';
 const yelp = require('yelp-fusion');
 
 const apiKey = process.env.API_KEY
 const client = yelp.client(apiKey);
 
-export function search(name, location)
-{
-    client.search({
+function searchRestaurant(name, location) {
+    return client.search({
         term: name,
         location: location
     }).then(response => {
@@ -18,11 +16,16 @@ export function search(name, location)
                 url: response.jsonBody.businesses[0].url,
                 image_url: response.jsonBody.businesses[0].image_url
             }
-            console.log(restaurant)
+            return restaurant
         }
     ).catch(e => {
         console.log(e);
     });
 }
+
+var api = {
+    searchRestaurant: searchRestaurant
+};
+module.exports = api;
 
 // search('Four Barrel Coffee', 'san francisco, ca');

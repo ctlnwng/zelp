@@ -34,7 +34,7 @@ export class NewPostComponent implements OnInit {
     this.service
       .createPost(title, description)
       .then(
-        data => this.success(),
+        data => this.success(data),
         error => this.alertService.error(error, false)
       );
   }
@@ -44,11 +44,11 @@ export class NewPostComponent implements OnInit {
   }
 
   // TODO: Route to post page
-  success() {
+  success(data) {
     this.alertService.success("Post created!", false);
-    // this.router
-    //   .navigate(["post/1"])
-    //   .then(() => this.alertService.success("Post created!", false));
+    this.router
+      .navigate(['post', data._id])
+      .then(() => this.alertService.success("Post created!", false));
   }
 
   ngOnInit() {
