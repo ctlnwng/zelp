@@ -5,6 +5,6 @@ export class Response {
   userId: string;
   restaurant: Restaurant;
   description: string;
-  upvotes: number;
-  downvotes: number;
+  upVotes: number;
+  downVotes: number;
 }
