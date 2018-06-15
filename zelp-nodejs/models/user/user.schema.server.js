@@ -10,3 +10,4 @@ var userSchema = mongoose.Schema(
   { collection: "user" }
 );
 module.exports = userSchema;
+
