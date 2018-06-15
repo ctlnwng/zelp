@@ -2,6 +2,14 @@
   font-weight: 700;
 }
 
+.description {
+  line-height: 25px;
+}
+
+.description.col-md-7 {
+  padding: 0;
+}
+
 .primary-text {
   color: #9053a2;
   font-weight: 700;
