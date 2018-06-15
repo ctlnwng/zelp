@@ -16,6 +16,7 @@ import { AlertComponent } from "./alert/alert.component";
 import { AlertServiceClient } from "./services/alert.service.client";
 import { NewPostComponent } from "./new-post/new-post.component";
 import { PostServiceClient } from "./services/post.service.client";
+import { PostComponent } from './post/post.component';
 
 @NgModule({
   declarations: [
@@ -26,7 +27,8 @@ import { PostServiceClient } from "./services/post.service.client";
     HomePageComponent,
     SearchComponent,
     AlertComponent,
-    NewPostComponent
+    NewPostComponent,
+    PostComponent
   ],
   imports: [
     BrowserModule,

@@ -14,7 +14,7 @@ module.exports = function(app) {
 
   function createPost(req, res) {
     var post = {
-      author: req.session["currentUser"].username,
+      author: req.session["currentUser"]._id,
       title: req.body.title,
       description: req.body.description,
       responses: []

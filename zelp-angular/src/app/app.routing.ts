@@ -4,6 +4,7 @@ import { RegisterComponent } from "./register/register.component";
 import { ProfileComponent } from "./profile/profile.component";
 import { HomePageComponent } from "./home-page/home-page.component";
 import { NewPostComponent } from "./new-post/new-post.component";
+import { PostComponent } from "./post/post.component";
 
 const appRoutes: Routes = [
   { path: "", redirectTo: "home", pathMatch: "full" },
@@ -11,7 +12,8 @@ const appRoutes: Routes = [
   { path: "login", component: LoginComponent },
   { path: "register", component: RegisterComponent },
   { path: "profile", component: ProfileComponent },
-  { path: "newpost", component: NewPostComponent },
+  { path: "new-post", component: NewPostComponent },
+  { path: "post/:postId", component: PostComponent },
   { path: "**", component: HomePageComponent }
 ];
 
