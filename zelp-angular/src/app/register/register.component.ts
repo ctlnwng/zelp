@@ -1,23 +1,25 @@
-import { Component } from '@angular/core';
-import { OnInit } from '@angular/core';
-import { Router } from '@angular/router';
-import { FormBuilder, FormGroup, Validators } from '@angular/forms';
-import { UserServiceClient } from '../services/user.service.client';
-import {AlertServiceClient} from '../services/alert.service.client';
+import { Component } from "@angular/core";
+import { OnInit } from "@angular/core";
+import { Router } from "@angular/router";
+import { FormBuilder, FormGroup, Validators } from "@angular/forms";
+import { UserServiceClient } from "../services/user.service.client";
+import { AlertServiceClient } from "../services/alert.service.client";
 
 @Component({
-  selector: 'app-register',
-  templateUrl: './register.component.html',
-  styleUrls: ['./register.component.css']
+  selector: "app-register",
+  templateUrl: "./register.component.html",
+  styleUrls: ["./register.component.css"]
 })
 export class RegisterComponent implements OnInit {
   registerForm: FormGroup;
   submitted = false;
 
-  constructor(private formBuilder: FormBuilder,
-              private router: Router,
-              private service: UserServiceClient,
-              private alertService: AlertServiceClient) { }
+  constructor(
+    private formBuilder: FormBuilder,
+    private router: Router,
+    private service: UserServiceClient,
+    private alertService: AlertServiceClient
+  ) {}
 
   register(username, password, verifyPassword) {
     this.submitted = true;
@@ -25,7 +27,7 @@ export class RegisterComponent implements OnInit {
     console.log([username, password, verifyPassword]);
 
     if (password !== verifyPassword) {
-      this.alertService.error('password needs to match!');
+      this.alertService.error("password needs to match!");
       return;
     }
 
@@ -34,27 +36,31 @@ export class RegisterComponent implements OnInit {
       return;
     }
 
-    // No invalid form so proceed.
+    // No invalid form so proceed
     this.service
       .createUser(username, password)
-      .then(data => this.success(),
-          error => this.alertService.error(error, false));
+      .then(
+        data => this.success(),
+        error => this.alertService.error(error, false)
+      );
   }
 
-  get form() { return this.registerForm.controls; }
+  get form() {
+    return this.registerForm.controls;
+  }
 
   // initial setting
   ngOnInit() {
     this.registerForm = this.formBuilder.group({
-      username: ['', Validators.required],
-      password: ['', [Validators.required, Validators.minLength(6)]],
-      verifyPassword: ['', Validators.required]
+      username: ["", Validators.required],
+      password: ["", [Validators.required, Validators.minLength(6)]],
+      verifyPassword: ["", Validators.required]
     });
   }
 
   success() {
-    this.router.navigate(['login'])
-      .then(() => this.alertService.success('Registration successful!', false));
+    this.router
+      .navigate(["login"])
+      .then(() => this.alertService.success("Registration successful!", false));
   }
-
 }
