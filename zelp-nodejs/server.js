@@ -60,5 +60,12 @@ function getSession(req, res) {
 
 var userService = require("./services/user.service.server");
 userService(app);
+var responseService = require("./services/response.service.server")
+responseService(app);
+var postService = require("./services/post.service.server")
+postService(app);
+var restaurantService = require("./services/restaurant.service.server")
+restaurantService(app);
+
 
 app.listen(4000);
