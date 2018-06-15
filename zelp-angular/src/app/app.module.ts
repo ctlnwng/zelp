@@ -19,6 +19,8 @@ import { PostServiceClient } from "./services/post.service.client";
 import { PostComponent } from "./post/post.component";
 import { SearchServiceClient } from "./services/search.service.client";
 import { NewResponseComponent } from "./new-response/new-response.component";
+import { RestaurantComponent } from './restaurant/restaurant.component';
+import {RestaurantServiceClient} from './services/restaurant.service.client';
 
 @NgModule({
   declarations: [
@@ -31,7 +33,8 @@ import { NewResponseComponent } from "./new-response/new-response.component";
     AlertComponent,
     NewPostComponent,
     PostComponent,
-    NewResponseComponent
+    NewResponseComponent,
+    RestaurantComponent
   ],
   imports: [
     BrowserModule,
@@ -44,7 +47,8 @@ import { NewResponseComponent } from "./new-response/new-response.component";
     UserServiceClient,
     AlertServiceClient,
     PostServiceClient,
-    SearchServiceClient
+    SearchServiceClient,
+    RestaurantServiceClient
   ],
   bootstrap: [AppComponent]
 })

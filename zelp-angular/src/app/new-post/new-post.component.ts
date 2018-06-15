@@ -25,8 +25,6 @@ export class NewPostComponent implements OnInit {
   createPost(title, description) {
     this.submitted = true;
 
-    console.log("Create" + title + description);
-
     if (this.postForm.invalid) {
       return;
     }

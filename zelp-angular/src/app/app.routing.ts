@@ -6,6 +6,7 @@ import { HomePageComponent } from "./home-page/home-page.component";
 import { NewPostComponent } from "./new-post/new-post.component";
 import { PostComponent } from "./post/post.component";
 import { SearchComponent } from "./search/search.component";
+import {RestaurantComponent} from './restaurant/restaurant.component';
 
 const appRoutes: Routes = [
   { path: "", redirectTo: "home", pathMatch: "full" },
@@ -17,6 +18,7 @@ const appRoutes: Routes = [
   { path: "post/:postId", component: PostComponent },
   { path: "post/:postId/new-response", component: PostComponent },
   { path: "search", component: SearchComponent },
+  { path: "restaurant", component: RestaurantComponent},
   { path: "**", component: HomePageComponent }
 ];
 
