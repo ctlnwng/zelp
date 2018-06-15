@@ -21,7 +21,7 @@ export class ResponseServiceClient {
       description: description
     };
 
-    return fetch(API_URL + "post" + postId + "/response", {
+    return fetch(API_URL + "post/" + postId + "/response", {
       body: JSON.stringify(response),
       credentials: "include", // include, same-origin, *omit
       method: "post",

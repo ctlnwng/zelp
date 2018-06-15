@@ -3,9 +3,13 @@
   <p>Posted by {{authorUsername}}</p>
   <h3>{{post.description}}</h3>
 
-  <button (click)="" class="btn btn-primary btn-block ">
+  <button (click)="createResponse()" class="btn btn-primary btn-block ">
     Add Recommendation
   </button>
+
+  <div *ngIf="showResponseForm">
+    <app-new-response [postId]="postId"></app-new-response>
+  </div>
 
   <h3>Responses</h3>
   <ul class="list-group">

@@ -11,6 +11,7 @@ import { UserServiceClient } from "../services/user.service.client";
   styleUrls: ["./post.component.css"]
 })
 export class PostComponent implements OnInit {
+  showResponseForm = false;
   constructor(
     private postService: PostServiceClient,
     private userService: UserServiceClient,
@@ -36,6 +37,7 @@ export class PostComponent implements OnInit {
   }
 
   createResponse() {
+    this.showResponseForm = true;
     this.router.navigate(["post", this.postId, "new-response"]);
   }
 
