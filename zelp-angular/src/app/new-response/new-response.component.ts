@@ -50,8 +50,9 @@ export class NewResponseComponent implements OnInit {
   }
 
   success(data) {
-    console.log(data);
-    console.log('Working!!!');
+    this.router
+      .navigate(["post", this.postId])
+      .then(() => this.alertService.success('Response has been added successfully!', false))
   }
 
   get form() {
