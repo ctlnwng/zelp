@@ -15,7 +15,10 @@ var responseSchema = mongoose.Schema(
         },
         upVotes: Number,
         downVotes: Number,
-        descriptions: String
+        descriptions: String,
+        restaurantName: String,
+        restaurantURL: String,
+        restaurantImageURL: String
     }
 )
 module.exports = responseSchema;
