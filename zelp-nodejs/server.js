@@ -2,10 +2,13 @@ var express = require("express");
 var bodyParser = require("body-parser");
 const mongoose = require("mongoose");
 
+require('dotenv').config({path: './.env'})
+
 const CONNECTION_URI =
   process.env.MONGODB_URI || "mongodb://localhost/webdev-summer1-2018";
 
 mongoose.connect(CONNECTION_URI);
+
 
 var app = express();
 const PORT = process.env.PORT || 4000;
@@ -74,6 +77,9 @@ var postService = require("./services/post.service.server")
 postService(app);
 var restaurantService = require("./services/restaurant.service.server")
 restaurantService(app);
+
+var yelpService = require("./services/yelp.service.server")
+yelpService(app);
 
 
 app.listen(PORT);
