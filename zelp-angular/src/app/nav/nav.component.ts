@@ -6,6 +6,7 @@ import {SearchServiceClient} from '../services/search.service.client';
 import {AlertServiceClient} from '../services/alert.service.client';
 import {Post} from '../models/post.model.client';
 import {DataServiceClient} from '../services/data.service.client';
+import {LoggedinServiceClient} from '../services/loggedin.service.client';
 
 @Component({
   selector: "app-nav",
@@ -25,15 +26,9 @@ export class NavComponent implements OnInit {
               private searchService: SearchServiceClient,
               private alertService: AlertServiceClient,
               private data: DataServiceClient,
+              private loggedInService: LoggedinServiceClient,
               private router: Router) {}
 
-  validate(user) {
-    if (user._id) {
-      this.loggedIn = true;
-    } else {
-      this.loggedIn = false;
-    }
-  }
 
   get form() {
     return this.searchForm.controls;
@@ -61,14 +56,14 @@ export class NavComponent implements OnInit {
 
   logout() {
     this.service.logout();
+    this.loggedInService.changeMessage(false);
   }
 
   ngOnInit() {
     this.searchForm = this.formBuilder.group({
       search: ["", Validators.required]
     });
-    this.service.profile()
-      .then((user) => this.validate(user));
+    this.loggedInService.currentMessage.subscribe(loggedIn => this.loggedIn = loggedIn);
     this.data.currentMessage
       .subscribe(message => this.message = message);
 

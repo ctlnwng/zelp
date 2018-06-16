@@ -21,7 +21,7 @@
   <div class="d-flex justify-content-between">
     <h4 class="title">Recommendations</h4>
 
-    <button (click)="createResponse()" class="btn btn-primary btn-block col-sm-1 float-right">
+    <button *ngIf="loggedIn" (click)="createResponse()" class="btn btn-primary btn-block col-sm-1 float-right">
       <i class="fa fa-plus"></i>
     </button>
   </div>

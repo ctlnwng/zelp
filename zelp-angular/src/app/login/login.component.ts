@@ -3,6 +3,7 @@ import { Component, OnInit } from "@angular/core";
 import { Route, Router } from "@angular/router";
 import { AlertServiceClient } from "../services/alert.service.client";
 import { UserServiceClient } from "../services/user.service.client";
+import {LoggedinServiceClient} from '../services/loggedin.service.client';
 
 @Component({
   selector: "app-login",
@@ -38,6 +39,7 @@ export class LoginComponent implements OnInit {
       this.router
         .navigate(["profile"])
         .then(() => this.alertService.success("Login successful!", false));
+      this.loggedInService.changeMessage(true);
     } else {
       this.alertService.error(
         "Invalid username and password combination.",
@@ -50,7 +52,8 @@ export class LoginComponent implements OnInit {
     private formBuilder: FormBuilder,
     private router: Router,
     private service: UserServiceClient,
-    private alertService: AlertServiceClient
+    private alertService: AlertServiceClient,
+    private loggedInService: LoggedinServiceClient
   ) {}
 
   ngOnInit() {
