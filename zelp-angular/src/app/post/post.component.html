@@ -13,26 +13,38 @@
 
   <div class="d-flex justify-content-between">
     <h4 class="title">Recommendations</h4>
-    <button (click)="createResponse()" class="btn btn-primary btn-block col-sm-1 float-right">
+    <button (click)="createResponse()" class="btn btn-primary btn-block col-1 float-right">
       <i class="fa fa-plus"></i>
     </button>
 
   </div>
 
   <div *ngIf="showResponseForm">
+    <br/>
     <app-new-response [postId]="postId"></app-new-response>
+    <br/>
+    <hr/>
   </div>
+
+  <br/>
 
   <ul class="list-group">
     <li *ngFor="let response of responses" class="list-group-item">
-      <h5>
-        <img src={{response.restaurantImageURL}} alt="Food Picture" style="width:75px" />
-        <a href={{response.restaurantURL}}> {{response.restaurantName}} </a>
-      </h5>
-      <h6> "{{response.descriptions}}"</h6>
-      posted by {{response.userId}}
-    </li>
-  </ul>
+      <div class="row">
+        <div class="col-3">
+          <img src={{response.restaurantImageURL}} alt="Food Picture" width="100%" />
+        </div>
 
-  <a routerLink="/home ">Home</a>
+        <div class="col-6">
+          <h5>
+            <a href={{response.restaurantURL}}> {{response.restaurantName}} </a>
+          </h5>
+          <h6> "{{response.descriptions}}"</h6>
+          <span class="details">posted by {{response.userId}}</span>
+        </div>
+
+      </div>
+    </li>
+
+  </ul>
 </div>
