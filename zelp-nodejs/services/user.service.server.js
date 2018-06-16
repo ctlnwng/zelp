@@ -1,58 +1,62 @@
 module.exports = function(app) {
-  app.get("/api/user", findAllUsers);
-  app.get("/api/user/:userId", findUserById);
-  app.post("/api/user", createUser);
-  app.get("/api/profile", profile);
-  app.post("/api/logout", logout);
-  app.post("/api/login", login);
-  app.put("/api/user/:userId", updateUser);
+    app.get("/api/user", findAllUsers);
+    app.get("/api/user/:userId", findUserById);
+    app.post("/api/user", createUser);
+    app.get("/api/profile", profile);
+    app.post("/api/logout", logout);
+    app.post("/api/login", login);
+    app.put("/api/user/:userId", updateUser);
 
-  var userModel = require("../models/user/user.model.server");
+    var userModel = require("../models/user/user.model.server");
 
-  function findUserById(req, res) {
-    var id = req.params["userId"];
-    userModel.findUserById(id).then(function(user) {
-      res.json(user);
-    });
-  }
+    function findUserById(req, res) {
+        var id = req.params["userId"];
+        userModel.findUserById(id).then(function(user) {
+            res.json(user);
+        });
+    }
 
-  function profile(req, res) {
-    res.send(req.session["currentUser"]);
-  }
+    function profile(req, res) {
+        res.send(req.session["currentUser"]);
+    }
 
-  function logout(req, res) {
-    req.session.destroy();
-    res.sendStatus(200);
-  }
+    function logout(req, res) {
+        req.session.destroy();
+        res.sendStatus(200);
+    }
 
-  function login(req, res) {
-    var credentials = req.body;
-    userModel.findUserByCredentials(credentials).then(function(user) {
-      req.session["currentUser"] = user;
-      res.json(user);
-    });
-  }
+    function login(req, res) {
+        var credentials = req.body;
+        userModel.findUserByCredentials(credentials).then(function(user) {
+            req.session["currentUser"] = user;
+            res.json(user);
+        });
+    }
 
-  function createUser(req, res) {
-    var user = req.body;
-    userModel.createUser(user).then(function(user) {
-      req.session["currentUser"] = user;
-      res.send(user);
-    });
-  }
+    function createUser(req, res) {
+        var user = req.body;
+        userModel.createUser(user).then(function(user) {
+            req.session["currentUser"] = user;
+            res.send(user);
+        });
+    }
 
-  function findAllUsers(req, res) {
-    userModel.findAllUsers().then(function(users) {
-      res.send(users);
-    });
-  }
+    function findAllUsers(req, res) {
+        userModel.findAllUsers().then(function(users) {
+            res.send(users);
+        });
+    }
 
-  function updateUser(req, res) {
-    var userId = req.params["userId"];
-    var user = req.body;
-    req.session["currentUser"] = user;
-    userModel.updateUser(userId, user).then(function(user) {
-      res.send(user);
-    });
-  }
+    function updateUser(req, res) {
+        var userId = req.params["userId"];
+        var user = req.body;
+        var newUser = {
+            ...user,
+            _id: userId
+        };
+        req.session["currentUser"] = newUser;
+        userModel.updateUser(userId, newUser).then(function(user) {
+            res.send(user);
+        });
+    }
 };
