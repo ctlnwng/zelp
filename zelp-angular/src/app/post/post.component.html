@@ -37,20 +37,7 @@
 
   <ul class="list-group">
     <li *ngFor="let response of responses" class="list-group-item">
-      <div class="row">
-        <div class="col-3">
-          <img src={{response.restaurantImageURL}} alt="Food Picture" width="100%" />
-        </div>
-
-        <div class="col-6">
-          <h5>
-            <a href={{response.restaurantURL}}> {{response.restaurantName}} </a>
-          </h5>
-          <h6> "{{response.descriptions}}"</h6>
-          <span class="details">posted by {{response.userId}}</span>
-        </div>
-
-      </div>
+      <app-response-list-item [response]=response></app-response-list-item>
     </li>
 
   </ul>
