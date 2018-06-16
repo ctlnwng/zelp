@@ -25,8 +25,8 @@ function findAllPosts() {
 function deletePost(pid, userId) {
 //   // FIXME filter out responses first (might not need if findOneAndRemove works
 //   return postModel.findOneAndDelete({ _id: pid, author: userId });
-//     // FIXME filter out responses first (might not need if findOneAndRemove works
-//     return postModel.findOneAndRemove({ _id: pid, author: userId });
+    // FIXME filter out responses first (might not need if findOneAndRemove works
+    return postModel.findOneAndRemove({ _id: pid, author: userId });
 }
 
 var api = {
