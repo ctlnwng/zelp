@@ -26,14 +26,6 @@ export class HomePageComponent implements OnInit {
     }
   }
 
-  getUsername(userId) {
-    var username = "";
-    this.userService
-      .findUserById(userId)
-      .then(user => (username = user.username));
-    return username;
-  }
-
   ngOnInit() {
     this.service.findAllPosts().then(posts => (this.posts = posts));
     this.userService.profile().then(user => this.validate(user));

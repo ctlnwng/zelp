@@ -19,14 +19,15 @@ import { PostServiceClient } from "./services/post.service.client";
 import { PostComponent } from "./post/post.component";
 import { SearchServiceClient } from "./services/search.service.client";
 import { NewResponseComponent } from "./new-response/new-response.component";
-import { NavComponent } from './nav/nav.component';
-import { RestaurantComponent } from './restaurant/restaurant.component';
-import {RestaurantServiceClient} from './services/restaurant.service.client';
-import {ResponseServiceClient} from './services/response.service.client';
-import { ResponseComponent } from './response/response.component';
-import { SearchResultComponent } from './search-result/search-result.component';
-import {DataServiceClient} from './services/data.service.client';
-import { PostListItemComponent } from './post-list-item/post-list-item.component';
+import { NavComponent } from "./nav/nav.component";
+import { RestaurantComponent } from "./restaurant/restaurant.component";
+import { RestaurantServiceClient } from "./services/restaurant.service.client";
+import { ResponseServiceClient } from "./services/response.service.client";
+import { ResponseComponent } from "./response/response.component";
+import { SearchResultComponent } from "./search-result/search-result.component";
+import { DataServiceClient } from "./services/data.service.client";
+import { PostListItemComponent } from "./post-list-item/post-list-item.component";
+import { ResponseListItemComponent } from "./response-list-item/response-list-item.component";
 
 @NgModule({
   declarations: [
@@ -44,7 +45,8 @@ import { PostListItemComponent } from './post-list-item/post-list-item.component
     RestaurantComponent,
     ResponseComponent,
     SearchResultComponent,
-    PostListItemComponent
+    PostListItemComponent,
+    ResponseListItemComponent
   ],
   imports: [
     BrowserModule,
