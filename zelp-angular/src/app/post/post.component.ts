@@ -48,8 +48,13 @@ export class PostComponent implements OnInit {
   }
 
   loadResponses() {
-    this.responseService.findResponseByPostId(this.postId)
+    this.responseService
+      .findResponseByPostId(this.postId)
       .then(responses => (this.responses = responses));
+  }
+
+  deletePost() {
+    this.postService.deletePost(this.postId);
   }
 
   ngOnInit() {}

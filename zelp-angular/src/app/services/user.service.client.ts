@@ -49,4 +49,22 @@ export class UserServiceClient {
       }
     });
   }
+
+  updateUser(id, username, password, first, last, email) {
+    const user = {
+      username: username,
+      password: password,
+      firstName: first,
+      lastName: last,
+      email: email
+    };
+    return fetch(API_URL + "user/" + id, {
+      body: JSON.stringify(user),
+      credentials: "include", // include, same-origin, *omit
+      method: "put",
+      headers: {
+        "content-type": "application/json"
+      }
+    });
+  }
 }

@@ -1,6 +1,13 @@
 <div class="container post">
   <div class="post-header">
-    <h1 class="title">{{post.title}}</h1>
+
+    <div class="d-flex justify-content-between">
+      <h1 class="title">{{post.title}}</h1>
+      <button (click)="deletePost()" class="btn btn-danger btn-block col-1 float-right delete-btn">
+        <i class="fa fa-trash"></i>
+      </button>
+    </div>
+
     <p>Posted by
       <strong>{{authorUsername}}</strong>
     </p>
@@ -13,9 +20,7 @@
 
   <div class="d-flex justify-content-between">
     <h4 class="title">Recommendations</h4>
-    <button (click)="createResponse()" class="btn btn-primary btn-block col-1 float-right">
-      <i class="fa fa-plus"></i>
-    </button>
+
 
   </div>
 

@@ -13,9 +13,19 @@ export class ProfileComponent implements OnInit {
   constructor(private service: UserServiceClient, private router: Router) {}
 
   user: User = new User();
+  userId: string;
 
-  update(user: User) {
-    console.log(user);
+  updateUser() {
+    this.service
+      .updateUser(
+        this.userId,
+        this.user.username,
+        this.user.password,
+        this.user.firstName,
+        this.user.lastName,
+        this.user.email
+      )
+      .then(response => alert("User updated."));
   }
 
   logout() {
@@ -24,6 +34,10 @@ export class ProfileComponent implements OnInit {
   }
 
   ngOnInit() {
-    this.service.profile().then(user => (this.user = user));
+    this.service.profile().then(user => {
+      this.user = user;
+      this.userId = user._id;
+      console.log(user.firstName + user.lastName);
+    });
   }
 }
