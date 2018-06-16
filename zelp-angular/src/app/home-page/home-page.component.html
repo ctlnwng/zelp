@@ -22,7 +22,7 @@
   <ul class="list-group">
     <li *ngFor="let post of posts" class="list-group-item">
       <h5>
-        <a routerLink="/post/{{post._id}}">{{post.title}}</a>
+        <a routerLink="/post/{{post._id}}/new-response">{{post.title}}</a>
       </h5>
       posted by {{post.author}}
     </li>

@@ -48,10 +48,8 @@ export class PostComponent implements OnInit {
   }
 
   loadResponses() {
-    this.responseService
-      .findResponseByPostId(this.postId)
-      .then(responses => (this.responses = responses))
-      .then(() => console.log(this.responses));
+    this.responseService.findResponseByPostId(this.postId)
+      .then(responses => (this.responses = responses));
   }
 
   ngOnInit() {}

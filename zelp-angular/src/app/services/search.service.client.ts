@@ -3,6 +3,7 @@ const API_URL = "http://localhost:4000/api/";
 
 export class SearchServiceClient {
 
+  // result of the yelp fusion API
   getSearchResult(name, location) {
     return fetch(API_URL + 'restaurant/' + name + '/' + location)
       .then(response => response.json());
