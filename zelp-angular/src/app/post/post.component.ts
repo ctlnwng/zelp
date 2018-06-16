@@ -43,14 +43,13 @@ export class PostComponent implements OnInit {
 
   createResponse() {
     // this is unncecessary since we've already made parent-child relationship for post and new response.
-    this.router.navigate(["post", this.postId, "new-response"]);
+    this.router.navigate(["post", this.postId, "new-response"])
     this.showResponseForm = true;
   }
 
   loadResponses() {
     this.responseService.findResponseByPostId(this.postId)
-      .then(responses => (this.responses = responses))
-      .then(() => console.log(this.responses));
+      .then(responses => (this.responses = responses));
   }
 
   ngOnInit() {

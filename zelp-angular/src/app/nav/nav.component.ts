@@ -1,6 +1,7 @@
 import { Component, OnInit } from "@angular/core";
 import { UserServiceClient } from "../services/user.service.client";
 import {Router} from '@angular/router';
+import {SearchServiceClient} from '../services/search.service.client';
 
 @Component({
   selector: "app-nav",
@@ -11,6 +12,7 @@ export class NavComponent implements OnInit {
   loggedIn = false
 
   constructor(private service: UserServiceClient,
+              private searchService: SearchServiceClient,
               private router: Router) {}
 
   validate(user) {
