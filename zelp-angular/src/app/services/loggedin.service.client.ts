@@ -4,7 +4,7 @@ import {BehaviorSubject} from 'rxjs';
 @Injectable()
 export class LoggedinServiceClient {
 
-  private messageSource = new BehaviorSubject<boolean>(false);
+  private messageSource = new BehaviorSubject<boolean>(false || localStorage.getItem('loggedIn') === 'true');
   currentMessage = this.messageSource.asObservable();
 
   constructor() {}

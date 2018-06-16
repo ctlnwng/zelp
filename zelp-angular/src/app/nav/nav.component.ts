@@ -57,6 +57,7 @@ export class NavComponent implements OnInit {
   logout() {
     this.service.logout();
     this.loggedInService.changeMessage(false);
+    localStorage.clear();
   }
 
   ngOnInit() {

@@ -40,6 +40,7 @@ export class LoginComponent implements OnInit {
         .navigate(["profile"])
         .then(() => this.alertService.success("Login successful!", false));
       this.loggedInService.changeMessage(true);
+      localStorage.setItem('loggedIn', 'true');
     } else {
       this.alertService.error(
         "Invalid username and password combination.",
