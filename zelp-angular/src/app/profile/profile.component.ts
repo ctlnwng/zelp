@@ -3,6 +3,7 @@ import { OnInit } from "@angular/core";
 import { User } from "../models/user.model.client";
 import { UserServiceClient } from "../services/user.service.client";
 import { Router } from "@angular/router";
+import { AlertServiceClient } from "../services/alert.service.client";
 
 @Component({
   selector: "app-profile",
@@ -10,7 +11,11 @@ import { Router } from "@angular/router";
   styleUrls: ["./profile.component.css"]
 })
 export class ProfileComponent implements OnInit {
-  constructor(private service: UserServiceClient, private router: Router) {}
+  constructor(
+    private service: UserServiceClient,
+    private alertService: AlertServiceClient,
+    private router: Router
+  ) {}
 
   user: User = new User();
   userId: string;
@@ -25,7 +30,7 @@ export class ProfileComponent implements OnInit {
         this.user.lastName,
         this.user.email
       )
-      .then(response => alert("User updated."));
+      .then(response => this.alertService.success("User updated!", false));
   }
 
   logout() {
