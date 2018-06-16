@@ -8,9 +8,10 @@
 
   <div class="collapse navbar-collapse" id="navbarSupportedContent">
     <ul class="navbar-nav mr-auto">
-      <form class="form-inline my-2 my-lg-0">
-        <input id="search-posts-input" class="form-control mr-sm-2" type="search" placeholder="Search all posts" aria-label="Search">
-        <button (click) = "search($('#search-posts-input'))" id="search-posts-btn" class="btn my-2 my-sm-0" type="submit">
+      <form [formGroup]="searchForm" class="form-inline my-2 my-lg-0">
+        <input formControlName="search" class="form-control mr-sm-2" type="search" placeholder="Search all posts" aria-label="Search"
+               [ngClass]="{ 'is-invalid': submitted && form.search.errors }" >
+        <button (click) = "search(form.search.value)" id="search-posts-btn" class="btn my-2 my-sm-0" type="submit">
           <i class="fa fa-search"></i>
         </button>
       </form>
@@ -22,7 +23,7 @@
       <li *ngIf="!loggedIn" class="nav-item">
         <a class="nav-link" routerLink="/login">Login</a>
       </li>
-      <li class="nav-item">
+      <li *ngIf="!loggedIn" class="nav-item">
         <a class="nav-link" routerLink="/register">Register</a>
       </li>
     </ul>

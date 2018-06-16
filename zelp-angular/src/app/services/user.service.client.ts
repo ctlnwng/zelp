@@ -9,7 +9,11 @@ export class UserServiceClient {
   profile() {
     return fetch(API_URL + "profile", {
       credentials: "include" // include, same-origin, *omit
-    }).then(response => response.json());
+    }).then(function(response) {
+      return response.text().then(function(text) {
+        return text ? JSON.parse(text) : {}
+      })
+    });
   }
 
   logout() {

@@ -1,4 +1,6 @@
 import { Component, OnInit } from '@angular/core';
+import {Post} from '../models/post.model.client';
+import {DataServiceClient} from '../services/data.service.client';
 
 @Component({
   selector: 'app-search-result',
@@ -7,9 +9,12 @@ import { Component, OnInit } from '@angular/core';
 })
 export class SearchResultComponent implements OnInit {
 
-  constructor() { }
+  message: Post[];
+  constructor(private data: DataServiceClient) { }
 
   ngOnInit() {
+    this.data.currentMessage
+      .subscribe(message => this.message = message);
   }
 
 }

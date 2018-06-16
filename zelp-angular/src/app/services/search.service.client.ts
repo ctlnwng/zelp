@@ -9,4 +9,9 @@ export class SearchServiceClient {
       .then(response => response.json());
   }
 
+  getPosts(input) {
+    return fetch(API_URL + 'post/contains/' + input)
+      .then(response => response.json());
+  }
+
 }
