@@ -1,21 +1,32 @@
-<div class="container-fluid">
-  <h1>{{post.title}}</h1>
-  <p>Posted by {{authorUsername}}</p>
-  <h3>{{post.description}}</h3>
+<div class="container post">
+  <div class="post-header">
+    <h1 class="title">{{post.title}}</h1>
+    <p>Posted by
+      <strong>{{authorUsername}}</strong>
+    </p>
+    <h6>{{post.description}}</h6>
+  </div>
 
-  <button (click)="createResponse()" class="btn btn-primary btn-block ">
-    Add Recommendation
-  </button>
+  <hr/>
+
+  <br/>
+
+  <div class="d-flex justify-content-between">
+    <h4 class="title">Recommendations</h4>
+    <button (click)="createResponse()" class="btn btn-primary btn-block col-sm-1 float-right">
+      <i class="fa fa-plus"></i>
+    </button>
+
+  </div>
 
   <div *ngIf="showResponseForm">
     <app-new-response [postId]="postId"></app-new-response>
   </div>
 
-  <h3 class="title">Recent Responses</h3>
-  <ul *ngFor="let response of responses" class="list-group">
-    <li class="list-group-item">
+  <ul class="list-group">
+    <li *ngFor="let response of responses" class="list-group-item">
       <h5>
-        <img src={{response.restaurantImageURL}} alt="Food Picture" style="width:75px"/>
+        <img src={{response.restaurantImageURL}} alt="Food Picture" style="width:75px" />
         <a href={{response.restaurantURL}}> {{response.restaurantName}} </a>
       </h5>
       <h6> "{{response.descriptions}}"</h6>

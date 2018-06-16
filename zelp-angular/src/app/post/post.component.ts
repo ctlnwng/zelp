@@ -3,9 +3,9 @@ import { AlertServiceClient } from "../services/alert.service.client";
 import { Router, ActivatedRoute } from "@angular/router";
 import { PostServiceClient } from "../services/post.service.client";
 import { Post } from "../models/post.model.client";
-import { Response } from "../models/response.model.client"
+import { Response } from "../models/response.model.client";
 import { UserServiceClient } from "../services/user.service.client";
-import {ResponseServiceClient} from '../services/response.service.client';
+import { ResponseServiceClient } from "../services/response.service.client";
 
 @Component({
   selector: "app-post",
@@ -52,6 +52,5 @@ export class PostComponent implements OnInit {
       .then(responses => (this.responses = responses));
   }
 
-  ngOnInit() {
-  }
+  ngOnInit() {}
 }
