@@ -1,7 +1,9 @@
 import { Component, OnInit } from "@angular/core";
 import { Post } from "../models/post.model.client";
 import { PostServiceClient } from "../services/post.service.client";
-import { UserServiceClient } from "../services/user.service.client";
+
+import {UserServiceClient} from '../services/user.service.client';
+import {LoggedinServiceClient} from '../services/loggedin.service.client';
 
 @Component({
   selector: "app-home-page",
@@ -9,25 +11,19 @@ import { UserServiceClient } from "../services/user.service.client";
   styleUrls: ["./home-page.component.css"]
 })
 export class HomePageComponent implements OnInit {
-  constructor(
-    private service: PostServiceClient,
-    private userService: UserServiceClient
-  ) {}
+
+  constructor(private service: PostServiceClient,
+              private userService: UserServiceClient,
+              private loggedInService: LoggedinServiceClient) {}
+
 
   posts: Post[] = [];
   loggedIn = false;
   authorUsername: String;
 
-  validate(user) {
-    if (user._id) {
-      this.loggedIn = true;
-    } else {
-      this.loggedIn = false;
-    }
-  }
 
   ngOnInit() {
+    this.loggedInService.currentMessage.subscribe(loggedIn => this.loggedIn = loggedIn);
     this.service.findAllPosts().then(posts => (this.posts = posts));
-    this.userService.profile().then(user => this.validate(user));
   }
 }
