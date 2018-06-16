@@ -1,9 +1,12 @@
-<h2>Search Results</h2>
-<ul class="list-group">
-  <li *ngFor="let post of message" class="list-group-item">
-    <h5>
-      <a routerLink="/post/{{post._id}}/new-response">{{post.title}}</a>
-    </h5>
-    posted by {{post.author}}
-  </li>
-</ul>
+<div class="container">
+  <h3>Search Results</h3>
+  <br/>
+  <ul class="list-group">
+    <li *ngFor="let post of message" class="list-group-item">
+      <h5>
+        <a routerLink="/post/{{post._id}}/new-response">{{post.title}}</a>
+      </h5>
+      posted by {{post.author}}
+    </li>
+  </ul>
+</div>
