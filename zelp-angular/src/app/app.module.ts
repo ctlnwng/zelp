@@ -26,6 +26,7 @@ import {ResponseServiceClient} from './services/response.service.client';
 import { ResponseComponent } from './response/response.component';
 import { SearchResultComponent } from './search-result/search-result.component';
 import {DataServiceClient} from './services/data.service.client';
+import {LoggedinServiceClient} from './services/loggedin.service.client';
 
 @NgModule({
   declarations: [
@@ -58,7 +59,8 @@ import {DataServiceClient} from './services/data.service.client';
     SearchServiceClient,
     RestaurantServiceClient,
     DataServiceClient,
-    ResponseServiceClient
+    ResponseServiceClient,
+    LoggedinServiceClient
   ],
   bootstrap: [AppComponent]
 })

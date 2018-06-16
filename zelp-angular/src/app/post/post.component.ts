@@ -6,6 +6,7 @@ import { Post } from "../models/post.model.client";
 import { Response } from "../models/response.model.client";
 import { UserServiceClient } from "../services/user.service.client";
 import { ResponseServiceClient } from "../services/response.service.client";
+import {LoggedinServiceClient} from '../services/loggedin.service.client';
 
 @Component({
   selector: "app-post",
@@ -20,6 +21,7 @@ export class PostComponent implements OnInit {
     private userService: UserServiceClient,
     private router: Router,
     private alertService: AlertServiceClient,
+    private loggedInService: LoggedinServiceClient,
     private route: ActivatedRoute
   ) {
     this.route.params.subscribe(params => this.loadPost(params["postId"]));
@@ -29,6 +31,8 @@ export class PostComponent implements OnInit {
   authorUsername: String;
   postId: Number;
   responses: Response[] = [];
+
+  loggedIn:boolean;
 
   loadPost(postId) {
     this.postService.findPostById(postId).then(post => {
@@ -57,5 +61,7 @@ export class PostComponent implements OnInit {
     this.postService.deletePost(this.postId);
   }
 
-  ngOnInit() {}
+  ngOnInit() {
+    this.loggedInService.currentMessage.subscribe(loggedIn => this.loggedIn = loggedIn);
+  }
 }
