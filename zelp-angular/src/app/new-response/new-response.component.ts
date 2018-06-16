@@ -1,9 +1,9 @@
 import { Component, OnInit, Input } from "@angular/core";
 import { Router } from "@angular/router";
 import { FormBuilder, FormGroup, Validators } from "@angular/forms";
-import {Restaurant} from '../models/restaurant.model.client';
-import {ResponseServiceClient} from '../services/response.service.client';
-import {AlertServiceClient} from '../services/alert.service.client';
+import { Restaurant } from "../models/restaurant.model.client";
+import { ResponseServiceClient } from "../services/response.service.client";
+import { AlertServiceClient } from "../services/alert.service.client";
 
 @Component({
   selector: "app-new-response",
@@ -16,15 +16,17 @@ export class NewResponseComponent implements OnInit {
   restaurant: Restaurant = new Restaurant();
   submitted = false;
 
-  constructor(private router: Router,
-              private service: ResponseServiceClient,
-              private alertService: AlertServiceClient,
-              private formBuilder: FormBuilder) {}
+  constructor(
+    private router: Router,
+    private service: ResponseServiceClient,
+    private alertService: AlertServiceClient,
+    private formBuilder: FormBuilder
+  ) {}
 
   ngOnInit() {
     this.responseForm = this.formBuilder.group({
-    description: ["", Validators.required]
-  });
+      description: ["", Validators.required]
+    });
   }
 
   receiveMessage($event) {
@@ -35,7 +37,7 @@ export class NewResponseComponent implements OnInit {
     this.submitted = true;
 
     if (!this.restaurant.name) {
-      this.alertService.error('Please Search The restaurant', false);
+      this.alertService.error("Please search for a restaurant.", false);
       return;
     }
 
@@ -44,15 +46,18 @@ export class NewResponseComponent implements OnInit {
       return;
     }
 
-    this.service.createResponse(this.postId, this.restaurant, description)
-      .then(data => this.success(data),
-        err => this.alertService.error(err, false));
+    this.service
+      .createResponse(this.postId, this.restaurant, description)
+      .then(
+        data => this.success(data),
+        err => this.alertService.error(err, false)
+      );
   }
 
   success(data) {
     this.router
       .navigate(["post", this.postId])
-      .then(() => this.alertService.success('Response has been added successfully!', false))
+      .then(() => this.alertService.success("Recommendation added!", false));
   }
 
   get form() {

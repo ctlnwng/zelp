@@ -1,0 +1,11 @@
+.search-btn {
+  background-color: transparent;
+  color: #404040;
+}
+
+.cancel-btn {
+  background-color: transparent;
+  border-color: transparent;
+  color: #ba212b;
+  padding: 0px;
+}

@@ -9,7 +9,12 @@ function findUserById(userId) {
 }
 
 function findUserByCredentials(credentials) {
-  return userModel.findOne(credentials, { username: 1 });
+  return userModel.findOne(credentials, {
+    username: 1,
+    firstName: 1,
+    lastName: 1,
+    email: 1
+  });
 }
 
 function createUser(user) {
@@ -20,11 +25,16 @@ function findAllUsers() {
   return userModel.find();
 }
 
+function updateUser(userId, newUser) {
+  return userModel.findByIdAndUpdate(userId, newUser);
+}
+
 var api = {
   createUser: createUser,
   findAllUsers: findAllUsers,
   findUserById: findUserById,
-  findUserByCredentials: findUserByCredentials
+  findUserByCredentials: findUserByCredentials,
+  updateUser: updateUser
 };
 
 module.exports = api;

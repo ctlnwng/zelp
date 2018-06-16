@@ -24,4 +24,10 @@ export class PostServiceClient {
       }
     }).then(response => response.json());
   }
+
+  deletePost(postId) {
+    return fetch(API_URL + "post/" + postId, {
+      method: "delete"
+    }).then(response => alert("Post deleted"));
+  }
 }

@@ -1,13 +1,11 @@
-<div class="container-fluid">
-  <h2>Create New Response for post {{postId}}</h2>
+<div class="container-full">
+  <h5 class="title">Give a recommendation!</h5>
 
-
-  <app-search (messageEvent)= "receiveMessage($event)"></app-search>
+  <app-search (messageEvent)="receiveMessage($event)"></app-search>
   <form [formGroup]="responseForm">
     <div class="form-group">
       <label>Description</label>
-      <textarea type="description" rows="3" formControlName="description" class="form-control"
-                [ngClass]="{ 'is-invalid': submitted && form.description.errors }">
+      <textarea type="description" rows="3" formControlName="description" class="form-control" [ngClass]="{ 'is-invalid': submitted && form.description.errors }">
     </textarea>
       <div *ngIf="submitted && form.description.errors" class="invalid-feedback">
         <div *ngIf="form.description.errors.required">Please Enter Some Descriptions!</div>
@@ -15,7 +13,9 @@
     </div>
   </form>
 
-  <button (click) = "createResponse(form.description.value)" class="btn btn-primary btn-block ">
-    Create
-  </button>
+  <div class="row">
+    <button (click)="createResponse(form.description.value)" class="btn btn-primary btn-block col-md-2">
+      Create
+    </button>
+  </div>
 </div>
