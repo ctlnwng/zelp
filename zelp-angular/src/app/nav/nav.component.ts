@@ -23,6 +23,10 @@ export class NavComponent implements OnInit {
     }
   }
 
+  search(input) {
+    console.log(input);
+  }
+
   logout() {
     this.service.logout();
   }

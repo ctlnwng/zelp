@@ -24,6 +24,7 @@ import { RestaurantComponent } from './restaurant/restaurant.component';
 import {RestaurantServiceClient} from './services/restaurant.service.client';
 import {ResponseServiceClient} from './services/response.service.client';
 import { ResponseComponent } from './response/response.component';
+import { SearchResultComponent } from './search-result/search-result.component';
 
 @NgModule({
   declarations: [
@@ -39,7 +40,8 @@ import { ResponseComponent } from './response/response.component';
     NewResponseComponent,
     NavComponent,
     RestaurantComponent,
-    ResponseComponent
+    ResponseComponent,
+    SearchResultComponent
   ],
   imports: [
     BrowserModule,

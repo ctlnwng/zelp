@@ -10,7 +10,7 @@
     <ul class="navbar-nav mr-auto">
       <form class="form-inline my-2 my-lg-0">
         <input id="search-posts-input" class="form-control mr-sm-2" type="search" placeholder="Search all posts" aria-label="Search">
-        <button id="search-posts-btn" class="btn my-2 my-sm-0" type="submit">
+        <button (click) = "search($('#search-posts-input'))" id="search-posts-btn" class="btn my-2 my-sm-0" type="submit">
           <i class="fa fa-search"></i>
         </button>
       </form>
