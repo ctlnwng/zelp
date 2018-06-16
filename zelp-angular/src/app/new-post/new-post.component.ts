@@ -45,7 +45,7 @@ export class NewPostComponent implements OnInit {
   success(data) {
     this.alertService.success("Post created!", false);
     this.router
-      .navigate(['post', data._id])
+      .navigate(['post', data._id, "new-response"])
       .then(() => this.alertService.success("Post created!", false));
   }
 

@@ -7,6 +7,7 @@ import { NewPostComponent } from "./new-post/new-post.component";
 import { PostComponent } from "./post/post.component";
 import { SearchComponent } from "./search/search.component";
 import {RestaurantComponent} from './restaurant/restaurant.component';
+import {SearchResultComponent} from './search-result/search-result.component';
 
 const appRoutes: Routes = [
   { path: "", redirectTo: "home", pathMatch: "full" },
@@ -19,6 +20,7 @@ const appRoutes: Routes = [
   { path: "post/:postId/new-response", component: PostComponent },
   { path: "search", component: SearchComponent },
   { path: "restaurant", component: RestaurantComponent},
+  { path: "searchresult", component: SearchResultComponent},
   { path: "**", component: HomePageComponent }
 ];
 
