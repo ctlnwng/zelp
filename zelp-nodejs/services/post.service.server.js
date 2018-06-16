@@ -3,7 +3,8 @@ module.exports = function(app) {
     app.get("/api/post/:pid", findPostById);
     app.get("/api/post/contains/:input", findPostWithInput);
     app.post("/api/post", createPost);
-    app.delete("/api/post/:pid", deletePost)
+    app.delete("/api/post/:pid", deletePost);
+    app.delete("/api/post/:pid/admin", forceDeletePost);
 
     var postModel = require("../models/post/post.model.server");
 
@@ -56,5 +57,20 @@ module.exports = function(app) {
                 posts => res.json(posts),
                 err => res.status(400).send(err)
             );
+    }
+
+    function forceDeletePost(req, res) {
+        var pid = req.params["pid"];
+
+        postModel.forceDeletePost(pid)
+            .then(
+                post => postModel.findAllPosts(),
+                err => res.status(400).send(err)
+            )
+            // Reloading the entire post page after deleting.
+            .then(
+                posts => res.json(posts),
+                err => res.status(400).send(err)
+            );;
     }
 };

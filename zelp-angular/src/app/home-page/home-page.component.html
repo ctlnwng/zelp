@@ -9,7 +9,7 @@
     <span class="primary-text">personalized</span> and
     <span class="primary-text">honest</span> recommendations on where to eat.</h5>
 
-  <button routerLink="/new-post" class="btn btn-primary btn-block col-md-2">
+  <button *ngIf="loggedIn" routerLink="/new-post" class="btn btn-primary btn-block col-md-2">
     Create a post!
   </button>
 

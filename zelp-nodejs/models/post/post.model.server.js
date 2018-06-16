@@ -29,12 +29,17 @@ function deletePost(pid, userId) {
     return postModel.findOneAndRemove({ _id: pid, author: userId });
 }
 
+function forceDeletePost(pid) {
+    return postModel.remove({_id: pid});
+}
+
 var api = {
     createPost: createPost,
     findAllPosts: findAllPosts,
     findPostById: findPostById,
     deletePost: deletePost,
-    findPostWithInput: findPostWithInput
+    findPostWithInput: findPostWithInput,
+    forceDeletePost: forceDeletePost
 };
 
 module.exports = api;
