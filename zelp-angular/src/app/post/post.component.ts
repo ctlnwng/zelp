@@ -3,9 +3,9 @@ import { AlertServiceClient } from "../services/alert.service.client";
 import { Router, ActivatedRoute } from "@angular/router";
 import { PostServiceClient } from "../services/post.service.client";
 import { Post } from "../models/post.model.client";
-import { Response } from "../models/response.model.client"
+import { Response } from "../models/response.model.client";
 import { UserServiceClient } from "../services/user.service.client";
-import {ResponseServiceClient} from '../services/response.service.client';
+import { ResponseServiceClient } from "../services/response.service.client";
 
 @Component({
   selector: "app-post",
@@ -43,16 +43,16 @@ export class PostComponent implements OnInit {
 
   createResponse() {
     // this is unncecessary since we've already made parent-child relationship for post and new response.
-    this.router.navigate(["post", this.postId, "new-response"]);
+    // this.router.navigate(["post", this.postId, "new-response"]);
     this.showResponseForm = true;
   }
 
   loadResponses() {
-    this.responseService.findResponseByPostId(this.postId)
+    this.responseService
+      .findResponseByPostId(this.postId)
       .then(responses => (this.responses = responses))
       .then(() => console.log(this.responses));
   }
 
-  ngOnInit() {
-  }
+  ngOnInit() {}
 }
