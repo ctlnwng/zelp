@@ -37,6 +37,8 @@ export class NavComponent implements OnInit {
   search(input) {
     this.submitted = true;
 
+    this.data.changeTitle(input);
+
     if (this.searchForm.invalid) {
       this.alertService.error("Please provide the value to search.", false);
       this.submitted = false;

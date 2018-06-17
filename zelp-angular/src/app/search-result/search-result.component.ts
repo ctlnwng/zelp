@@ -10,11 +10,14 @@ import {DataServiceClient} from '../services/data.service.client';
 export class SearchResultComponent implements OnInit {
 
   message: Post[];
+  title: string;
   constructor(private data: DataServiceClient) { }
 
   ngOnInit() {
     this.data.currentMessage
       .subscribe(message => this.message = message);
+    this.data.currentTitle
+      .subscribe(title => this.title = title);
   }
 
 }
