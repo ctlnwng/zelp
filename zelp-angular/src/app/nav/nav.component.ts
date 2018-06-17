@@ -48,7 +48,8 @@ export class NavComponent implements OnInit {
       .then(() => this.newMessage(this.posts))
       .then(() => this.router
         .navigate(["searchresult"]))
-      .then(() => this.submitted = false);
+      .then(() => this.submitted = false)
+      .then(() => this.searchForm.setValue({search: ''}));
   }
 
   newMessage(message) {
