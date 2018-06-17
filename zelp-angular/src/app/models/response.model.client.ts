@@ -7,4 +7,8 @@ export class Response {
   description: string;
   upVotes: number;
   downVotes: number;
+  restaurantURL: string;
+  descriptions: string;
+  restaurantImageURL: string;
+  restaurantName: string;
 }
