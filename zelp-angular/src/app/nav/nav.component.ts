@@ -39,6 +39,7 @@ export class NavComponent implements OnInit {
 
     if (this.searchForm.invalid) {
       this.alertService.error("Please provide the value to search.", false);
+      this.submitted = false;
       return;
     }
 
@@ -46,7 +47,8 @@ export class NavComponent implements OnInit {
       .then(response => this.posts = response)
       .then(() => this.newMessage(this.posts))
       .then(() => this.router
-        .navigate(["searchresult"]));
+        .navigate(["searchresult"]))
+      .then(() => this.submitted = false);
   }
 
   newMessage(message) {
