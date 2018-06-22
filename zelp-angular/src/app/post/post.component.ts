@@ -35,7 +35,7 @@ export class PostComponent implements OnInit {
   responses: Response[] = [];
 
   loggedIn: boolean;
-  favorite = false;
+  favorite: boolean;
 
   loadPost(postId) {
     this.postService.findPostById(postId).then(post => {
@@ -45,10 +45,14 @@ export class PostComponent implements OnInit {
         .findUserById(post.author)
         .then(user => (this.authorUsername = user.username))
         .then(() => this.loadResponses())
+        // IDEA: fetching from the server might be slower but be more useful
         .then(() => {if(this.loggedIn) {
           this.data.currentFavorites
             .subscribe(favorites => {
-              this.favorite = favorites.has(this.postId)})
+              if (favorites !== null) {
+                this.favorite = favorites.has(this.postId)
+              }
+            })
         }});
     });
   }
