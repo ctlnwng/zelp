@@ -36,6 +36,18 @@ export class ResponseListItemComponent implements OnInit {
     });
   }
 
+  delete() {
+    this.responseService.deleteResponse(this.response._id)
+      .then(response => {
+        console.log(response)
+        if(response.status === 409) {
+          this.alertService.error("This response wasn't made by you", false)
+        } else {
+          this.alertService.success("Vote successful", false)
+        }});
+  }
+
+
   ngOnInit() {
     this.userService
       .findUserById(this.response.userId)

@@ -31,7 +31,7 @@ export class PostServiceClient {
     }).then(response => response.json());
   }
 
-  //TODO move the functions below to favorite service
+  //TODO maybe move the functions below to favorite service
   addToFavorite(postId) {
     return fetch(API_URL + 'users/' + postId + '/favorite',{
       method: 'post',
