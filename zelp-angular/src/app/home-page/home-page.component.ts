@@ -37,7 +37,9 @@ export class HomePageComponent implements OnInit {
     this.service.findAllPosts().then(posts => (this.posts = posts));
     if(this.loggedIn) {
       //FIXME then call extraction
-      this.postService.findPostsForUser().then(favorites => (this.favorites = favorites)).then(() => console.log(this.favorites));
+      this.postService.findPostsForUser()
+        .then(favorites => (this.favorites = favorites))
+        .then(() => console.log(this.favorites));
     }
   }
 }

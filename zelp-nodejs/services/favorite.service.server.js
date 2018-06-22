@@ -8,7 +8,6 @@ module.exports = function(app) {
 
     function favoriteResponse(req, res) {
         var currentUser = req.session['currentUser'];
-        console.log(currentUser)
 
         var userId = currentUser._id;
         var postId = req.params['postId'];
@@ -36,7 +35,6 @@ module.exports = function(app) {
 
     function findPostsForUser(req, res) {
         var currentUser = req.session['currentUser'];
-        console.log(currentUser);
 
         if (currentUser === undefined) {
             res.sendStatus(404);
@@ -45,9 +43,9 @@ module.exports = function(app) {
             var userId = currentUser._id;
             favoriteModel.findPostsForUser(userId)
                 .then((favorites) => {
+                    console.log(favorites)
                     res.json(favorites);
-                },
-                    err => console.log(err))
+                })
         }
     }
 };

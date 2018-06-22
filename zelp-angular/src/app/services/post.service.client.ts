@@ -40,7 +40,11 @@ export class PostServiceClient {
   }
 
   findPostsForUser() {
-    return fetch(API_URL + 'users/favorite').then(response => response.text())
-      .then((text) => {text ? JSON.parse(text) : {}})
-  }
+    return fetch(API_URL + 'users/favorite',{
+        credentials: 'include'
+      }).then(function(response) {
+      return response.text().then(function(text) {
+        return text ? JSON.parse(text) : {}
+      })
+    })}
 }

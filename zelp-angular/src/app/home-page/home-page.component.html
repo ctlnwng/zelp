@@ -21,9 +21,9 @@
   <h3 class="title">Favorites</h3>
     <br/>
     <ul class="list-group">
-      <li *ngFor="let favoirte of favorites" class="list-group-item">
+      <li *ngFor="let favorite of favorites" class="list-group-item">
         <h5>
-          <a routerLink="/post/{{favoirte.post}}/new-response">{{favorite._id}}</a>
+          <app-post-list-item [post]="favorite.post"></app-post-list-item>
         </h5>
       </li>
     </ul>
