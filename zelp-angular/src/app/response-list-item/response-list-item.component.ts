@@ -11,6 +11,7 @@ import {AlertServiceClient} from '../services/alert.service.client';
 })
 export class ResponseListItemComponent implements OnInit {
   @Input() response: Response;
+  @Input() loggedIn: boolean;
 
   authorUsername: String;
 
@@ -19,6 +20,10 @@ export class ResponseListItemComponent implements OnInit {
               private alertService: AlertServiceClient) {}
 
   vote(type) {
+    if(!this.loggedIn) {
+      this.alertService.error("You need to be logged in to vote", false);
+      return;
+    }
     this.responseService.vote(type, this.response._id).then(response => {
       if(response.conflict) {
         this.alertService.error("You've already voted (You could still change your vote)", false);

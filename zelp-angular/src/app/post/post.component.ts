@@ -33,6 +33,7 @@ export class PostComponent implements OnInit {
   responses: Response[] = [];
 
   loggedIn: boolean;
+  favorite = false;
 
   loadPost(postId) {
     this.postService.findPostById(postId).then(post => {
@@ -60,6 +61,11 @@ export class PostComponent implements OnInit {
         else if (a.voteCounts > b.voteCounts) return -1;
         else return 0;}
       ));
+  }
+
+  prod() {
+    // needs huge change
+    this.favorite = !this.favorite;
   }
 
   deletePost() {
