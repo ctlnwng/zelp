@@ -33,16 +33,14 @@ export class PostServiceClient {
 
   //TODO move the functions below to favorite service
   addToFavorite(postId) {
-    return fetch(API_URL + 'user/' + postId + '/favorite',{
+    return fetch(API_URL + 'users/' + postId + '/favorite',{
       method: 'post',
       credentials: 'include'
     });
   }
 
   findPostsForUser() {
-    return fetch(API_URL + 'user/favorite',{
-        credentials: 'include'
-      }).then(response => response.text())
+    return fetch(API_URL + 'users/favorite').then(response => response.text())
       .then((text) => {text ? JSON.parse(text) : {}})
   }
 }
