@@ -16,26 +16,26 @@
   <br/>
   <br/>
 
-  <!--<Believe in your css and margin skill Caitlin!>-->
-  <div *ngIf="loggedIn">
-  <h3 class="title">Favorites</h3>
-    <br/>
-    <ul class="list-group">
-      <li *ngFor="let favorite of favorites" class="list-group-item">
-        <h5>
-          <app-post-list-item [post]="favorite.post"></app-post-list-item>
-        </h5>
-      </li>
-    </ul>
-  </div>
-  <!--<=============================================>-->
+  <div class="row">
 
-  <h3 class="title">Recent posts</h3>
-  <br/>
-  <ul class="list-group">
-    <li *ngFor="let post of posts" class="list-group-item">
-      <app-post-list-item [post]="post"></app-post-list-item>
-    </li>
-  </ul>
+    <div class="col-md-8">
+      <h3 class="title">Recent posts</h3>
+      <br/>
+      <ul class="list-group">
+        <li *ngFor="let post of posts" class="list-group-item">
+          <app-post-list-item [post]="post"></app-post-list-item>
+        </li>
+      </ul>
+    </div>
+    <div *ngIf="loggedIn" class="col-md-4">
+      <h3 class="title">Favorites</h3>
+      <br/>
+      <ul class="list-group">
+        <li *ngFor="let favorite of favorites" class="list-group-item">
+          <app-post-list-item [post]="favorite.post"></app-post-list-item>
+        </li>
+      </ul>
+    </div>
+  </div>
 
 </div>
