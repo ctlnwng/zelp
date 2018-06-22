@@ -14,8 +14,10 @@
   cursor: pointer;
 }
 
-.btn-danger {
+.remove {
   background-color: transparent;
   border-color: transparent;
   color: #ba212b;
+  padding: 5px;
+  cursor: pointer;
 }
