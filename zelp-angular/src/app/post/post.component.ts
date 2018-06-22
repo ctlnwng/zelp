@@ -54,7 +54,12 @@ export class PostComponent implements OnInit {
   loadResponses() {
     this.responseService
       .findResponseByPostId(this.postId)
-      .then(responses => (this.responses = responses));
+      .then(responses => (this.responses = responses))
+      .then(() => this.responses.sort((a, b) => {
+        if (a.voteCounts < b.voteCounts) return 1;
+        else if (a.voteCounts > b.voteCounts) return -1;
+        else return 0;}
+      ));
   }
 
   deletePost() {
