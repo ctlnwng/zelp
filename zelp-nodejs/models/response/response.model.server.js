@@ -23,12 +23,45 @@ function deleteResponse(responseId, userId) {
     return responseModel.findOneAndRemove({_id: responseId, userId: userId});
 }
 
+function decrementVotes(responseId, amt) {
+    return responseModel.update({
+        _id: responseId
+    }, {
+        $inc: {voteCounts: -amt}
+    });
+}
+
+function incrementVotes(responseId, amt) {
+    return responseModel.update({
+        _id: responseId
+    }, {
+        $inc: {voteCounts: +amt}
+    });
+}
+
+function findUserVote(responseId, userId) {
+    return responseModel.find({_id: responseId, "votes.userId": userId},{_id: responseId, votes: {$elemMatch: {userId: userId}}});
+}
+
+function addVote(rid, vote) {
+    return responseModel.findOneAndUpdate({ _id: rid }, {$push: {votes: vote}}, {new: true});
+}
+
+function updateVote(rid, userId, vote) {
+    return responseModel.findOneAndUpdate({_id: rid, "votes.userId": userId}, {$set: {"votes.$.voteType": vote.voteType}}, {new: true});
+}
+
 var api = {
     createResponse: createResponse,
     findAllResponses: findAllResponses,
     findResponseById: findResponseById,
     findResponsesByPostId: findResponsesByPostId,
-    deleteResponse: deleteResponse
+    deleteResponse: deleteResponse,
+    decrementVotes: decrementVotes,
+    incrementVotes: incrementVotes,
+    findUserVote: findUserVote,
+    addVote: addVote,
+    updateVote: updateVote
 };
 
 module.exports = api;

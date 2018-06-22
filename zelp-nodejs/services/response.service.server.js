@@ -3,6 +3,7 @@ module.exports = function(app) {
     app.get("/api/response/:rid", findResponseById);
     app.get("/api/post/:pid/response", findResponseByPostId);
     app.post("/api/post/:pid/response", createResponse);
+    app.post("/api/response/:rid/vote", voteResponse);
     app.delete("/api/response/:rid", deleteResponse);
 
     var responseModel = require("../models/response/response.model.server");
@@ -59,5 +60,59 @@ module.exports = function(app) {
                 responses => res.json(responses),
                 err => res.status(400).send(err)
             );
+    }
+
+    function voteResponse(req, res) {
+        var rid = req.params["rid"];
+        var userId = req.session["currentUser"]._id;
+
+        var voteData = req.body
+        var voteType = voteData.voteType;
+
+        var newVote = {
+            ...voteData,
+            userId: userId
+
+        }
+
+        responseModel.findUserVote(rid, userId)
+            .then(responses => {
+                // already voted before
+                if(responses.length > 0) {
+                    let savedVotedType = responses[0].votes[0].voteType;
+
+                    if(voteType === savedVotedType) {
+                        // same result
+                        res.json({conflict: true})
+                    } else {
+                        if(voteType === 1) {
+                            responseModel.incrementVotes(rid, 2)
+                                .then(() => responseModel.updateVote(rid, userId, newVote))
+                                .then(resp => res.json(resp));
+                        } else if (voteType === 0) {
+                            responseModel.decrementVotes(rid, 2)
+                                .then(() => responseModel.updateVote(rid, userId, newVote))
+                                .then(resp => res.json(resp));
+                        } else {
+                            // most likely unreachable
+                            res.sendStatus(404);
+                        }
+                    }
+                } else {
+                    // first time voting for the response
+                    if(voteType === 1) {
+                        responseModel.incrementVotes(rid, 1)
+                            .then(() => responseModel.addVote(rid, newVote))
+                            .then(resp => res.json(resp))
+                    } else if (voteType === 0) {
+                        responseModel.decrementVotes(rid, 1)
+                            .then(() => responseModel.addVote(rid, newVote))
+                            .then(resp => res.json(resp))
+                    } else {
+                        res.sendStatus(404);
+                    }
+                }
+            })
+
     }
 };
