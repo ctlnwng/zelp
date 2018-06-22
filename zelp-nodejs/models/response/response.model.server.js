@@ -23,12 +23,40 @@ function deleteResponse(responseId, userId) {
     return responseModel.findOneAndRemove({_id: responseId, userId: userId});
 }
 
+function decrementVotes(responseId) {
+    return responseModel.update({
+        _id: responseId
+    }, {
+        $inc: {voteCounts: -1}
+    });
+}
+
+function incrementVotes(responseId) {
+    return responseModel.update({
+        _id: responseId
+    }, {
+        $inc: {voteCounts: +1}
+    });
+}
+
+function findUserVote(responseId, userId) {
+    return responseModel.find({_id: responseId, votes: [{userId: userId}]});
+}
+
+function addVote(rid, vote) {
+    return responseModel.findOneAndUpdate({ _id: rid }, {$push: {votes: vote}});
+}
+
 var api = {
     createResponse: createResponse,
     findAllResponses: findAllResponses,
     findResponseById: findResponseById,
     findResponsesByPostId: findResponsesByPostId,
-    deleteResponse: deleteResponse
+    deleteResponse: deleteResponse,
+    decrementVotes: decrementVotes,
+    incrementVotes: incrementVotes,
+    findUserVote: findUserVote,
+    addVote: addVote
 };
 
 module.exports = api;
