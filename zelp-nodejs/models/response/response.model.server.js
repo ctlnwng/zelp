@@ -20,7 +20,7 @@ function findResponsesByPostId(pid) {
 
 function deleteResponse(responseId, userId) {
     // FIXME filter out responses first (might not need if findOneAndRemove works
-    return responseModel.findOneAndRemove({_id: responseId, userId: userId});
+    return responseModel.deleteOne({_id: responseId, userId: userId});
 }
 
 function decrementVotes(responseId, amt) {

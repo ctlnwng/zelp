@@ -24,7 +24,6 @@ import { NavComponent } from './nav/nav.component';
 import { RestaurantComponent } from './restaurant/restaurant.component';
 import {RestaurantServiceClient} from './services/restaurant.service.client';
 import {ResponseServiceClient} from './services/response.service.client';
-import { ResponseComponent } from './response/response.component';
 import { SearchResultComponent } from './search-result/search-result.component';
 import {DataServiceClient} from './services/data.service.client';
 import {LoggedinServiceClient} from './services/loggedin.service.client';
@@ -46,7 +45,6 @@ import { ResponseListItemComponent } from "./response-list-item/response-list-it
     NewResponseComponent,
     NavComponent,
     RestaurantComponent,
-    ResponseComponent,
     SearchResultComponent,
     PostListItemComponent,
     ResponseListItemComponent

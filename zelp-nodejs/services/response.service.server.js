@@ -48,16 +48,12 @@ module.exports = function(app) {
     function deleteResponse(req, res) {
         var rid = req.params["rid"];
 
-        // FIXME make it work
         responseModel
             .deleteResponse(rid, req.session["currentUser"]._id)
-            // After deleting, return all the responses.
             .then(
-                response => responseModel.findAllResponses(),
-                err => res.status(400).send(err)
-            )
-            .then(
-                responses => res.json(responses),
+                responses => {
+                    if(responses.n > 0) {res.json({conflict: false})}
+                    else {res.json({conflict: true})}},
                 err => res.status(400).send(err)
             );
     }

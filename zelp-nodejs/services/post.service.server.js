@@ -8,6 +8,9 @@ module.exports = function(app) {
 
     var postModel = require("../models/post/post.model.server");
 
+    var responseModel = require("../models/response/response.model.server");
+    var favoriteModel = require("../models/user/favorite/favorite.model.server");
+
     function findPostWithInput(req, res){
         var input = req.params["input"];
         postModel.findPostWithInput(input).then(function(posts) {
@@ -48,11 +51,6 @@ module.exports = function(app) {
         postModel
             .deletePost(pid, req.session["currentUser"]._id)
             // After deleting, return all the responses.
-            .then(
-                post => postModel.findAllPosts(),
-                err => res.status(400).send(err)
-            )
-            // Reloading the entire post page after deleting.
             .then(
                 posts => res.json(posts),
                 err => res.status(400).send(err)
