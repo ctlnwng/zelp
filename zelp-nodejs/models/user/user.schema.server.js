@@ -5,9 +5,12 @@ var userSchema = mongoose.Schema(
     password: String,
     firstName: String,
     lastName: String,
-    email: String
+    email: String,
+    google: {
+      id: String,
+      token: String
+    }
   },
   { collection: "user" }
 );
 module.exports = userSchema;
-

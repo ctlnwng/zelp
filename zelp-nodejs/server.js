@@ -1,14 +1,14 @@
 var express = require("express");
 var bodyParser = require("body-parser");
 const mongoose = require("mongoose");
+var passport = require("passport");
 
-require('dotenv').config({path: './.env'})
+require("dotenv").config({ path: "./.env" });
 
 const CONNECTION_URI =
   process.env.MONGODB_URI || "mongodb://localhost/webdev-summer1-2018";
 
 mongoose.connect(CONNECTION_URI);
-
 
 var app = express();
 const PORT = process.env.PORT || 4000;
@@ -40,6 +40,9 @@ app.use(
   })
 );
 
+app.use(passport.initialize());
+app.use(passport.session());
+
 app.get("/", function(req, res) {
   res.send("Hello World");
 });
@@ -51,10 +54,6 @@ app.get("/message/:theMessage", function(req, res) {
 
 app.get("/api/session/set/:name/:value", setSession);
 app.get("/api/session/get/:name", getSession);
-// app.get('/api/session/get',
-//   getSessionAll);
-// app.get('/api/session/reset',
-//   resetSession);
 
 function setSession(req, res) {
   var name = req.params["name"];
@@ -71,15 +70,13 @@ function getSession(req, res) {
 
 var userService = require("./services/user.service.server");
 userService(app);
-var responseService = require("./services/response.service.server")
+var responseService = require("./services/response.service.server");
 responseService(app);
-var postService = require("./services/post.service.server")
+var postService = require("./services/post.service.server");
 postService(app);
-var restaurantService = require("./services/restaurant.service.server")
+var restaurantService = require("./services/restaurant.service.server");
 restaurantService(app);
-
-var yelpService = require("./services/yelp.service.server")
+var yelpService = require("./services/yelp.service.server");
 yelpService(app);
-
 
 app.listen(PORT);

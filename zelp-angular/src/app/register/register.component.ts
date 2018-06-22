@@ -58,6 +58,10 @@ export class RegisterComponent implements OnInit {
     });
   }
 
+  onSignIn() {
+    this.service.signInWithGoogle().then(() => console.log("signed in."));
+  }
+
   success() {
     this.router
       .navigate(["login"])

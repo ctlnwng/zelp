@@ -40,6 +40,8 @@
     <button (click)="register(form.username.value, form.password.value, form.verifyPassword.value)" class="btn btn-primary btn-block col-md-2 col-sm-3">
       Register
     </button>
+
+    <div class="g-signin2" (click)="onSignIn()"></div>
   </form>
 
   <div style="margin-top: 20px">

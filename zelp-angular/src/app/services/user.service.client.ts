@@ -11,8 +11,8 @@ export class UserServiceClient {
       credentials: "include" // include, same-origin, *omit
     }).then(function(response) {
       return response.text().then(function(text) {
-        return text ? JSON.parse(text) : {}
-      })
+        return text ? JSON.parse(text) : {};
+      });
     });
   }
 
@@ -70,5 +70,9 @@ export class UserServiceClient {
         "content-type": "application/json"
       }
     });
+  }
+
+  signInWithGoogle() {
+    return fetch(API_URL + "auth/google").then(response => response.json());
   }
 }

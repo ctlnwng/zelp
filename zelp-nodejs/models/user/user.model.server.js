@@ -29,12 +29,21 @@ function updateUser(userId, newUser) {
   return userModel.findByIdAndUpdate(userId, newUser);
 }
 
+// GOOGLE
+
+function findUserByGoogleId(googleId) {
+  return userModel.findOne({ "google.id": googleId });
+}
+
+// EXPORT
+
 var api = {
   createUser: createUser,
   findAllUsers: findAllUsers,
   findUserById: findUserById,
   findUserByCredentials: findUserByCredentials,
-  updateUser: updateUser
+  updateUser: updateUser,
+  findUserByGoogleId: findUserByGoogleId
 };
 
 module.exports = api;
