@@ -6,9 +6,7 @@
       <!-- <button (click)="deletePost()" class="btn btn-danger btn-block col-1 float-right delete-btn">
         <i class="fa fa-trash"></i>
       </button> -->
-      <button *ngIf="loggedIn" class="btn btn-block col-1 float-right">
-        <i (click)="prod()" class={{isFavorite()}}></i>
-      </button>
+        <i *ngIf="loggedIn" class="btn btn-block col-1 float-right" (click)="prod()" class={{isFavorite()}}></i>
 
     </div>
 
