@@ -15,7 +15,7 @@ import {LoggedinServiceClient} from '../services/loggedin.service.client';
 })
 export class NavComponent implements OnInit {
   searchForm: FormGroup;
-  loggedIn = false;
+  loggedIn: boolean;
   submitted = false;
   posts: Post[] = [];
 
@@ -37,13 +37,13 @@ export class NavComponent implements OnInit {
   search(input) {
     this.submitted = true;
 
-    this.data.changeTitle(input);
-
     if (this.searchForm.invalid) {
       this.alertService.error("Please provide the value to search.", false);
       this.submitted = false;
       return;
     }
+
+    this.data.changeTitle(input);
 
     this.searchService.getPosts(input)
       .then(response => this.posts = response)

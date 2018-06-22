@@ -18,7 +18,7 @@ export class HomePageComponent implements OnInit {
 
 
   posts: Post[] = [];
-  loggedIn = false;
+  loggedIn: boolean;
   authorUsername: String;
 
 

@@ -32,7 +32,7 @@ export class PostComponent implements OnInit {
   postId: Number;
   responses: Response[] = [];
 
-  loggedIn:boolean;
+  loggedIn: boolean;
 
   loadPost(postId) {
     this.postService.findPostById(postId).then(post => {
