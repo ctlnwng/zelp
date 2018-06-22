@@ -1,14 +1,15 @@
-<!--believe in your amazing css skill Caitlin!-->
-<button class="btn my-2 my-sm-0" (click)="vote(1)"><i class="fa fa-caret-up"></i></button>
-{{response.voteCounts}}
-<button class="btn my-2 my-sm-0" (click)="vote(0)"><i class="fa fa-caret-down"></i></button>
-
 <button class="btn btn-danger my-2 my-sm-0 float-right" (click)="delete()">
-  <i class="fa fa-times"></i>
+  <i class="fa fa-times fa-lg"></i>
 </button>
-<!-----------------------------!-->
+
 
 <div class="row">
+  <div class="col-1 vote">
+    <i (click)="vote(1)" class="fa fa-caret-up fa-2x row arrow"></i>
+    <div>{{response.voteCounts}}</div>
+    <i (click)="vote(0)" class="fa fa-caret-down fa-2x row arrow"></i>
+  </div>
+
   <div class="col-3">
     <img src={{response.restaurantImageURL}} alt="Food Picture" width="100%" />
   </div>
