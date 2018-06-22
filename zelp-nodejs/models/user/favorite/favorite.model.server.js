@@ -17,12 +17,11 @@ function unFavorite(fid) {
     return favoriteModel.remove({_id: fid});
 }
 
-function findFavoriteForUser(userId) {
-    console.log(userId)
+function findPostsForUser(userId) {
     return favoriteModel
         .find({userId: userId})
-        // .populate('post')
-        // .exec();
+        .populate('post')
+        .exec();
 }
 
 function findFavorite(favorite) {
@@ -38,7 +37,7 @@ module.exports = {
     createFavorite: createFavorite,
     unFavorite: unFavorite,
     findFavorite: findFavorite,
-    findFavoriteForUser: findFavoriteForUser,
+    findPostsForUser: findPostsForUser,
     findFavoriteById: findFavoriteById,
     deleteFavoriteByPost: deleteFavoriteByPost
 };

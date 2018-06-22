@@ -1,6 +1,6 @@
 module.exports = function(app) {
-    app.get('/api/user/favorite', findResponsesForUser);
-    app.post('/api/user/:postId/favorite', favoriteResponse);
+    app.get('/api/users/favorite', findPostsForUser);
+    app.post('/api/users/:postId/favorite', favoriteResponse);
 
     var favoriteModel = require('../models/user/favorite/favorite.model.server');
 
@@ -8,6 +8,7 @@ module.exports = function(app) {
 
     function favoriteResponse(req, res) {
         var currentUser = req.session['currentUser'];
+        console.log(currentUser)
 
         var userId = currentUser._id;
         var postId = req.params['postId'];
@@ -33,19 +34,20 @@ module.exports = function(app) {
             })
     }
 
-    function findResponsesForUser(req, res) {
+    function findPostsForUser(req, res) {
         var currentUser = req.session['currentUser'];
+        console.log(currentUser);
 
         if (currentUser === undefined) {
             res.sendStatus(404);
         }
         else {
             var userId = currentUser._id;
-            favoriteModel.findFavoriteForUser(userId)
+            favoriteModel.findPostsForUser(userId)
                 .then((favorites) => {
                     res.json(favorites);
-                })
+                },
+                    err => console.log(err))
         }
-
     }
 };
