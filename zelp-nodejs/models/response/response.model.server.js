@@ -44,11 +44,11 @@ function findUserVote(responseId, userId) {
 }
 
 function addVote(rid, vote) {
-    return responseModel.findOneAndUpdate({ _id: rid }, {$push: {votes: vote}});
+    return responseModel.findOneAndUpdate({ _id: rid }, {$push: {votes: vote}}, {new: true});
 }
 
 function updateVote(rid, userId, vote) {
-    return responseModel.update({_id: rid, "votes.userId": userId}, {$set: {"votes.voteType": vote.voteType}});
+    return responseModel.findOneAndUpdate({_id: rid, "votes.userId": userId}, {$set: {"votes.$.voteType": vote.voteType}}, {new: true});
 }
 
 var api = {

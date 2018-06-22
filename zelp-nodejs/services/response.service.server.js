@@ -83,16 +83,19 @@ module.exports = function(app) {
 
                     if(voteType === savedVotedType) {
                         // same result
-                        res.send(409)
+                        res.json({conflict: true})
                     } else {
                         if(voteType === 1) {
                             responseModel.incrementVotes(rid, 2)
-                                .then(() => responseModel.updateVote(rid, userId, newVote));
+                                .then(() => responseModel.updateVote(rid, userId, newVote))
+                                .then(resp => res.json(resp));
                         } else if (voteType === 0) {
                             responseModel.decrementVotes(rid, 2)
-                                .then(() => responseModel.updateVote(rid, userId, newVote));
+                                .then(() => responseModel.updateVote(rid, userId, newVote))
+                                .then(resp => res.json(resp));
                         } else {
-                            res.send(404);
+                            // most likely unreachable
+                            res.sendStatus(404);
                         }
                     }
                 } else {
@@ -106,7 +109,7 @@ module.exports = function(app) {
                             .then(() => responseModel.addVote(rid, newVote))
                             .then(resp => res.json(resp))
                     } else {
-                        res.send(404);
+                        res.sendStatus(404);
                     }
                 }
             })
