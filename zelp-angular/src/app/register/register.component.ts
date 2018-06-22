@@ -13,6 +13,7 @@ import { AlertServiceClient } from "../services/alert.service.client";
 export class RegisterComponent implements OnInit {
   registerForm: FormGroup;
   submitted = false;
+  role = "";
 
   constructor(
     private formBuilder: FormBuilder,
@@ -31,6 +32,11 @@ export class RegisterComponent implements OnInit {
       return;
     }
 
+    if (this.role == "") {
+      this.alertService.error("Please select a role.");
+      return;
+    }
+
     // Stop if there exists invalid form
     if (this.registerForm.invalid) {
       return;
@@ -38,11 +44,16 @@ export class RegisterComponent implements OnInit {
 
     // No invalid form so proceed
     this.service
-      .createUser(username, password)
+      .createUser(username, password, this.role)
       .then(
         data => this.success(),
         error => this.alertService.error(error, false)
       );
+  }
+
+  setRole(role) {
+    console.log(role);
+    this.role = role;
   }
 
   get form() {
