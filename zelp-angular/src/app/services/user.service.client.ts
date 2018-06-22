@@ -11,8 +11,8 @@ export class UserServiceClient {
       credentials: "include" // include, same-origin, *omit
     }).then(function(response) {
       return response.text().then(function(text) {
-        return text ? JSON.parse(text) : {}
-      })
+        return text ? JSON.parse(text) : {};
+      });
     });
   }
 
@@ -39,10 +39,11 @@ export class UserServiceClient {
     }).then(response => response.json());
   }
 
-  createUser(username, password) {
+  createUser(username, password, role) {
     const user = {
       username: username,
-      password: password
+      password: password,
+      role: role
     };
     return fetch(API_URL + "user", {
       body: JSON.stringify(user),
