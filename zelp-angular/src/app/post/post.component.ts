@@ -7,6 +7,7 @@ import { Response } from "../models/response.model.client";
 import { UserServiceClient } from "../services/user.service.client";
 import { ResponseServiceClient } from "../services/response.service.client";
 import {LoggedinServiceClient} from '../services/loggedin.service.client';
+import {DataServiceClient} from '../services/data.service.client';
 
 @Component({
   selector: "app-post",
@@ -22,14 +23,15 @@ export class PostComponent implements OnInit {
     private router: Router,
     private alertService: AlertServiceClient,
     private loggedInService: LoggedinServiceClient,
-    private route: ActivatedRoute
+    private route: ActivatedRoute,
+    private data: DataServiceClient
   ) {
     this.route.params.subscribe(params => this.loadPost(params["postId"]));
   }
 
   post: Post = new Post();
   authorUsername: String;
-  postId: Number;
+  postId: number;
   responses: Response[] = [];
 
   loggedIn: boolean;
@@ -42,7 +44,12 @@ export class PostComponent implements OnInit {
       this.userService
         .findUserById(post.author)
         .then(user => (this.authorUsername = user.username))
-        .then(() => this.loadResponses());
+        .then(() => this.loadResponses())
+        .then(() => {if(this.loggedIn) {
+          this.data.currentFavorites
+            .subscribe(favorites => {
+              this.favorite = favorites.has(this.postId)})
+        }});
     });
   }
 
@@ -66,7 +73,10 @@ export class PostComponent implements OnInit {
   prod() {
     // FIXME instead of having those in post-service.
     this.postService.addToFavorite(this.postId)
-      .then(() => this.favorite = !this.favorite);
+      .then(() => this.favorite = !this.favorite)
+      .then(() => {
+        if(this.favorite) {this.alertService.success('Added to favorite!', false)}
+      else{this.alertService.success('Removed from favorite!', false)}});
   }
 
   isFavorite() {
@@ -83,6 +93,5 @@ export class PostComponent implements OnInit {
 
   ngOnInit() {
     this.loggedInService.currentMessage.subscribe(loggedIn => this.loggedIn = loggedIn);
-    //FIXME initializing favorites
   }
 }

@@ -11,6 +11,9 @@ export class DataServiceClient {
   private titleSource = new BehaviorSubject<string>('');
   currentTitle = this.titleSource.asObservable();
 
+  private favoriteSource = new BehaviorSubject<Set<number>>(null);
+  currentFavorites = this.favoriteSource.asObservable();
+
   constructor() {}
 
   changeMessage(message: Post[]) {
@@ -21,5 +24,7 @@ export class DataServiceClient {
     this.titleSource.next(message);
   }
 
-
+  changeFavoritePosts(message: Set<number>) {
+    this.favoriteSource.next(message);
+  }
 }

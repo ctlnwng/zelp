@@ -43,7 +43,6 @@ module.exports = function(app) {
             var userId = currentUser._id;
             favoriteModel.findPostsForUser(userId)
                 .then((favorites) => {
-                    console.log(favorites)
                     res.json(favorites);
                 })
         }
