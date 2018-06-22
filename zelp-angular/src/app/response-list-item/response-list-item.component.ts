@@ -2,6 +2,7 @@ import { Component, OnInit, Input } from "@angular/core";
 import { UserServiceClient } from "../services/user.service.client";
 import { Response } from "../models/response.model.client";
 import {ResponseServiceClient} from '../services/response.service.client';
+import {AlertServiceClient} from '../services/alert.service.client';
 
 @Component({
   selector: "app-response-list-item",
@@ -14,10 +15,19 @@ export class ResponseListItemComponent implements OnInit {
   authorUsername: String;
 
   constructor(private userService: UserServiceClient,
-              private responseService: ResponseServiceClient) {}
+              private responseService: ResponseServiceClient,
+              private alertService: AlertServiceClient) {}
 
   vote(type) {
-    this.responseService.vote(type, this.response._id).then(response => {this.response = response});
+    this.responseService.vote(type, this.response._id).then(response => {
+      if(response.conflict) {
+        this.alertService.error("You've already voted (You could still change your vote)", false);
+      } else if (response.status === 404) {
+        this.alertService.error("Invalid Credentials", false);
+      } else {
+        this.response = response
+      }
+    });
   }
 
   ngOnInit() {

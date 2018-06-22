@@ -1,3 +1,5 @@
+import {AlertServiceClient} from './alert.service.client';
+
 const API_URL = "http://localhost:4000/api/";
 // const API_URL = "https://cs4550-zelp-nodejs.herokuapp.com/api/";
 
@@ -30,7 +32,12 @@ export class ResponseServiceClient {
       headers: {
         "content-type": "application/json"
       }
-    }).then(response => response.json());
+    }).then(response => {
+      if(response.status === 409) {
+
+      }
+      response.json()
+    });
   }
 
   vote(type, rid) {
