@@ -44,7 +44,7 @@ export class ResponseServiceClient {
     return fetch(API_URL + 'response/' + rid, {
       method: 'delete',
       credentials: 'include'
-    });
+    }).then(response => response.json())
   }
 
   vote(type, rid) {

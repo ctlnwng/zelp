@@ -47,11 +47,13 @@ module.exports = function(app) {
 
     function deleteResponse(req, res) {
         var rid = req.params["rid"];
-        
+
         responseModel
             .deleteResponse(rid, req.session["currentUser"]._id)
             .then(
-                responses => res.json(responses),
+                responses => {
+                    if(responses.n > 0) {res.json({conflict: false})}
+                    else {res.json({conflict: true})}},
                 err => res.status(400).send(err)
             );
     }
