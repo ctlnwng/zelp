@@ -13,6 +13,7 @@ import {LoggedinServiceClient} from '../services/loggedin.service.client';
 export class LoginComponent implements OnInit {
   loginForm: FormGroup;
   submitted = false;
+  role: string;
 
   login(username, password) {
     this.submitted = true;
@@ -36,11 +37,15 @@ export class LoginComponent implements OnInit {
 
   success(data) {
     if (data != null) {
+      this.loggedInService.changeUserType(data.role);
+
       this.router
         .navigate(["profile"])
         .then(() => this.alertService.success("Login successful!", false));
       this.loggedInService.changeMessage(true);
+      localStorage.setItem('userRole', data.role);
       localStorage.setItem('loggedIn', 'true');
+
     } else {
       this.alertService.error(
         "Invalid username and password combination.",

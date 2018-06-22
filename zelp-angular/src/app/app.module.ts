@@ -29,6 +29,7 @@ import {DataServiceClient} from './services/data.service.client';
 import {LoggedinServiceClient} from './services/loggedin.service.client';
 import { PostListItemComponent } from "./post-list-item/post-list-item.component";
 import { ResponseListItemComponent } from "./response-list-item/response-list-item.component";
+import { AdminViewComponent } from './admin-view/admin-view.component';
 
 
 @NgModule({
@@ -47,7 +48,8 @@ import { ResponseListItemComponent } from "./response-list-item/response-list-it
     RestaurantComponent,
     SearchResultComponent,
     PostListItemComponent,
-    ResponseListItemComponent
+    ResponseListItemComponent,
+    AdminViewComponent
   ],
   imports: [
     BrowserModule,
