@@ -26,6 +26,7 @@ export class ResponseListItemComponent implements OnInit {
         this.alertService.error("Invalid Credentials", false);
       } else {
         this.response = response
+        this.alertService.success("Vote successful", false);
       }
     });
   }
