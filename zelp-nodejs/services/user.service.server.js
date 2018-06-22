@@ -2,14 +2,14 @@ var passport = require("passport");
 var GoogleStrategy = require("passport-google-oauth").OAuth2Strategy;
 
 module.exports = function(app) {
-  var auth = authorized;
-  app.get("/api/user", auth, findAllUsers);
+  // var auth = authorized;
+  app.get("/api/user", findAllUsers);
   app.get("/api/user/:userId", findUserById);
-  app.post("/api/user", auth, createUser);
+  app.post("/api/user", createUser);
   app.get("/api/profile", profile);
   app.post("/api/logout", logout);
   app.post("/api/login", login);
-  app.put("/api/user/:userId", auth, updateUser);
+  app.put("/api/user/:userId", updateUser);
 
   var userModel = require("../models/user/user.model.server");
 
@@ -149,11 +149,11 @@ module.exports = function(app) {
     );
   }
 
-  function authorized(req, res, next) {
-    if (!req.isAuthenticated()) {
-      res.sendStatus(401);
-    } else {
-      next();
-    }
-  }
+  //   function authorized(req, res, next) {
+  //     if (!req.isAuthenticated()) {
+  //       res.sendStatus(401);
+  //     } else {
+  //       next();
+  //     }
+  //   }
 };
