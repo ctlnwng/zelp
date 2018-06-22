@@ -9,9 +9,9 @@
   <div class="collapse navbar-collapse" id="navbarSupportedContent">
     <ul class="navbar-nav mr-auto">
       <form [formGroup]="searchForm" class="form-inline my-2 my-lg-0">
-        <input formControlName="search" class="form-control mr-sm-2" type="search" placeholder="Search all posts" aria-label="Search"
-               [ngClass]="{ 'is-invalid': submitted && form.search.errors }" >
-        <button (click) = "search(form.search.value)" id="search-posts-btn" class="btn my-2 my-sm-0" type="submit">
+        <input formControlName="search" style="border-color: transparent;" class="form-control mr-sm-2" type="search" placeholder="Search all posts"
+          aria-label="Search" [ngClass]="{ 'is-invalid': submitted && form.search.errors }">
+        <button (click)="search(form.search.value)" id="search-posts-btn" class="btn my-2 my-sm-0" type="submit">
           <i class="fa fa-search"></i>
         </button>
       </form>
