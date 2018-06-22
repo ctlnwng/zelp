@@ -6,12 +6,10 @@
       <!-- <button (click)="deletePost()" class="btn btn-danger btn-block col-1 float-right delete-btn">
         <i class="fa fa-trash"></i>
       </button> -->
-      <button *ngIf="favorite" class="btn btn-block col-1 float-right">
-        <i (click)="prod()" class="fa fa-star"></i>
+      <button *ngIf="loggedIn" class="btn btn-block col-1 float-right">
+        <i (click)="prod()" class={{isFavorite()}}></i>
       </button>
-      <button *ngIf="!favorite" class="btn btn-block col-1 float-right">
-        <i (click)="prod()" class="fa fa-star outline"></i>
-      </button>
+
     </div>
 
     <p>Posted by

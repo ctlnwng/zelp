@@ -64,8 +64,17 @@ export class PostComponent implements OnInit {
   }
 
   prod() {
-    // needs huge change
-    this.favorite = !this.favorite;
+    // FIXME instead of having those in post-service.
+    this.postService.addToFavorite(this.postId)
+      .then(() => this.favorite = !this.favorite);
+  }
+
+  isFavorite() {
+    if (this.favorite) {
+      return "fa fa-star";
+    } else {
+      return "fa fa-star outline";
+    }
   }
 
   deletePost() {
@@ -74,5 +83,6 @@ export class PostComponent implements OnInit {
 
   ngOnInit() {
     this.loggedInService.currentMessage.subscribe(loggedIn => this.loggedIn = loggedIn);
+    //FIXME initializing favorites
   }
 }

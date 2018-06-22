@@ -18,10 +18,11 @@ function unFavorite(fid) {
 }
 
 function findFavoriteForUser(userId) {
+    console.log(userId)
     return favoriteModel
         .find({userId: userId})
-        .populate('post')
-        .exec();
+        // .populate('post')
+        // .exec();
 }
 
 function findFavorite(favorite) {

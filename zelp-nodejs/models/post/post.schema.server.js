@@ -11,6 +11,7 @@ var postSchema = mongoose.Schema(
             type: mongoose.Schema.Types.ObjectId,
             ref: 'ResponseModel'
         }]
-    }
+    },
+    { collection: "post" }
 )
 module.exports = postSchema;

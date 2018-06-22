@@ -16,6 +16,20 @@
   <br/>
   <br/>
 
+  <!--<Believe in your css and margin skill Caitlin!>-->
+  <div *ngIf="loggedIn">
+  <h3 class="title">Favorites</h3>
+    <br/>
+    <ul class="list-group">
+      <li *ngFor="let favoirte of favorites" class="list-group-item">
+        <h5>
+          <a routerLink="/post/{{favoirte.post}}/new-response">{{favorite._id}}</a>
+        </h5>
+      </li>
+    </ul>
+  </div>
+  <!--<=============================================>-->
+
   <h3 class="title">Recent posts</h3>
   <br/>
   <ul class="list-group">

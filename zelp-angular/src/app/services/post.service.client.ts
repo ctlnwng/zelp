@@ -28,6 +28,21 @@ export class PostServiceClient {
   deletePost(postId) {
     return fetch(API_URL + "post/" + postId, {
       method: "delete"
-    }).then(response => alert("Post deleted"));
+    }).then(response => response.json());
+  }
+
+  //TODO move the functions below to favorite service
+  addToFavorite(postId) {
+    return fetch(API_URL + 'user/' + postId + '/favorite',{
+      method: 'post',
+      credentials: 'include'
+    });
+  }
+
+  findPostsForUser() {
+    return fetch(API_URL + 'user/favorite',{
+        credentials: 'include'
+      }).then(response => response.text())
+      .then((text) => {text ? JSON.parse(text) : {}})
   }
 }
