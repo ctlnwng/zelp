@@ -6,6 +6,10 @@
       <!-- <button (click)="deletePost()" class="btn btn-danger btn-block col-1 float-right delete-btn">
         <i class="fa fa-trash"></i>
       </button> -->
+      <button *ngIf="loggedIn" class="btn btn-block col-1 float-right">
+        <i (click)="prod()" class={{isFavorite()}}></i>
+      </button>
+
     </div>
 
     <p>Posted by
@@ -37,7 +41,7 @@
 
   <ul class="list-group">
     <li *ngFor="let response of responses" class="list-group-item">
-      <app-response-list-item [response]=response></app-response-list-item>
+      <app-response-list-item [response]=response [loggedIn]="loggedIn"></app-response-list-item>
     </li>
 
   </ul>

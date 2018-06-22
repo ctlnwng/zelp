@@ -81,5 +81,7 @@ restaurantService(app);
 var yelpService = require("./services/yelp.service.server")
 yelpService(app);
 
+var favoriteService = require("./services/favorite.service.server")
+favoriteService(app);
 
 app.listen(PORT);

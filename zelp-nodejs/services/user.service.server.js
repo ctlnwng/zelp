@@ -47,7 +47,7 @@ module.exports = function(app) {
         });
     }
 
-    function updateUser(req, res) {
+    function updateUser(req, res) {s
         var userId = req.params["userId"];
         var user = req.body;
         var newUser = {
