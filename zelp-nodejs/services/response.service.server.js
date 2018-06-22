@@ -3,7 +3,7 @@ module.exports = function(app) {
     app.get("/api/response/:rid", findResponseById);
     app.get("/api/post/:pid/response", findResponseByPostId);
     app.post("/api/post/:pid/response", createResponse);
-    app.post("/api/response/:rid/vote/:type", voteResponse);
+    app.post("/api/response/:rid/vote", voteResponse);
     app.delete("/api/response/:rid", deleteResponse);
 
     var responseModel = require("../models/response/response.model.server");
@@ -64,24 +64,33 @@ module.exports = function(app) {
 
     function voteResponse(req, res) {
         var rid = req.params["rid"];
-        var voteType = req.params["type"];
-        var voting = req.body
+        var userId = req.session["currentUser"]._id;
 
-        responseModel.findUserVote(rid, req.session["currentUser"]._id)
+        var voteData = req.body
+        var voteType = voteData.voteType;
+
+        var newVote = {
+            ...voteData,
+            userId: userId
+
+        }
+
+        responseModel.findUserVote(rid, userId)
             .then(responses => {
                 // already voted before
                 if(responses.length > 0) {
-                    let vote = responses[1].votes.type;
-                    if(voteType === vote) {
+                    let savedVotedType = responses[0].votes[0].voteType;
+
+                    if(voteType === savedVotedType) {
                         // same result
                         res.send(409)
                     } else {
-                        if(vote === 1) {
-                            responseModel.incrementVotes(rid)
-                                .then(() => console.log("gotta save"))
-                        } else if (vote === 0) {
-                            responseModel.incrementVotes(rid)
-                                .then(() => console.log("gotta save"))
+                        if(voteType === 1) {
+                            responseModel.incrementVotes(rid, 2)
+                                .then(() => responseModel.updateVote(rid, userId, newVote));
+                        } else if (voteType === 0) {
+                            responseModel.decrementVotes(rid, 2)
+                                .then(() => responseModel.updateVote(rid, userId, newVote));
                         } else {
                             res.send(404);
                         }
@@ -89,11 +98,13 @@ module.exports = function(app) {
                 } else {
                     // first time voting for the response
                     if(voteType === 1) {
-                        responseModel.incrementVotes()
-                            .then(() => console.log("gotta save"))
+                        responseModel.incrementVotes(rid, 1)
+                            .then(() => responseModel.addVote(rid, newVote))
+                            .then(resp => res.json(resp))
                     } else if (voteType === 0) {
-                        responseModel.incrementVotes()
-                            .then(() => console.log("gotta save"))
+                        responseModel.decrementVotes(rid, 1)
+                            .then(() => responseModel.addVote(rid, newVote))
+                            .then(resp => res.json(resp))
                     } else {
                         res.send(404);
                     }
