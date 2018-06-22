@@ -68,7 +68,9 @@ module.exports = function(app) {
 
   app.get(
     "/auth/google",
-    passport.authenticate("google", { scope: ["profile", "email"] })
+    passport.authenticate("google", {
+      scope: ["https://www.googleapis.com/auth/plus.login"]
+    })
   );
 
   app.get(
@@ -81,8 +83,8 @@ module.exports = function(app) {
 
   var googleConfig = {
     clientID:
-      "335507456677-9s5ij7sogfbgarsv87vmvslo63vad77n.apps.googleusercontent.com",
-    clientSecret: "cnTymLrJkmI0BtiFLWSwr9UF",
+      "335507456677-v1tfiindo6lbofmr455up0abkop848bi.apps.googleusercontent.com",
+    clientSecret: "iM-qrDG-KLxO-fCx8qz2x_Ee",
     callbackURL: "http://localhost:4000/auth/google/callback"
   };
 
@@ -91,42 +93,45 @@ module.exports = function(app) {
   passport.deserializeUser(deserializeUser);
 
   function googleStrategy(token, refreshToken, profile, done) {
-    userModel
-      .findUserByGoogleId(profile.id)
-      .then(
-        function(user) {
-          if (user) {
-            return done(null, user);
-          } else {
-            var newGoogleUser = {
-              lastName: profile.name.familyName,
-              firstName: profile.name.givenName,
-              email: profile.emails[0].value,
-              google: {
-                id: profile.id,
-                token: token
-              }
-            };
-            return userModel.createUser(newGoogleUser);
-          }
-        },
-        function(err) {
-          if (err) {
-            return done(err);
-          }
-        }
-      )
-      .then(
-        function(user) {
-          req.session["currentUser"] = user;
-          return done(null, user);
-        },
-        function(err) {
-          if (err) {
-            return done(err);
-          }
-        }
-      );
+    console.log(profile);
+    // userModel
+    //   .findUserByGoogleId(profile.id)
+    //   .then(
+    //     function(user) {
+    //       if (user) {
+    //         return done(null, user);
+    //       } else {
+    //         var newGoogleUser = {
+    //           lastName: profile.name.familyName,
+    //           firstName: profile.name.givenName,
+    //           email: profile.emails[0].value,
+    //           google: {
+    //             id: profile.id,
+    //             token: token
+    //           }
+    //         };
+    //         return userModel.createUser(newGoogleUser);
+    //       }
+    //     },
+    //     function(err) {
+    //       if (err) {
+    //         return done(err);
+    //       }
+    //     }
+    //   )
+    //   .then(
+    //     function(user) {
+    //       req.session["currentUser"] = user;
+    //       return done(null, user);
+    //     },
+    //     function(err) {
+    //       if (err) {
+    //         return done(err);
+    //       }
+    //     }
+    //   );
+
+    done(null, profile);
   }
 
   function serializeUser(user, done) {

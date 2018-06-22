@@ -73,6 +73,8 @@ export class UserServiceClient {
   }
 
   signInWithGoogle() {
-    return fetch(API_URL + "auth/google").then(response => response.json());
+    return fetch("http://localhost:4000/auth/google").then(response =>
+      response.json()
+    );
   }
 }
