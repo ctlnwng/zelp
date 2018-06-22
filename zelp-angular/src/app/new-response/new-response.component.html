@@ -4,18 +4,20 @@
   <app-search (messageEvent)="receiveMessage($event)"></app-search>
   <form [formGroup]="responseForm">
     <div class="form-group">
-      <label>Description</label>
+      <label>Description
+        <br/>
+        <span class="subtitle">Why do you recommend this restaurant?</span>
+      </label>
+
       <textarea type="description" rows="3" formControlName="description" class="form-control" [ngClass]="{ 'is-invalid': submitted && form.description.errors }">
     </textarea>
       <div *ngIf="submitted && form.description.errors" class="invalid-feedback">
-        <div *ngIf="form.description.errors.required">Please Enter Some Descriptions!</div>
+        <div *ngIf="form.description.errors.required">Please provide a description</div>
       </div>
     </div>
   </form>
 
-  <div class="row">
-    <button (click)="createResponse(form.description.value)" class="btn btn-primary btn-block col-md-2">
-      Create
-    </button>
-  </div>
+  <button (click)="createResponse(form.description.value)" class="btn btn-primary btn-block col-md-2">
+    Create
+  </button>
 </div>

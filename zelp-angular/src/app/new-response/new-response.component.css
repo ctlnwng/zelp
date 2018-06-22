@@ -5,3 +5,8 @@
 .form-group {
   margin-top: 15px;
 }
+
+.subtitle {
+  font-size: 12px;
+  font-style: italic;
+}
