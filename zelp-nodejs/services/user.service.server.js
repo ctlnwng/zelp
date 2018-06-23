@@ -8,6 +8,7 @@ module.exports = function(app) {
     app.put("/api/user/:userId", updateUser);
     // FIXME need to change later
     app.get("/api/admin/create", createAdmin);
+    app.delete("api/user/:userId", deleteUser);
 
     var userModel = require("../models/user/user.model.server");
 
@@ -57,12 +58,13 @@ module.exports = function(app) {
     }
 
     function findAllUsers(req, res) {
-        userModel.findAllUsers().then(function(users) {
-            res.send(users);
-        });
+        if(req.session["currentUser"].role !== "0") {
+            res.send(404);
+        }
+        userModel.findAllUsers().then(users =>res.send(users));
     }
 
-    function updateUser(req, res) {s
+    function updateUser(req, res) {
         var userId = req.params["userId"];
         var user = req.body;
         var newUser = {
@@ -73,5 +75,10 @@ module.exports = function(app) {
         userModel.updateUser(userId, newUser).then(function(user) {
             res.send(user);
         });
+    }
+
+    function deleteUser(req, res) {
+        var userId = req.params["userId"];
+        userModel.deleteUser(userId).then(response => res.send(response))
     }
 };

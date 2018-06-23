@@ -2,6 +2,13 @@ const API_URL = "http://localhost:4000/api/";
 // const API_URL = "https://cs4550-zelp-nodejs.herokuapp.com/api/";
 
 export class UserServiceClient {
+
+  findAllUsers() {
+    return fetch(API_URL + "user", {
+      credentials: "include" // include, same-origin, *omit
+    }).then(response => response.json());
+  }
+
   findUserById(userId) {
     return fetch(API_URL + "user/" + userId).then(response => response.json());
   }
@@ -71,5 +78,9 @@ export class UserServiceClient {
         "content-type": "application/json"
       }
     });
+  }
+
+  deleteUser(userId) {
+
   }
 }

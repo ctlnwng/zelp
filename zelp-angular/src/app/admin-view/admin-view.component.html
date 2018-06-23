@@ -1,3 +1,66 @@
-<p>
-  admin-view works!
-</p>
+<div class="container-fluid">
+  <h1>Admin Page</h1>
+  <div class="form-group">
+    <label>View</label>
+    <br/>
+    <select (change)="setView($event.target.value)">
+      <option disabled selected>Select View</option>
+      <option value="0">Users</option>
+      <option value="1">Posts</option>
+    </select>
+  </div>
+
+  <br/>
+  <div class="row">
+    <div *ngIf = "viewOption == 0" class="col-2">
+      <ul class="list-group">
+        <a class="list-group-item-success" style="text-align:center">
+          Users
+        </a>
+        <li class="list-group-item"
+            *ngFor="let user of users"
+            (click)="selectUser(user)"
+            [ngClass]="{'active' : user._id == userId}">
+          {{user.username}}
+        </li>
+      </ul>
+    </div>
+    <div *ngIf = "viewOption == 1" class="col-2">
+      <ul class="list-group">
+        <a class="list-group-item-success" style="text-align:center">
+          Posts
+        </a>
+        <li class="list-group-item"
+            *ngFor="let post of posts"
+            (click)="selectPost(post)"
+            [ngClass]="{'active' : post._id == postId}">
+          {{post.title}}
+        </li>
+      </ul>
+    </div>
+    <div *ngIf = "userView" class="col-8">
+      <h2>User Information</h2>
+      <table width="75%" class="table-bordered" style="text-align:center">
+        <tr>
+          <th>Username</th>
+          <th>First Name</th>
+          <th>Last Name</th>
+          <th>Email</th>
+          <th>Role</th>
+          <th></th>
+          <th></th>
+        </tr>
+        <tr>
+          <td>{{user.username}}</td>
+          <td>{{user.username}}</td>
+          <td>{{user.username}}</td>
+          <td>{{user.username}}</td>
+          <td>{{user.username}}</td>
+          <th><button (click)="check()" class="btn-info btn">Update</button></th>
+          <td><button (click)="check()" class="btn-danger btn">Delete</button></td>
+        </tr>
+      </table>
+    </div>
+
+  </div>
+</div>
