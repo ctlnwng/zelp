@@ -1,8 +1,8 @@
 import { Component, OnInit, Input } from "@angular/core";
 import { UserServiceClient } from "../services/user.service.client";
 import { Response } from "../models/response.model.client";
-import {ResponseServiceClient} from '../services/response.service.client';
-import {AlertServiceClient} from '../services/alert.service.client';
+import { ResponseServiceClient } from "../services/response.service.client";
+import { AlertServiceClient } from "../services/alert.service.client";
 
 @Component({
   selector: "app-response-list-item",
@@ -12,40 +12,51 @@ import {AlertServiceClient} from '../services/alert.service.client';
 export class ResponseListItemComponent implements OnInit {
   @Input() response: Response;
   @Input() loggedIn: boolean;
+  @Input() userRole: string;
 
   authorUsername: String;
 
-  constructor(private userService: UserServiceClient,
-              private responseService: ResponseServiceClient,
-              private alertService: AlertServiceClient) {}
+  constructor(
+    private userService: UserServiceClient,
+    private responseService: ResponseServiceClient,
+    private alertService: AlertServiceClient
+  ) {}
 
   vote(type) {
-    if(!this.loggedIn) {
+    if (!this.loggedIn) {
       this.alertService.error("You need to be logged in to vote", false);
       return;
     }
+
+    if (this.userRole == "2") {
+      this.alertService.error("You cannot vote as a restaurant owner", false);
+      return;
+    }
+
     this.responseService.vote(type, this.response._id).then(response => {
-      if(response.conflict) {
-        this.alertService.error("You've already voted (You could still change your vote)", false);
+      if (response.conflict) {
+        this.alertService.error(
+          "You've already voted (You could still change your vote)",
+          false
+        );
       } else if (response.status === 404) {
         this.alertService.error("Invalid Credentials", false);
       } else {
-        this.response = response
+        this.response = response;
         this.alertService.success("Vote successful", false);
       }
     });
   }
 
   delete() {
-    this.responseService.deleteResponse(this.response._id)
-      .then(response => {
-        if(response.conflict === true) {
-          this.alertService.error("This response wasn't made by you", false)
-        } else {
-          this.alertService.success("Response was deleted successfully", false)
-        }});
+    this.responseService.deleteResponse(this.response._id).then(response => {
+      if (response.conflict === true) {
+        this.alertService.error("This response wasn't made by you", false);
+      } else {
+        this.alertService.success("Response was deleted successfully", false);
+      }
+    });
   }
-
 
   ngOnInit() {
     this.userService
