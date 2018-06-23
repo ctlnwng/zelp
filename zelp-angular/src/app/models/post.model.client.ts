@@ -3,5 +3,6 @@ export class Post {
   author: string;
   title: string;
   description: string;
+  type: string;
   responses: string[];
 }

@@ -6,6 +6,8 @@ module.exports = function(app) {
     app.post("/api/logout", logout);
     app.post("/api/login", login);
     app.put("/api/user/:userId", updateUser);
+    // FIXME need to change later
+    app.get("/api/admin/create", createAdmin);
 
     var userModel = require("../models/user/user.model.server");
 
@@ -36,9 +38,22 @@ module.exports = function(app) {
     function createUser(req, res) {
         var user = req.body;
         userModel.createUser(user).then(function(user) {
-            req.session["currentUser"] = user;
             res.send(user);
         });
+    }
+
+    function createAdmin(req, res){
+        if( userModel.findUserByCredentials({username:"admin", password:"admin"}).length === 0) {
+            var user = {
+                username: "admin",
+                password: "admin",
+                role: "0"
+            }
+            userModel.createUser(user).then(function (user) {
+                res.send(user);
+            });
+        }
+        res.sendStatus(409);
     }
 
     function findAllUsers(req, res) {

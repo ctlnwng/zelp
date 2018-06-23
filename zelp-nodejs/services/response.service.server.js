@@ -47,8 +47,9 @@ module.exports = function(app) {
 
   function deleteResponse(req, res) {
     var rid = req.params["rid"];
+    var user = req.session["currentUser"]
 
-    responseModel.deleteResponse(rid, req.session["currentUser"]._id).then(
+    responseModel.deleteResponse(rid, user._id, user.role).then(
       responses => {
         if (responses.n > 0) {
           res.json({ conflict: false });
