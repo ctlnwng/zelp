@@ -12,32 +12,52 @@
 
   <br/>
   <div class="row">
+
     <div *ngIf = "viewOption == 0" class="col-2">
+      <div>
+        <select (change)="setUserRoleView($event.target.value)">
+          <option disabled selected>Select Role Type</option>
+          <option value="0">View All</option>
+          <option value="1">Regular Foodie</option>
+          <option value="2">Restaurant Owner</option>
+        </select>
+      </div>
       <ul class="list-group">
         <a class="list-group-item-success" style="text-align:center">
           Users
         </a>
         <li class="list-group-item"
-            *ngFor="let user of users"
+            *ngFor="let user of displayUser"
             (click)="selectUser(user)"
             [ngClass]="{'active' : user._id == userId}">
           {{user.username}}
         </li>
       </ul>
     </div>
+
     <div *ngIf = "viewOption == 1" class="col-2">
+      <div>
+      <select (change)="setPostTypeView($event.target.value)">
+        <option disabled selected>Select Post Type</option>
+        <option value="all">View All</option>
+        <option value="0">Regular Post</option>
+        <option value="1">Promotion</option>
+      </select>
+    </div>
+
       <ul class="list-group">
         <a class="list-group-item-success" style="text-align:center">
           Posts
         </a>
         <li class="list-group-item"
-            *ngFor="let post of posts"
+            *ngFor="let post of displayPost"
             (click)="selectPost(post)"
             [ngClass]="{'active' : post._id == postId}">
           {{post.title}}
         </li>
       </ul>
     </div>
+
     <div *ngIf = "userView" class="col-8">
       <h2>User Information</h2>
       <table width="75%" class="table-bordered" style="text-align:center">
@@ -52,15 +72,42 @@
         </tr>
         <tr>
           <td>{{user.username}}</td>
-          <td>{{user.username}}</td>
-          <td>{{user.username}}</td>
-          <td>{{user.username}}</td>
-          <td>{{user.username}}</td>
+          <td>{{user.firstName}}</td>
+          <td>{{user.lastName}}</td>
+          <td>{{user.email}}</td>
+          <td>{{role(user.role)}}</td>
           <th><button (click)="check()" class="btn-info btn">Update</button></th>
           <td><button (click)="check()" class="btn-danger btn">Delete</button></td>
         </tr>
       </table>
     </div>
+
+    <div *ngIf = "postView" class="col-8">
+      <h2>Post Information</h2>
+      <table width="75%" class="table-bordered" style="text-align:center">
+        <tr>
+          <th>Title</th>
+          <th>Author</th>
+          <th>Description</th>
+          <th *ngIf="post.type == 1">Restaurant Name</th>
+          <th>Post Type</th>
+          <th></th>
+        </tr>
+        <tr>
+          <td>{{post.title}}</td>
+          <td>{{username(post.author)}}</td>
+          <td>{{post.description}}</td>
+          <td *ngIf="post.type == 1">{{post.restaurantName}}</td>
+          <td>{{type(post.type)}}</td>
+          <td><button (click)="check()" class="btn-danger btn">Delete</button></td>
+        </tr>
+      </table>
+    </div>
+  </div>
+  <div>
+
+
+
 
   </div>
 </div>

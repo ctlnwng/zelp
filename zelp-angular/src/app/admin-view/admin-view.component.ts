@@ -15,10 +15,12 @@ export class AdminViewComponent implements OnInit {
   viewOption = -1;
 
   users = [];
+  displayUser = [];
   user;
   userId;
 
   posts = [];
+  displayPost = [];
   post;
   postId;
 
@@ -42,8 +44,11 @@ export class AdminViewComponent implements OnInit {
         .then(() => this.alertService.error("Access Denied: you ain't admin", false));
       return;
     }
-    this.userService.findAllUsers().then(users => this.users = users);
-    this.postService.findAllPosts().then(posts => this.posts = posts);
+    this.userService.findAllUsers().then(users => this.users = users)
+      .then(() => this.displayUser = this.users.filter(
+        user => user.role !== "0"));
+    this.postService.findAllPosts().then(posts => this.posts = posts)
+      .then(() => this.displayPost = this.posts);
   }
 
   selectUser(user) {
@@ -66,6 +71,56 @@ export class AdminViewComponent implements OnInit {
       this.postView = false;
       this.viewOption = val;
     }
+  }
+
+  setUserRoleView(val) {
+    if(val === "0") {
+      this.displayUser = this.users.filter(
+        user => user.role !== val);
+    } else {
+      this.displayUser = this.users.filter(
+        user => user.role === val)
+    }
+  }
+
+  setPostTypeView(val) {
+    if(val == "all") {
+      this.displayPost = this.posts;
+    } else {
+      this.displayPost = this.posts.filter(
+        post => post.type == val);
+    }
+  }
+
+  role(val) {
+    switch (val) {
+      case "0":
+        return  "Admin";
+      case "1":
+        return "Regular Foodie";
+      case "2":
+        return "Restaurant Owner";
+      default:
+        return "";
+    }
+  }
+
+  type(val) {
+    switch (val) {
+      case "0":
+        return "Regular Post";
+      case "1":
+        return "Promotion";
+      default:
+        return "";
+    }
+  }
+
+  username(userIdVal) {
+    let username;
+    let result = this.users.filter(user => user._id = userIdVal)
+    username = result[0].username;
+    return username;
   }
 
   check() {

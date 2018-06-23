@@ -4,5 +4,6 @@ export class Post {
   title: string;
   description: string;
   type: string;
+  restaurantName: string;
   responses: string[];
 }
