@@ -1,4 +1,8 @@
-<h5>
-  <a routerLink="/post/{{post._id}}/new-response">{{post.title}}</a>
-</h5>
+<div class="d-flex justify-content-between">
+  <h5>
+    <a routerLink="/post/{{post._id}}/new-response">{{post.title}}</a>
+  </h5>
+  <!-- <i *ngIf="post.type == '1'" class="fa fa-certificate fa-lg  float-right"></i> -->
+  <h5 *ngIf="post.type == '1'">🎉</h5>
+</div>
 posted by {{authorUsername}}

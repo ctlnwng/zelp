@@ -35,7 +35,7 @@ export class NewPostComponent implements OnInit {
     }
 
     this.service
-      .createPost(title, description)
+      .createPost(title, description, this.restaurant)
       .then(
         data => this.success(data),
         error => this.alertService.error(error, false)
