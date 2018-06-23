@@ -19,14 +19,13 @@
   margin-bottom: 20px;
 }
 
-.fa.fa-star.outline{
+.fa.fa-star.outline {
   color: transparent;
 }
 
-.fa.fa-star{
+.fa.fa-star {
   -webkit-text-stroke-width: 2px;
-  -webkit-text-stroke-color: gold;
+  -webkit-text-stroke-color: #ffe732;
   font-size: 50px;
-  color: gold;
+  color: #ffe732;
 }
-

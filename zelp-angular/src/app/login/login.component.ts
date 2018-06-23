@@ -3,7 +3,7 @@ import { Component, OnInit } from "@angular/core";
 import { Route, Router } from "@angular/router";
 import { AlertServiceClient } from "../services/alert.service.client";
 import { UserServiceClient } from "../services/user.service.client";
-import {LoggedinServiceClient} from '../services/loggedin.service.client';
+import { LoggedinServiceClient } from "../services/loggedin.service.client";
 
 @Component({
   selector: "app-login",
@@ -43,9 +43,8 @@ export class LoginComponent implements OnInit {
         .navigate(["profile"])
         .then(() => this.alertService.success("Login successful!", false));
       this.loggedInService.changeMessage(true);
-      localStorage.setItem('userRole', data.role);
-      localStorage.setItem('loggedIn', 'true');
-
+      localStorage.setItem("userRole", data.role);
+      localStorage.setItem("loggedIn", "true");
     } else {
       this.alertService.error(
         "Invalid username and password combination.",

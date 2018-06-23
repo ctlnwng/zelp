@@ -1,6 +1,6 @@
 <div class="container">
 
-  <h2 class="title">Welcome to Zelp! 👋🏼</h2>
+  <h2 class="title">Welcome to Zelp! 🍣</h2>
 
   <br/>
 
@@ -9,8 +9,12 @@
     <span class="primary-text">personalized</span> and
     <span class="primary-text">honest</span> recommendations on where to eat.</h5>
 
-  <button *ngIf="loggedIn" routerLink="/new-post" class="btn btn-primary btn-block col-md-2">
+  <button *ngIf="loggedIn && (userRole == '1')" routerLink="/new-post" class="btn btn-primary btn-block col-md-2">
     Create a post!
+  </button>
+
+  <button *ngIf="loggedIn && (userRole == '2')" routerLink="/new-post" class="btn btn-primary btn-block col-md-3">
+    Promote your restaurant!
   </button>
 
   <br/>
@@ -27,8 +31,13 @@
         </li>
       </ul>
     </div>
+
     <div *ngIf="loggedIn" class="col-md-4">
-      <h3 class="title">Favorites</h3>
+      <h3 class="title">
+        Favorites
+        <i class="fa fa-star"></i>
+        <!-- ⭐ -->
+      </h3>
       <br/>
       <ul class="list-group">
         <li *ngFor="let favorite of favorites" class="list-group-item">

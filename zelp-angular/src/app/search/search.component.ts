@@ -1,14 +1,14 @@
-import { Component, OnInit, Output, EventEmitter } from '@angular/core';
-import {Router} from '@angular/router';
-import {SearchServiceClient} from '../services/search.service.client';
-import {AlertServiceClient} from '../services/alert.service.client';
-import {FormBuilder, FormGroup, Validators} from '@angular/forms';
-import {Restaurant} from '../models/restaurant.model.client';
+import { Component, OnInit, Output, EventEmitter } from "@angular/core";
+import { Router } from "@angular/router";
+import { SearchServiceClient } from "../services/search.service.client";
+import { AlertServiceClient } from "../services/alert.service.client";
+import { FormBuilder, FormGroup, Validators } from "@angular/forms";
+import { Restaurant } from "../models/restaurant.model.client";
 
 @Component({
-  selector: 'app-search',
-  templateUrl: './search.component.html',
-  styleUrls: ['./search.component.css']
+  selector: "app-search",
+  templateUrl: "./search.component.html",
+  styleUrls: ["./search.component.css"]
 })
 export class SearchComponent implements OnInit {
   @Output() messageEvent = new EventEmitter<any>();
@@ -27,9 +27,12 @@ export class SearchComponent implements OnInit {
 
   searchRestaurant(name, location) {
     this.submitted = true;
-    this.service.getSearchResult(name, location)
-      .then(data => this.success(data),
-        error => this.alertService.error(error));
+    this.service
+      .getSearchResult(name, location)
+      .then(
+        data => this.success(data),
+        error => this.alertService.error(error)
+      );
   }
 
   success(data) {
@@ -61,5 +64,4 @@ export class SearchComponent implements OnInit {
   sendMessage() {
     this.messageEvent.emit(this.restaurant);
   }
-
 }

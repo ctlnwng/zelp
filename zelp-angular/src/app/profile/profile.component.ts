@@ -19,6 +19,7 @@ export class ProfileComponent implements OnInit {
 
   user: User = new User();
   userId: string;
+  userRole: string;
 
   updateUser() {
     this.service
@@ -42,6 +43,20 @@ export class ProfileComponent implements OnInit {
     this.service.profile().then(user => {
       this.user = user;
       this.userId = user._id;
+
+      switch (user.role) {
+        case "0":
+          this.userRole = "Admin";
+          break;
+        case "1":
+          this.userRole = "Regular Foodie";
+          break;
+        case "2":
+          this.userRole = "Restaurant Owner";
+          break;
+        default:
+          this.userRole = "";
+      }
     });
   }
 }

@@ -9,11 +9,25 @@ export class PostServiceClient {
     return fetch(API_URL + "post/" + postID).then(response => response.json());
   }
 
-  createPost(title, description) {
-    const post = {
-      title: title,
-      description: description
-    };
+  createPost(title, description, restaurant) {
+    let post;
+
+    if (isEmpty(restaurant)) {
+      post = {
+        title: title,
+        description: description,
+        type: "0"
+      };
+    } else {
+      post = {
+        title: title,
+        description: description,
+        restaurantName: restaurant.name,
+        restaurantURL: restaurant.url,
+        restaurantImageURL: restaurant.image_url,
+        type: "1"
+      };
+    }
 
     return fetch(API_URL + "post", {
       body: JSON.stringify(post),
@@ -33,18 +47,26 @@ export class PostServiceClient {
 
   //TODO maybe move the functions below to favorite service
   addToFavorite(postId) {
-    return fetch(API_URL + 'users/' + postId + '/favorite',{
-      method: 'post',
-      credentials: 'include'
+    return fetch(API_URL + "users/" + postId + "/favorite", {
+      method: "post",
+      credentials: "include"
     });
   }
 
   findPostsForUser() {
-    return fetch(API_URL + 'users/favorite',{
-        credentials: 'include'
-      }).then(function(response) {
+    return fetch(API_URL + "users/favorite", {
+      credentials: "include"
+    }).then(function(response) {
       return response.text().then(function(text) {
-        return text ? JSON.parse(text) : {}
-      })
-    })}
+        return text ? JSON.parse(text) : {};
+      });
+    });
+  }
+}
+
+function isEmpty(obj) {
+  for (var key in obj) {
+    if (obj.hasOwnProperty(key)) return false;
+  }
+  return true;
 }
