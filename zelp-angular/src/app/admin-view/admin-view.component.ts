@@ -5,6 +5,7 @@ import {AlertServiceClient} from '../services/alert.service.client';
 import {UserServiceClient} from '../services/user.service.client';
 import {PostServiceClient} from '../services/post.service.client';
 import {ResponseServiceClient} from '../services/response.service.client';
+import { FormBuilder, FormGroup, Validators } from "@angular/forms";
 
 @Component({
   selector: 'app-admin-view',
@@ -14,6 +15,10 @@ import {ResponseServiceClient} from '../services/response.service.client';
 export class AdminViewComponent implements OnInit {
   isAdmin: boolean;
   viewOption = -1;
+
+  registerForm: FormGroup;
+  userRole = "";
+  submitted = false;
 
   users = [];
   displayUser = [];
@@ -32,6 +37,7 @@ export class AdminViewComponent implements OnInit {
 
 
   constructor(private router: Router,
+              private formBuilder: FormBuilder,
               private loggedInService: LoggedinServiceClient,
               private alertService: AlertServiceClient,
               private userService: UserServiceClient,
@@ -46,6 +52,13 @@ export class AdminViewComponent implements OnInit {
         .then(() => this.alertService.error("Access Denied: you ain't admin", false));
       return;
     }
+    this.registerForm = this.formBuilder.group({
+      username: ["", Validators.required],
+      password: ["", [Validators.required, Validators.minLength(6)]],
+      firstName: [""],
+      lastName: [""],
+      email: [""]
+    });
     this.userService.findAllUsers().then(users => this.users = users)
       .then(() => this.displayUser = this.users.filter(
         user => user.role !== "0"));
@@ -125,6 +138,37 @@ export class AdminViewComponent implements OnInit {
     let result = this.users.filter(user => user._id = userIdVal)
     username = result[0].username;
     return username;
+  }
+
+  register(username, password) {
+    this.submitted = true;
+
+    if (this.userRole == "") {
+      this.alertService.error("Please select a role.");
+      return;
+    }
+
+    // Stop if there exists invalid form
+    if (this.registerForm.invalid) {
+      return;
+    }
+
+    // No invalid form so proceed
+    this.userService
+      .createUser(username, password, this.role)
+      .then(
+        data => this.alertService.success("User created successfully!", false),
+        error => this.alertService.error(error, false)
+      );
+  }
+
+
+  setRole(role) {
+    this.role = role;
+  }
+
+  get createForm() {
+    return this.registerForm.controls;
   }
 
   check() {
