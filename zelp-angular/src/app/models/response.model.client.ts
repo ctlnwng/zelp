@@ -5,7 +5,6 @@ export class Response {
   postId: string;
   userId: string;
   restaurant: Restaurant;
-  description: string;
   restaurantURL: string;
   descriptions: string;
   restaurantImageURL: string;

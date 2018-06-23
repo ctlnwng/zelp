@@ -4,6 +4,7 @@ import {Router} from '@angular/router';
 import {AlertServiceClient} from '../services/alert.service.client';
 import {UserServiceClient} from '../services/user.service.client';
 import {PostServiceClient} from '../services/post.service.client';
+import {ResponseServiceClient} from '../services/response.service.client';
 
 @Component({
   selector: 'app-admin-view',
@@ -34,7 +35,8 @@ export class AdminViewComponent implements OnInit {
               private loggedInService: LoggedinServiceClient,
               private alertService: AlertServiceClient,
               private userService: UserServiceClient,
-              private postService: PostServiceClient) { }
+              private postService: PostServiceClient,
+              private responseService: ResponseServiceClient) { }
 
   ngOnInit() {
     this.loggedInService.currentUserRole.subscribe(role => this.isAdmin = (role === "0"));
@@ -61,6 +63,8 @@ export class AdminViewComponent implements OnInit {
   selectPost(post) {
     this.postId = post._id;
     this.post = post;
+    this.responseService.findResponseByPostId(post._id)
+      .then(responses => this.responsesForPost = responses);
     this.userView = false;
     this.postView = true;
   }

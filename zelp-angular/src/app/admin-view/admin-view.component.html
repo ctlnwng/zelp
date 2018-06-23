@@ -37,13 +37,13 @@
 
     <div *ngIf = "viewOption == 1" class="col-2">
       <div>
-      <select (change)="setPostTypeView($event.target.value)">
-        <option disabled selected>Select Post Type</option>
-        <option value="all">View All</option>
-        <option value="0">Regular Post</option>
-        <option value="1">Promotion</option>
-      </select>
-    </div>
+        <select (change)="setPostTypeView($event.target.value)">
+          <option disabled selected>Select Post Type</option>
+          <option value="all">View All</option>
+          <option value="0">Regular Post</option>
+          <option value="1">Promotion</option>
+        </select>
+      </div>
 
       <ul class="list-group">
         <a class="list-group-item-success" style="text-align:center">
@@ -105,7 +105,27 @@
     </div>
   </div>
   <div>
-
+    <div *ngIf = "postView && responsesForPost.length > 0">
+      <h2>Response Information</h2>
+      <table width="75%" class="table-bordered" style="text-align:center">
+        <tr>
+          <th>Author</th>
+          <th>Restaurant Name</th>
+          <th>Description</th>
+          <th></th>
+        </tr>
+        <tr *ngFor="let response of responsesForPost">
+          <td>{{username(response.userId)}}</td>
+          <td>
+            <a href={{response.restaurantURL}}>
+              {{response.restaurantName }}
+            </a>
+          </td>
+          <td>{{response.descriptions}}</td>
+          <td><button (click)="check()" class="btn-danger btn">Delete</button></td>
+        </tr>
+      </table>
+    </div>
 
 
 
