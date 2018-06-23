@@ -6,8 +6,8 @@ import { Post } from "../models/post.model.client";
 import { Response } from "../models/response.model.client";
 import { UserServiceClient } from "../services/user.service.client";
 import { ResponseServiceClient } from "../services/response.service.client";
-import {LoggedinServiceClient} from '../services/loggedin.service.client';
-import {DataServiceClient} from '../services/data.service.client';
+import { LoggedinServiceClient } from "../services/loggedin.service.client";
+import { DataServiceClient } from "../services/data.service.client";
 
 @Component({
   selector: "app-post",
@@ -36,6 +36,7 @@ export class PostComponent implements OnInit {
 
   loggedIn: boolean;
   favorite: boolean;
+  userRole = "";
 
   loadPost(postId) {
     this.postService.findPostById(postId).then(post => {
@@ -46,20 +47,21 @@ export class PostComponent implements OnInit {
         .then(user => (this.authorUsername = user.username))
         .then(() => this.loadResponses())
         // IDEA: fetching from the server might be slower but be more useful
-        .then(() => {if(this.loggedIn) {
-          this.data.currentFavorites
-            .subscribe(favorites => {
+        .then(() => {
+          if (this.loggedIn) {
+            this.data.currentFavorites.subscribe(favorites => {
               if (favorites !== null) {
-                this.favorite = favorites.has(this.postId)
+                this.favorite = favorites.has(this.postId);
               }
-            })
-        }});
+            });
+          }
+        });
     });
   }
 
   createResponse() {
     // this is unncecessary since we've already made parent-child relationship for post and new response.
-    this.router.navigate(["post", this.postId, "new-response"])
+    this.router.navigate(["post", this.postId, "new-response"]);
     this.showResponseForm = true;
   }
 
@@ -67,20 +69,27 @@ export class PostComponent implements OnInit {
     this.responseService
       .findResponseByPostId(this.postId)
       .then(responses => (this.responses = responses))
-      .then(() => this.responses.sort((a, b) => {
-        if (a.voteCounts < b.voteCounts) return 1;
-        else if (a.voteCounts > b.voteCounts) return -1;
-        else return 0;}
-      ));
+      .then(() =>
+        this.responses.sort((a, b) => {
+          if (a.voteCounts < b.voteCounts) return 1;
+          else if (a.voteCounts > b.voteCounts) return -1;
+          else return 0;
+        })
+      );
   }
 
   prod() {
     // FIXME instead of having those in post-service.
-    this.postService.addToFavorite(this.postId)
-      .then(() => this.favorite = !this.favorite)
+    this.postService
+      .addToFavorite(this.postId)
+      .then(() => (this.favorite = !this.favorite))
       .then(() => {
-        if(this.favorite) {this.alertService.success('Added to favorite!', false)}
-      else{this.alertService.success('Removed from favorite!', false)}});
+        if (this.favorite) {
+          this.alertService.success("Added to favorite!", false);
+        } else {
+          this.alertService.success("Removed from favorite!", false);
+        }
+      });
   }
 
   isFavorite() {
@@ -96,6 +105,11 @@ export class PostComponent implements OnInit {
   }
 
   ngOnInit() {
-    this.loggedInService.currentMessage.subscribe(loggedIn => this.loggedIn = loggedIn);
+    this.loggedInService.currentMessage.subscribe(
+      loggedIn => (this.loggedIn = loggedIn)
+    );
+    this.loggedInService.currentUserRole.subscribe(
+      userRole => (this.userRole = userRole)
+    );
   }
 }
