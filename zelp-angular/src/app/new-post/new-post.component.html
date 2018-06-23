@@ -1,30 +1,65 @@
 <div class="container">
-  <h3>Create New Post</h3>
-  <form [formGroup]="postForm">
-    <div class="form-group">
-      <label>Title
-        <br/>
-        <span class="subtitle">(Ex. "Where can I find the best veggie burgers in Boston?")</span>
-      </label>
-      <input type="text" formControlName="title" class="form-control" [ngClass]="{ 'is-invalid': submitted && form.title.errors }"
-      />
-      <div *ngIf="submitted && form.title.errors" class="invalid-feedback">
-        <div *ngIf="form.title.errors.required">Title is required</div>
+  <div *ngIf="userRole == '1'">
+    <h3>Create New Post</h3>
+    <form [formGroup]="postForm">
+      <div class="form-group">
+        <label>Title
+          <br/>
+          <span class="subtitle">(Ex. "Where can I find the best veggie burgers in Boston?")</span>
+        </label>
+        <input type="text" formControlName="title" class="form-control" [ngClass]="{ 'is-invalid': submitted && form.title.errors }"
+        />
+        <div *ngIf="submitted && form.title.errors" class="invalid-feedback">
+          <div *ngIf="form.title.errors.required">Title is required</div>
+        </div>
       </div>
-    </div>
-    <div class="form-group">
-      <label>Description</label>
-      <textarea type="description" formControlName="description" class="form-control" rows="3"></textarea>
-    </div>
-
-    <div class="row">
-      <button (click)=" createPost(form.title.value, form.description.value) " class="btn btn-primary btn-block col-md-2">
-        Create
-      </button>
-
-      <div style="padding-left: 15px; margin-top: auto; margin-bottom: auto;">
-        <a routerLink=" /home ">Cancel</a>
+      <div class="form-group">
+        <label>Description</label>
+        <textarea type="description" formControlName="description" class="form-control" rows="3"></textarea>
       </div>
-    </div>
-  </form>
+
+      <div class="row">
+        <button (click)=" createPost(form.title.value, form.description.value) " class="btn btn-primary btn-block col-md-2">
+          Create
+        </button>
+
+        <div style="padding-left: 15px; margin-top: auto; margin-bottom: auto;">
+          <a routerLink=" /home ">Cancel</a>
+        </div>
+      </div>
+    </form>
+  </div>
+
+  <div *ngIf="userRole == '2'">
+    <h3>Create New Promotion Post</h3>
+    <form [formGroup]="postForm">
+      <div class="form-group">
+        <label>Title
+          <br/>
+          <span class="subtitle">(Ex. "BOGO Poke Bowls June 26th!")</span>
+        </label>
+        <input type="text" formControlName="title" class="form-control" [ngClass]="{ 'is-invalid': submitted && form.title.errors }"
+        />
+        <div *ngIf="submitted && form.title.errors" class="invalid-feedback">
+          <div *ngIf="form.title.errors.required">Title is required</div>
+        </div>
+      </div>
+      <app-search (messageEvent)="receiveMessage($event)"></app-search>
+      <br/>
+      <div class="form-group">
+        <label>Description</label>
+        <textarea type="description" formControlName="description" class="form-control" rows="3"></textarea>
+      </div>
+
+      <div class="row container-fluid">
+        <button (click)=" createPost(form.title.value, form.description.value) " class="btn btn-primary btn-block col-md-2">
+          Create
+        </button>
+
+        <div style="padding-left: 15px; margin-top: auto; margin-bottom: auto;">
+          <a routerLink="/home">Cancel</a>
+        </div>
+      </div>
+    </form>
+  </div>
 </div>
