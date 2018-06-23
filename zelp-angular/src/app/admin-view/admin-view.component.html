@@ -31,6 +31,8 @@
             (click)="selectUser(user)"
             [ngClass]="{'active' : user._id == userId}">
           {{user.username}}
+          <i (click)="check()" class="fa fa-times fa-lg float-right remove">
+          </i>
         </li>
       </ul>
     </div>
@@ -61,51 +63,52 @@
     <div *ngIf = "userView" class="col-8">
       <h2>User Information</h2>
       <form [formGroup]="registerForm">
-      <table width="75%" class="table-bordered" style="text-align:center">
-        <tr>
-          <th>Username</th>
-          <th>Password</th>
-          <th>First Name</th>
-          <th>Last Name</th>
-          <th>Email</th>
-          <th>Role</th>
-          <th></th>
-          <th></th>
-        </tr>
-        <tr>
-          <td> <input type="text" formControlName="username" class="form-control" [ngClass]="{ 'is-invalid': submitted && form.username.errors }"
-          />
-            <div *ngIf="submitted && createForm.username.errors" class="invalid-feedback">
-              <div *ngIf="createForm.username.errors.required">Username is required</div>
-            </div></td>
-          <td><input type="password" formControlName="password" class="form-control" [ngClass]="{ 'is-invalid': submitted && form.password.errors }"
-          />
-            <div *ngIf="submitted && createForm.password.errors" class="invalid-feedback">
-              <div *ngIf="createForm.password.errors.required">Password is required</div>
-              <div *ngIf="createForm.password.errors.minlength">Password must be at least 6 characters</div>
-            </div></td>
-          <td><input type="text" formControlName="firstName" class="form-control"/></td>
-          <td><input type="text" formControlName="lastName" class="form-control"/></td>
-          <td><input type="text" formControlName="email" class="form-control"/></td>
-          <td><select (change)="setRole($event.target.value)">
-            <option disabled selected>Select Role</option>
-            <option value="1">Regular Foodie</option>
-            <option value="2">Restaurant Owner</option>
-          </select></td>
-          <td><button (click)="check()" class="btn-info btn">Create</button></td>
-          <td><button (click)="check()" class="btn-danger btn">Clear</button></td>
-        </tr>
-        <tr>
-          <td>{{user.username}}</td>
-          <th>******</th>
-          <td>{{user.firstName}}</td>
-          <td>{{user.lastName}}</td>
-          <td>{{user.email}}</td>
-          <td>{{role(user.role)}}</td>
-          <th><button (click)="check()" class="btn-info btn">Update</button></th>
-          <td><button (click)="check()" class="btn-danger btn">Delete</button></td>
-        </tr>
-      </table>
+        <table width="75%" class="table-bordered" style="text-align:center">
+          <tr>
+            <th>Username</th>
+            <th>Password</th>
+            <th>First Name</th>
+            <th>Last Name</th>
+            <th>Email</th>
+            <th>Role</th>
+            <th></th>
+            <th></th>
+          </tr>
+          <tr>
+            <td> <input type="text" formControlName="username" class="form-control" [ngClass]="{ 'is-invalid': submitted && createForm.username.errors }"
+            />
+              <div *ngIf="submitted && createForm.username.errors" class="invalid-feedback">
+                <div *ngIf="createForm.username.errors.required">Username is required</div>
+              </div></td>
+            <td><input type="password" formControlName="password" class="form-control" [ngClass]="{ 'is-invalid': submitted && createForm.password.errors }"
+            />
+              <div *ngIf="submitted && createForm.password.errors" class="invalid-feedback">
+                <div *ngIf="createForm.password.errors.required">Password is required</div>
+                <div *ngIf="createForm.password.errors.minlength">Password must be at least 6 characters</div>
+              </div></td>
+            <td><input type="text" formControlName="firstName" class="form-control"/></td>
+            <td><input type="text" formControlName="lastName" class="form-control"/></td>
+            <td><input type="text" formControlName="email" class="form-control"/></td>
+            <td><select (change)="setRole($event.target.value)">
+              <option disabled selected>Select Role</option>
+              <option value="1">Regular Foodie</option>
+              <option value="2">Restaurant Owner</option>
+            </select></td>
+            <td><button (click)="create(createForm.username.value, createForm.password.value, createForm.firstName.value,
+                                        createForm.lastName.value, createForm.email.value)" class="btn-info btn">Create</button></td>
+            <td><button (click)="check()" class="btn-danger btn">Clear</button></td>
+          </tr>
+          <tr>
+            <td>{{user.username}}</td>
+            <th>******</th>
+            <td>{{user.firstName}}</td>
+            <td>{{user.lastName}}</td>
+            <td>{{user.email}}</td>
+            <td>{{role(user.role)}}</td>
+            <th><button (click)="check()" class="btn-info btn">Update</button></th>
+            <td><button (click)="check()" class="btn-danger btn">Delete</button></td>
+          </tr>
+        </table>
       </form>
     </div>
 

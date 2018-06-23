@@ -62,6 +62,22 @@ export class UserServiceClient {
     });
   }
 
+  createUserAd(username, password, firstName, lastName, email, role) {
+    const user = {
+      username: username,
+      password: password,
+      role: role
+    };
+    return fetch(API_URL + "user", {
+      body: JSON.stringify(user),
+      credentials: "include", // include, same-origin, *omit
+      method: "post",
+      headers: {
+        "content-type": "application/json"
+      }
+    }).then(response => response.json());
+  }
+
   updateUser(id, username, password, first, last, email) {
     const user = {
       username: username,

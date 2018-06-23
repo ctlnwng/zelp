@@ -140,31 +140,38 @@ export class AdminViewComponent implements OnInit {
     return username;
   }
 
-  register(username, password) {
+  create(username, password, firstName, lastName, email) {
     this.submitted = true;
-
-    if (this.userRole == "") {
-      this.alertService.error("Please select a role.");
-      return;
-    }
 
     // Stop if there exists invalid form
     if (this.registerForm.invalid) {
       return;
     }
 
+    if (this.userRole == "") {
+      this.alertService.error("Please select a role.");
+      return;
+    }
+
     // No invalid form so proceed
     this.userService
-      .createUser(username, password, this.role)
+      .createUserAd(username, password, firstName, lastName, email, this.userRole)
       .then(
-        data => this.alertService.success("User created successfully!", false),
+        data => this.successCreate(data),
         error => this.alertService.error(error, false)
       );
   }
 
+  successCreate(user) {
+    this.users.push(user);
+    this.displayUser.push(user);
+    this.submitted = false;
+    this.alertService.success("User created successfully!", false);
+  }
+
 
   setRole(role) {
-    this.role = role;
+    this.userRole = role;
   }
 
   get createForm() {
