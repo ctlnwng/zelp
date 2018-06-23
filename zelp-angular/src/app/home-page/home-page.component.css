@@ -23,5 +23,6 @@
   margin-bottom: 20px;
 }
 
-.favorite-post {
+.fa-star {
+  color: gold;
 }

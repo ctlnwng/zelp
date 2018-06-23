@@ -31,8 +31,13 @@
         </li>
       </ul>
     </div>
+
     <div *ngIf="loggedIn" class="col-md-4">
-      <h3 class="title">Favorites</h3>
+      <h3 class="title">
+        Favorites
+        <!-- <i class="fa fa-star"></i> -->
+        ⭐
+      </h3>
       <br/>
       <ul class="list-group">
         <li *ngFor="let favorite of favorites" class="list-group-item">
