@@ -2,9 +2,9 @@
 </i>
 <div class="row">
   <div class="col-1 vote">
-    <i (click)="vote(1)" class="fa fa-caret-up fa-2x row arrow"></i>
+    <i (click)="vote(1)" class={{active(1)}}></i>
     <div>{{response.voteCounts}}</div>
-    <i (click)="vote(-1)" class="fa fa-caret-down fa-2x row arrow"></i>
+    <i (click)="vote(-1)" class={{active(-1)}}></i>
   </div>
   <div class="col-3">
     <img src={{response.restaurantImageURL}} alt="Food Picture" width="100%" />

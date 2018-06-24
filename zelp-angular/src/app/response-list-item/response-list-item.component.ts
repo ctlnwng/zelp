@@ -67,6 +67,26 @@ export class ResponseListItemComponent implements OnInit {
     });
   }
 
+  active(val) {
+    for (var i = 0; i < this.response.votes.length; i++) {
+      if (this.response.votes[i].userId == this.currentUserId && this.response.votes[i].voteType == val) {
+        if(val == 1) {
+          return "fa fa-caret-up fa-2x row arrow active"
+        }
+        else {
+          return "fa fa-caret-down fa-2x row arrow active"
+        }
+      }
+    }
+    if(val == 1) {
+      return "fa fa-caret-up fa-2x row arrow"
+    }
+    else {
+      return "fa fa-caret-down fa-2x row arrow"
+    }
+
+  }
+
   ngOnInit() {
     this.userService.profile().then(user => {
       this.currentUserId = user._id;
