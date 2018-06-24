@@ -138,10 +138,12 @@ export class AdminViewComponent implements OnInit {
   }
 
   username(userIdVal) {
-    let username;
-    let result = this.users.filter(user => user._id = userIdVal)
-    username = result[0].username;
-    return username;
+      for (var i=0; i<this.users.length; i++) {
+        if (this.users[i]._id == userIdVal) {
+          return this.users[i].username;
+        }
+      }
+      return null;
   }
 
   create(username, password, firstName, lastName, email) {
