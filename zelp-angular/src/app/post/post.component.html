@@ -42,11 +42,10 @@
 
   <div *ngIf="showResponseForm">
     <br/>
-    <app-new-response [postId]="postId"></app-new-response>
+    <app-new-response (responseCreated)="reloadResponses($event)" [postId]="postId"></app-new-response>
     <br/>
     <hr/>
   </div>
-
   <br/>
 
   <ul class="list-group">

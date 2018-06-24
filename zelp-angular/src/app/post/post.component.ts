@@ -60,7 +60,8 @@ export class PostComponent implements OnInit {
   }
 
   reloadResponses(event) {
-    this.loadResponses();
+    this.showResponseForm = false;
+    this.loadPost(this.postId);
   }
 
   createResponse() {

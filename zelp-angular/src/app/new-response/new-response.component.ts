@@ -1,4 +1,4 @@
-import { Component, OnInit, Input } from "@angular/core";
+import { Component, OnInit, Input, Output, EventEmitter } from "@angular/core";
 import { Router } from "@angular/router";
 import { FormBuilder, FormGroup, Validators } from "@angular/forms";
 import { Restaurant } from "../models/restaurant.model.client";
@@ -12,6 +12,8 @@ import { AlertServiceClient } from "../services/alert.service.client";
 })
 export class NewResponseComponent implements OnInit {
   @Input() postId: String;
+  @Output() responseCreated = new EventEmitter<String>();
+
   responseForm: FormGroup;
   restaurant: Restaurant = new Restaurant();
   submitted = false;
@@ -49,9 +51,11 @@ export class NewResponseComponent implements OnInit {
   }
 
   success(data) {
-    this.router
-      .navigate(["post", this.postId])
-      .then(() => this.alertService.success("Recommendation added!", false));
+    this.alertService.success("Recommendation added!", false);
+    this.responseCreated.emit("responseCreated");
+    // this.router.navigate(["post", this.postId, "new-response"]).then(() => {
+    // this.alertService.success("Recommendation added!", false);
+    // });
   }
 
   get form() {
