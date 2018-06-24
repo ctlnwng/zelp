@@ -17,6 +17,7 @@ import { DataServiceClient } from "../services/data.service.client";
 export class PostComponent implements OnInit {
   showResponseForm = false;
   post: Post = new Post();
+  userId;
   authorUsername: String;
   postId: number;
   responses: Response[] = [];
@@ -44,7 +45,10 @@ export class PostComponent implements OnInit {
       this.post = post;
       this.userService
         .findUserById(post.author)
-        .then(user => (this.authorUsername = user.username))
+        .then(user => {
+          this.userId = user._id;
+          (this.authorUsername = user.username)
+        })
         .then(() => this.loadResponses())
         // IDEA: fetching from the server might be slower but more useful
         .then(() => {
@@ -105,9 +109,15 @@ export class PostComponent implements OnInit {
     }
   }
 
-  deletePost() {
-    this.postService.deletePost(this.postId);
-  }
+  // deletePost() {
+  //   this.postService.deletePost(this.postId).then(response => {
+  //     if (response.conflict === true) {
+  //       this.alertService.error("You can only delete your own post", false);
+  //     } else {
+  //       this.alertService.success("Post deleted successfully!", false);
+  //     }
+  //   });
+  // }
 
   ngOnInit() {
     this.loggedInService.currentMessage.subscribe(

@@ -3,9 +3,9 @@
 
     <div class="d-flex justify-content-between">
       <h1 class="title">{{post.title}}</h1>
-      <!-- <button (click)="deletePost()" class="btn btn-danger btn-block col-1 float-right delete-btn">
-        <i class="fa fa-trash"></i>
-      </button> -->
+      <!--<button *ngIf="userId === post.author || userRole == '0'" (click)="deletePost()" class="btn btn-danger btn-block col-1 float-right delete-btn">-->
+        <!--<i class="fa fa-trash"></i>-->
+      <!--</button>-->
       <i *ngIf="loggedIn" class="btn btn-block col-1 float-right" (click)="prod()" class={{isFavorite()}}></i>
 
     </div>
