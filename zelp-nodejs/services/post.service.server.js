@@ -8,8 +8,11 @@ module.exports = function(app) {
 
   var postModel = require("../models/post/post.model.server");
 
-  var responseModel = require("../models/response/response.model.server");
-  var favoriteModel = require("../models/user/favorite/favorite.model.server");
+  function findAllPosts(req, res) {
+    postModel.findAllPosts().then(function(posts) {
+      res.send(posts);
+    });
+  }
 
   function findPostWithInput(req, res) {
     var input = req.params["input"];
@@ -37,19 +40,13 @@ module.exports = function(app) {
     });
   }
 
-  function findAllPosts(req, res) {
-    postModel.findAllPosts().then(function(posts) {
-      res.send(posts);
-    });
-  }
-
   function deletePost(req, res) {
     var pid = req.params["pid"];
 
     // FIXME make it work
     postModel
       .deletePost(pid, req.session["currentUser"]._id)
-      // After deleting, return all the responses.
+      // after deleting, return all the responses.
       .then(posts => res.json(posts), err => res.status(400).send(err));
   }
 
@@ -59,7 +56,7 @@ module.exports = function(app) {
     postModel
       .forceDeletePost(pid)
       .then(post => postModel.findAllPosts(), err => res.status(400).send(err))
-      // Reloading the entire post page after deleting.
+      // reloads entire post page after deleting.
       .then(posts => res.json(posts), err => res.status(400).send(err));
   }
 };

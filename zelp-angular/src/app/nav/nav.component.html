@@ -1,5 +1,4 @@
 <nav class="navbar navbar-expand-lg navbar-light bg-light">
-
   <a class="navbar-brand" routerLink="">Zelp</a>
   <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent"
     aria-expanded="false" aria-label="Toggle navigation">
@@ -8,6 +7,7 @@
 
   <div class="collapse navbar-collapse" id="navbarSupportedContent">
     <ul class="navbar-nav mr-auto">
+      <!-- search bar -->
       <form [formGroup]="searchForm" class="form-inline my-2 my-lg-0">
         <input formControlName="search" style="border-color: transparent;" class="form-control mr-sm-2" type="search" placeholder="Search all posts"
           aria-label="Search" [ngClass]="{ 'is-invalid': submitted && form.search.errors }">
@@ -16,11 +16,12 @@
         </button>
       </form>
     </ul>
+
+    <!-- right-side links -->
     <ul class="navbar-nav">
       <li *ngIf="isAdmin" class="nav-item">
         <a class="nav-link" routerLink="/admin-view">Admin View</a>
       </li>
-
       <li *ngIf="loggedIn" class="nav-item">
         <a class="nav-link" routerLink="/profile">Profile</a>
       </li>
@@ -31,7 +32,6 @@
         <a class="nav-link" routerLink="/register">Register</a>
       </li>
     </ul>
-
     <div *ngIf="loggedIn" style="padding-left: 0.5rem; padding-right: 0.5rem">
       <a (click)="logout()" routerLink="/login">Logout</a>
     </div>

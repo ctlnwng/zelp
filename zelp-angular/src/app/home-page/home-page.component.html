@@ -9,10 +9,10 @@
     <span class="primary-text">personalized</span> and
     <span class="primary-text">honest</span> recommendations on where to eat.</h5>
 
+  <!--call to action-->
   <button *ngIf="loggedIn && (userRole == '1')" routerLink="/new-post" class="btn btn-primary btn-block col-md-2">
     Create a post!
   </button>
-
   <button *ngIf="loggedIn && (userRole == '2')" routerLink="/new-post" class="btn btn-primary btn-block col-md-3">
     Promote your restaurant!
   </button>
@@ -21,7 +21,7 @@
   <br/>
 
   <div class="row">
-
+    <!--posts list-->
     <div class="col-md-8">
       <h3 class="title">Recent posts</h3>
       <br/>
@@ -31,7 +31,7 @@
         </li>
       </ul>
     </div>
-
+    <!--favorites list-->
     <div *ngIf="loggedIn" class="col-md-4">
       <h3 class="title">
         Favorites

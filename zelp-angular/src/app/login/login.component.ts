@@ -1,6 +1,6 @@
 import { FormBuilder, FormGroup, Validators } from "@angular/forms";
 import { Component, OnInit } from "@angular/core";
-import { Route, Router } from "@angular/router";
+import { Router } from "@angular/router";
 import { AlertServiceClient } from "../services/alert.service.client";
 import { UserServiceClient } from "../services/user.service.client";
 import { LoggedinServiceClient } from "../services/loggedin.service.client";
@@ -14,6 +14,14 @@ export class LoginComponent implements OnInit {
   loginForm: FormGroup;
   submitted = false;
   role: string;
+
+  constructor(
+    private formBuilder: FormBuilder,
+    private router: Router,
+    private service: UserServiceClient,
+    private alertService: AlertServiceClient,
+    private loggedInService: LoggedinServiceClient
+  ) {}
 
   login(username, password) {
     this.submitted = true;
@@ -47,19 +55,11 @@ export class LoginComponent implements OnInit {
       localStorage.setItem("loggedIn", "true");
     } else {
       this.alertService.error(
-        "Invalid username and password combination.",
+        "Invalid username and password combination",
         false
       );
     }
   }
-
-  constructor(
-    private formBuilder: FormBuilder,
-    private router: Router,
-    private service: UserServiceClient,
-    private alertService: AlertServiceClient,
-    private loggedInService: LoggedinServiceClient
-  ) {}
 
   ngOnInit() {
     this.loginForm = this.formBuilder.group({

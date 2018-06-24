@@ -19,12 +19,11 @@
         <div *ngIf="form.password.errors.minlength">Password must be at least 6 characters</div>
       </div>
     </div>
-
     <button (click)="login(form.username.value, form.password.value)" class="btn btn-primary btn-block col-md-2">
       Login
     </button>
-
   </form>
+
   <div style="margin-top: 20px">
     <a routerLink="/register">First time? Sign up here</a>
   </div>

@@ -12,6 +12,14 @@ import { DataServiceClient } from "../services/data.service.client";
   styleUrls: ["./home-page.component.css"]
 })
 export class HomePageComponent implements OnInit {
+  posts: Post[] = [];
+  favorites;
+  loggedIn: boolean;
+  userRole: string;
+
+  // store prodded post Id
+  favoritePostsId: Set<number> = new Set<number>();
+
   constructor(
     private service: PostServiceClient,
     private userService: UserServiceClient,
@@ -19,14 +27,6 @@ export class HomePageComponent implements OnInit {
     private postService: PostServiceClient,
     private dataService: DataServiceClient
   ) {}
-
-  posts: Post[] = [];
-  favorites;
-  loggedIn: boolean;
-  userRole: string;
-
-  //store prodded post Id
-  favoritePostsId: Set<number> = new Set<number>();
 
   extractPostsId(posts) {
     let i;

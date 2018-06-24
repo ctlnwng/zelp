@@ -35,24 +35,22 @@
   <div *ngIf="post.type != '1'" class="d-flex justify-content-between">
     <h4 class="title">Recommendations</h4>
 
-    <button *ngIf="loggedIn && userRole != '2'" (click)="createResponse()" class="btn btn-primary btn-block col-sm-1 float-right">
+    <button *ngIf="loggedIn && userRole != '2'" (click)="createResponse()" class="btn btn-primary btn-block col-3 col-md-1 float-right">
       <i class="fa fa-plus"></i>
     </button>
   </div>
 
   <div *ngIf="showResponseForm">
     <br/>
-    <app-new-response [postId]="postId"></app-new-response>
+    <app-new-response (responseCreated)="reloadResponses($event)" [postId]="postId"></app-new-response>
     <br/>
     <hr/>
   </div>
-
   <br/>
 
   <ul class="list-group">
     <li *ngFor="let response of responses" class="list-group-item">
-      <app-response-list-item [response]=response [loggedIn]="loggedIn" [userRole]="userRole"></app-response-list-item>
+      <app-response-list-item (responseDeleted)="reloadResponses($event)" [response]=response [loggedIn]="loggedIn" [userRole]="userRole"></app-response-list-item>
     </li>
-
   </ul>
 </div>

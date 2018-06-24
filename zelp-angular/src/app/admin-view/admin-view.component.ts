@@ -1,16 +1,16 @@
-import { Component, OnInit } from '@angular/core';
-import {LoggedinServiceClient} from '../services/loggedin.service.client';
-import {Router} from '@angular/router';
-import {AlertServiceClient} from '../services/alert.service.client';
-import {UserServiceClient} from '../services/user.service.client';
-import {PostServiceClient} from '../services/post.service.client';
-import {ResponseServiceClient} from '../services/response.service.client';
+import { Component, OnInit } from "@angular/core";
+import { LoggedinServiceClient } from "../services/loggedin.service.client";
+import { Router } from "@angular/router";
+import { AlertServiceClient } from "../services/alert.service.client";
+import { UserServiceClient } from "../services/user.service.client";
+import { PostServiceClient } from "../services/post.service.client";
+import { ResponseServiceClient } from "../services/response.service.client";
 import { FormBuilder, FormGroup, Validators } from "@angular/forms";
 
 @Component({
-  selector: 'app-admin-view',
-  templateUrl: './admin-view.component.html',
-  styleUrls: ['./admin-view.component.css']
+  selector: "app-admin-view",
+  templateUrl: "./admin-view.component.html",
+  styleUrls: ["./admin-view.component.css"]
 })
 export class AdminViewComponent implements OnInit {
   isAdmin: boolean;
@@ -36,36 +36,17 @@ export class AdminViewComponent implements OnInit {
   userView: boolean;
   postView: boolean;
 
+  constructor(
+    private router: Router,
+    private formBuilder: FormBuilder,
+    private loggedInService: LoggedinServiceClient,
+    private alertService: AlertServiceClient,
+    private userService: UserServiceClient,
+    private postService: PostServiceClient,
+    private responseService: ResponseServiceClient
+  ) {}
 
-  constructor(private router: Router,
-              private formBuilder: FormBuilder,
-              private loggedInService: LoggedinServiceClient,
-              private alertService: AlertServiceClient,
-              private userService: UserServiceClient,
-              private postService: PostServiceClient,
-              private responseService: ResponseServiceClient) { }
-
-  ngOnInit() {
-    this.loggedInService.currentUserRole.subscribe(role => this.isAdmin = (role === "0"));
-    if (!this.isAdmin) {
-      this.router
-        .navigate(["home"])
-        .then(() => this.alertService.error("Access Denied: you ain't admin", false));
-      return;
-    }
-    this.registerForm = this.formBuilder.group({
-      username: ["", Validators.required],
-      password: ["", [Validators.required, Validators.minLength(6)]],
-      firstName: [""],
-      lastName: [""],
-      email: [""]
-    });
-    this.userService.findAllUsers().then(users => this.users = users)
-      .then(() => this.displayUser = this.users.filter(
-        user => user.role !== "0"));
-    this.postService.findAllPosts().then(posts => this.posts = posts)
-      .then(() => this.displayPost = this.posts);
-  }
+  // SELECT
 
   selectUser(user) {
     this.userId = user._id;
@@ -80,14 +61,17 @@ export class AdminViewComponent implements OnInit {
   selectPost(post) {
     this.postId = post._id;
     this.post = post;
-    this.responseService.findResponseByPostId(post._id)
-      .then(responses => this.responsesForPost = responses);
+    this.responseService
+      .findResponseByPostId(post._id)
+      .then(responses => (this.responsesForPost = responses));
     this.userView = false;
     this.postView = true;
   }
 
+  // SET
+
   setView(val) {
-    if(val != this.viewOption) {
+    if (val != this.viewOption) {
       this.userView = false;
       this.postView = false;
       this.viewOption = val;
@@ -95,28 +79,31 @@ export class AdminViewComponent implements OnInit {
   }
 
   setUserRoleView(val) {
-    if(val === "0") {
-      this.displayUser = this.users.filter(
-        user => user.role !== val);
+    if (val === "0") {
+      this.displayUser = this.users.filter(user => user.role !== val);
     } else {
-      this.displayUser = this.users.filter(
-        user => user.role === val)
+      this.displayUser = this.users.filter(user => user.role === val);
     }
   }
 
   setPostTypeView(val) {
-    if(val == "all") {
+    if (val == "all") {
       this.displayPost = this.posts;
     } else {
-      this.displayPost = this.posts.filter(
-        post => post.type == val);
+      this.displayPost = this.posts.filter(post => post.type == val);
     }
   }
+
+  setRole(role) {
+    this.userRole = role;
+  }
+
+  // GET
 
   role(val) {
     switch (val) {
       case "0":
-        return  "Admin";
+        return "Admin";
       case "1":
         return "Regular Foodie";
       case "2":
@@ -129,7 +116,7 @@ export class AdminViewComponent implements OnInit {
   type(val) {
     switch (val) {
       case "0":
-        return "Regular Post";
+        return "Recommendation";
       case "1":
         return "Promotion";
       default:
@@ -138,18 +125,20 @@ export class AdminViewComponent implements OnInit {
   }
 
   username(userIdVal) {
-      for (var i=0; i<this.users.length; i++) {
-        if (this.users[i]._id == userIdVal) {
-          return this.users[i].username;
-        }
+    for (var i = 0; i < this.users.length; i++) {
+      if (this.users[i]._id == userIdVal) {
+        return this.users[i].username;
       }
-      return null;
+    }
+    return null;
   }
+
+  // CREATE
 
   create(username, password, firstName, lastName, email) {
     this.submitted = true;
 
-    // Stop if there exists invalid form
+    // stop if form is invalid
     if (this.registerForm.invalid) {
       return;
     }
@@ -159,9 +148,16 @@ export class AdminViewComponent implements OnInit {
       return;
     }
 
-    // No invalid form so proceed
+    // proceed if form is valid
     this.userService
-      .createUserAd(username, password, firstName, lastName, email, this.userRole)
+      .createUserAd(
+        username,
+        password,
+        firstName,
+        lastName,
+        email,
+        this.userRole
+      )
       .then(
         data => this.successCreate(data),
         error => this.alertService.error(error, false)
@@ -177,23 +173,56 @@ export class AdminViewComponent implements OnInit {
     this.alertService.success("User created successfully!", false);
   }
 
+  // DELETE
+
   deleteUser(userId) {
-    this.userService.deleteUser(userId)
-      .then(response => {if (response.status != 400) {
+    this.userService.deleteUser(userId).then(response => {
+      if (response.status != 400) {
         this.users = this.users.filter(user => user._id != userId);
         this.displayUser = this.displayUser.filter(user => user._id != userId);
-      }});
+      }
+    });
+  }
+
+  deletePost(postId) {
+    this.alertService.error(
+      "Need to implement delete Post on backend first",
+      false
+    );
+  }
+
+  deleteResponse(rid) {
+    this.responseService.deleteResponse(rid).then(response => {
+      this.responseService
+        .findResponseByPostId(this.postId)
+        .then(responses => (this.responsesForPost = responses));
+    });
+  }
+
+  // UPDATE
+
+  updateSetUp() {
+    this.userUpdate = true;
+    this.registerForm.setValue({
+      username: this.user.username,
+      password: this.user.password,
+      firstName: this.user.firstName,
+      lastName: this.user.lastName,
+      email: this.user.email
+    });
+    this.userRole = this.user.role;
   }
 
   updateUser(username, password, firstName, lastName, email) {
     this.submitted = true;
-    // Stop if there exists invalid form
+
+    // stop if form is invalid
     if (this.registerForm.invalid) {
       return;
     }
 
-    if(this.user.username === "admin") {
-      this.alertService.error("C'mon, Admin is a special name! Don't try to own that name!", false);
+    if (this.user.username === "admin") {
+      this.alertService.error("The username 'admin' cannot be used.", false);
       return;
     }
 
@@ -208,30 +237,25 @@ export class AdminViewComponent implements OnInit {
       lastName: lastName,
       email: email,
       role: this.user.role
-    }
+    };
 
-    if(index > -1){
+    if (index > -1) {
       this.users[index] = updatedUser; // will update item
     }
-    if(index2 > -1){
+    if (index2 > -1) {
       this.displayUser[index2] = updatedUser; // will update item
     }
 
     this.user = updatedUser;
 
     this.userService
-      .updateUser(
-        this.user._id,
-        username,
-        password,
-        firstName,
-        lastName,
-        email
-      )
-      .then(response => {this.alertService.success("User updated!", false)
+      .updateUser(this.user._id, username, password, firstName, lastName, email)
+      .then(response => {
+        this.alertService.success("User updated!", false);
         this.userUpdate = false;
         this.submitted = false;
-        this.registerForm.reset();});
+        this.registerForm.reset();
+      });
   }
 
   clear() {
@@ -240,33 +264,38 @@ export class AdminViewComponent implements OnInit {
     this.registerForm.reset();
   }
 
-  updateSetUp() {
-    this.userUpdate = true;
-    this.registerForm.setValue({
-      username: this.user.username,
-      password: this.user.password,
-      firstName: this.user.firstName,
-      lastName: this.user.lastName,
-      email: this.user.email})
-    this.userRole = this.user.role;
-  }
-
-  deletePost(postId) {
-    this.alertService.error("Need to implement delete Post on backend first", false);
-  }
-
-  deleteResponse(rid) {
-    this.responseService.deleteResponse(rid).then(response => {
-      this.responseService.findResponseByPostId(this.postId)
-        .then(responses => this.responsesForPost = responses);
-    });
-  }
-
-  setRole(role) {
-    this.userRole = role;
-  }
-
   get createForm() {
     return this.registerForm.controls;
+  }
+
+  ngOnInit() {
+    this.loggedInService.currentUserRole.subscribe(
+      role => (this.isAdmin = role === "0")
+    );
+    if (!this.isAdmin) {
+      this.router
+        .navigate(["home"])
+        .then(() =>
+          this.alertService.error("Access Denied: you ain't admin", false)
+        );
+      return;
+    }
+    this.registerForm = this.formBuilder.group({
+      username: ["", Validators.required],
+      password: ["", [Validators.required, Validators.minLength(6)]],
+      firstName: [""],
+      lastName: [""],
+      email: [""]
+    });
+    this.userService
+      .findAllUsers()
+      .then(users => (this.users = users))
+      .then(
+        () => (this.displayUser = this.users.filter(user => user.role !== "0"))
+      );
+    this.postService
+      .findAllPosts()
+      .then(posts => (this.posts = posts))
+      .then(() => (this.displayPost = this.posts));
   }
 }

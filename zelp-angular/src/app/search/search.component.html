@@ -1,17 +1,16 @@
 <label>Search Restaurant</label>
 <form [formGroup]="searchForm">
-
   <div *ngIf="!searchable" class="input-group">
     <input type="text" formControlName="name" class="form-control" placeholder="Name" [ngClass]="{ 'is-invalid': submitted && form.name.errors }"
     />
     <div *ngIf="submitted && form.name.errors" class="invalid-feedback">
-      <div *ngIf="form.name.errors.required">Please enter the name of the place.</div>
+      <div *ngIf="form.name.errors.required">Please enter the name of the restaurant</div>
     </div>
 
     <input type="text" formControlName="location" class="form-control" placeholder="Location" [ngClass]="{ 'is-invalid': submitted && form.location.errors }"
     />
     <div *ngIf="submitted && form.location.errors" class="invalid-feedback">
-      <div *ngIf="form.location.errors.required">Please enter the location.</div>
+      <div *ngIf="form.location.errors.required">Please enter the restaurant's location</div>
     </div>
 
     <button (click)=" searchRestaurant(form.name.value, form.location.value) " class="btn btn-lg search-btn" type="submit">
@@ -20,7 +19,6 @@
   </div>
 
   <div *ngIf="searchable">
-
     <div class="row container-full">
       <h5>
         <a class="col-6" href={{restaurant.url}}>{{restaurant.name}}</a>
@@ -30,7 +28,4 @@
       </button>
     </div>
   </div>
-
-
-
 </form>

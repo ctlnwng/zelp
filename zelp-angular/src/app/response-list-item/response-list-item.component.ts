@@ -1,8 +1,9 @@
-import { Component, OnInit, Input } from "@angular/core";
+import { Component, OnInit, Input, Output, EventEmitter } from "@angular/core";
 import { UserServiceClient } from "../services/user.service.client";
 import { Response } from "../models/response.model.client";
 import { ResponseServiceClient } from "../services/response.service.client";
 import { AlertServiceClient } from "../services/alert.service.client";
+import { User } from "../models/user.model.client";
 
 @Component({
   selector: "app-response-list-item",
@@ -14,7 +15,10 @@ export class ResponseListItemComponent implements OnInit {
   @Input() loggedIn: boolean;
   @Input() userRole: string;
 
+  @Output() responseDeleted = new EventEmitter<String>();
+
   authorUsername: String;
+  currentUserId: String;
 
   constructor(
     private userService: UserServiceClient,
@@ -24,7 +28,7 @@ export class ResponseListItemComponent implements OnInit {
 
   vote(type) {
     if (!this.loggedIn) {
-      this.alertService.error("You need to be logged in to vote", false);
+      this.alertService.error("You must be logged in to vote", false);
       return;
     }
 
@@ -36,11 +40,11 @@ export class ResponseListItemComponent implements OnInit {
     this.responseService.vote(type, this.response._id).then(response => {
       if (response.conflict) {
         this.alertService.error(
-          "You've already voted (You could still change your vote)",
+          "You've already voted (feel free to change your vote)",
           false
         );
       } else if (response.status === 404) {
-        this.alertService.error("Invalid Credentials", false);
+        this.alertService.error("Invalid credentials", false);
       } else {
         this.response = response;
         this.alertService.success("Vote successful", false);
@@ -51,14 +55,21 @@ export class ResponseListItemComponent implements OnInit {
   delete() {
     this.responseService.deleteResponse(this.response._id).then(response => {
       if (response.conflict === true) {
-        this.alertService.error("This response wasn't made by you", false);
+        this.alertService.error(
+          "You can only delete your own responses",
+          false
+        );
       } else {
-        this.alertService.success("Response was deleted successfully", false);
+        this.alertService.success("Response deleted successfully!", false);
+        this.responseDeleted.emit("responseDeleted");
       }
     });
   }
 
   ngOnInit() {
+    this.userService.profile().then(user => {
+      this.currentUserId = user._id;
+    });
     this.userService
       .findUserById(this.response.userId)
       .then(user => (this.authorUsername = user.username));

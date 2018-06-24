@@ -1,70 +1,66 @@
-<div class="container-fluid">
-  <h1>Admin Page</h1>
-  <div class="form-group">
-    <label>View</label>
-    <br/>
-    <select (change)="setView($event.target.value)">
-      <option disabled selected>Select View</option>
-      <option value="0">Users</option>
-      <option value="1">Posts</option>
-    </select>
+<div class="container admin-view">
+  <h3>Manage Users and Posts</h3>
+  <br/>
+
+  <!-- select type dropdowns -->
+  <div class="row container-fluid">
+    <div class="form-group">
+      <select (change)="setView($event.target.value)" style="margin-right: 20px">
+        <option disabled selected>Select View</option>
+        <option value="0">Users</option>
+        <option value="1">Posts</option>
+      </select>
+    </div>
+    <div *ngIf="viewOption == 0">
+      <select (change)="setUserRoleView($event.target.value)">
+        <option disabled selected>Select User Type</option>
+        <option value="0">View All</option>
+        <option value="1">Regular Foodie</option>
+        <option value="2">Restaurant Owner</option>
+      </select>
+    </div>
+    <div *ngIf="viewOption == 1">
+      <select (change)="setPostTypeView($event.target.value)">
+        <option disabled selected>Select Post Type</option>
+        <option value="all">View All</option>
+        <option value="0">Recommendation</option>
+        <option value="1">Promotion</option>
+      </select>
+    </div>
   </div>
 
   <br/>
-  <div class="row">
 
-    <div *ngIf = "viewOption == 0" class="col-2">
-      <div>
-        <select (change)="setUserRoleView($event.target.value)">
-          <option disabled selected>Select Role Type</option>
-          <option value="0">View All</option>
-          <option value="1">Regular Foodie</option>
-          <option value="2">Restaurant Owner</option>
-        </select>
-      </div>
+  <!--user list-->
+  <div class="row">
+    <div *ngIf="viewOption == 0" class="col-2">
       <ul class="list-group">
-        <a class="list-group-item-success" style="text-align:center">
-          Users
-        </a>
-        <li class="list-group-item"
-            *ngFor="let user of displayUser"
-            (click)="selectUser(user)"
-            [ngClass]="{'active' : user._id == userId}">
+        <li class="list-group-item list-header">Users</li>
+        <li class="list-group-item" *ngFor="let user of displayUser" (click)="selectUser(user)" [ngClass]="{'active' : user._id == userId}">
           {{user.username}}
-          <i (click)="deleteUser(user._id)" class="fa fa-times fa-lg float-right remove">
+          <i (click)="deleteUser(user._id)" class="fa fa-times fa-md float-right">
           </i>
         </li>
       </ul>
     </div>
 
-    <div *ngIf = "viewOption == 1" class="col-2">
-      <div>
-        <select (change)="setPostTypeView($event.target.value)">
-          <option disabled selected>Select Post Type</option>
-          <option value="all">View All</option>
-          <option value="0">Regular Post</option>
-          <option value="1">Promotion</option>
-        </select>
-      </div>
-
+    <!--post list table-->
+    <div *ngIf="viewOption == 1" class="col-3">
       <ul class="list-group">
-        <a class="list-group-item-success" style="text-align:center">
-          Posts
-        </a>
-        <li class="list-group-item"
-            *ngFor="let post of displayPost"
-            (click)="selectPost(post)"
-            [ngClass]="{'active' : post._id == postId}">
+        <li class="list-group-item list-header">Posts</li>
+        <li class="list-group-item" *ngFor="let post of displayPost" (click)="selectPost(post)" [ngClass]="{'active' : post._id == postId}">
           {{post.title}}
-          <i (click)="deletePost(post._id)" class="fa fa-times fa-lg float-right remove"></i>
+          <i (click)="deletePost(post._id)" class="fa fa-times fa-md float-right"></i>
         </li>
       </ul>
     </div>
 
-    <div *ngIf = "userView" class="col-8">
-      <h2>User Information</h2>
+    <!--users table-->
+    <div *ngIf="userView" class="col-10">
+      <h4>Edit User Information</h4>
+      <br/>
       <form [formGroup]="registerForm">
-        <table width="75%" class="table-bordered" style="text-align:center">
+        <table width="100%" class="table">
           <tr>
             <th>Username</th>
             <th>Password</th>
@@ -76,31 +72,51 @@
             <th></th>
           </tr>
           <tr>
-            <td> <input type="text" formControlName="username" class="form-control" [ngClass]="{ 'is-invalid': submitted && createForm.username.errors }"
-            />
+            <td>
+              <input type="text" formControlName="username" class="form-control" [ngClass]="{ 'is-invalid': submitted && createForm.username.errors }"
+              />
               <div *ngIf="submitted && createForm.username.errors" class="invalid-feedback">
                 <div *ngIf="createForm.username.errors.required">Username is required</div>
-              </div></td>
-            <td><input type="password" formControlName="password" class="form-control" [ngClass]="{ 'is-invalid': submitted && createForm.password.errors }"
-            />
+              </div>
+            </td>
+            <td>
+              <input type="password" formControlName="password" class="form-control" [ngClass]="{ 'is-invalid': submitted && createForm.password.errors }"
+              />
               <div *ngIf="submitted && createForm.password.errors" class="invalid-feedback">
                 <div *ngIf="createForm.password.errors.required">Password is required</div>
                 <div *ngIf="createForm.password.errors.minlength">Password must be at least 6 characters</div>
-              </div></td>
-            <td><input type="text" formControlName="firstName" class="form-control"/></td>
-            <td><input type="text" formControlName="lastName" class="form-control"/></td>
-            <td><input type="text" formControlName="email" class="form-control"/></td>
-            <td><select (change)="setRole($event.target.value)">
-              <option disabled selected>Select Role</option>
-              <option value="1">Regular Foodie</option>
-              <option value="2">Restaurant Owner</option>
-            </select></td>
-            <td><button *ngIf="!userUpdate" (click)="create(createForm.username.value, createForm.password.value, createForm.firstName.value,
-                                        createForm.lastName.value, createForm.email.value)" class="btn-info btn">Create</button>
+              </div>
+            </td>
+            <td>
+              <input type="text" formControlName="firstName" class="form-control" />
+            </td>
+            <td>
+              <input type="text" formControlName="lastName" class="form-control" />
+            </td>
+            <td>
+              <input type="text" formControlName="email" class="form-control" />
+            </td>
+            <td>
+              <select (change)="setRole($event.target.value)">
+                <option disabled selected>Select Role</option>
+                <option value="1">Regular Foodie</option>
+                <option value="2">Restaurant Owner</option>
+              </select>
+            </td>
+            <td>
+              <button *ngIf="!userUpdate" (click)="create(createForm.username.value, createForm.password.value, createForm.firstName.value,
+                                        createForm.lastName.value, createForm.email.value)" class="btn">
+                <i class="fa fa-plus fa-md"></i>
+              </button>
               <button *ngIf="userUpdate" (click)="updateUser(createForm.username.value, createForm.password.value, createForm.firstName.value,
-                                        createForm.lastName.value, createForm.email.value)" class="btn-info btn">Update</button></td>
-            <td><button *ngIf="!userUpdate" (click)="clear()" class="btn-danger btn">Clear</button>
-              <button *ngIf="userUpdate" (click)="clear()" class="btn-danger btn">Cancel</button></td>
+                                        createForm.lastName.value, createForm.email.value)" class="btn">
+                <i class="fa fa-check fa-md"></i>
+              </button>
+            </td>
+            <td>
+              <button *ngIf="!userUpdate" (click)="clear()" class="btn danger">Clear</button>
+              <button *ngIf="userUpdate" (click)="clear()" class="btn danger">Cancel</button>
+            </td>
           </tr>
           <tr>
             <td>{{user.username}}</td>
@@ -109,23 +125,32 @@
             <td>{{user.lastName}}</td>
             <td>{{user.email}}</td>
             <td>{{role(user.role)}}</td>
-            <th><button (click)="updateSetUp()" class="btn-info btn">Update</button></th>
-            <td><button (click)="deleteUser(user._id)" class="btn-danger btn">Delete</button></td>
+            <th>
+              <button (click)="updateSetUp()" class="btn">
+                <i class="fa fa-edit fa-md"></i>
+              </button>
+            </th>
+            <td>
+              <button (click)="deleteUser(user._id)" class="btn">
+                <i class="fa fa-trash fa-md"></i>
+              </button>
+            </td>
           </tr>
         </table>
       </form>
     </div>
 
-    <div *ngIf = "postView" class="col-8">
-      <h2>Post Information</h2>
-      <table width="75%" class="table-bordered" style="text-align:center">
+    <!--posts table-->
+    <div *ngIf="postView" class="col-9">
+      <h4>Post Information</h4>
+      <br/>
+      <table width="100%" class="table">
         <tr>
           <th>Title</th>
           <th>Author</th>
           <th>Description</th>
           <th *ngIf="post.type == 1">Restaurant Name</th>
           <th>Post Type</th>
-
         </tr>
         <tr>
           <td>{{post.title}}</td>
@@ -135,29 +160,34 @@
           <td>{{type(post.type)}}</td>
         </tr>
       </table>
-    </div>
-  </div>
-  <div>
-    <div *ngIf = "postView && responsesForPost.length > 0">
-      <h2>Response Information</h2>
-      <table width="75%" class="table-bordered" style="text-align:center">
-        <tr>
-          <th>Author</th>
-          <th>Restaurant Name</th>
-          <th>Description</th>
-          <th></th>
-        </tr>
-        <tr *ngFor="let response of responsesForPost">
-          <td>{{username(response.userId)}}</td>
-          <td>
-            <a href={{response.restaurantURL}}>
-              {{response.restaurantName }}
-            </a>
-          </td>
-          <td>{{response.descriptions}}</td>
-          <td><button (click)="deleteResponse(response._id)" class="btn-danger btn">Delete</button></td>
-        </tr>
-      </table>
+
+      <!--responses table-->
+      <div *ngIf="postView && responsesForPost.length > 0">
+        <h4>Response Information</h4>
+        <br/>
+        <table width="100%" class="table">
+          <tr>
+            <th>Author</th>
+            <th>Restaurant Name</th>
+            <th>Description</th>
+            <th></th>
+          </tr>
+          <tr *ngFor="let response of responsesForPost">
+            <td>{{username(response.userId)}}</td>
+            <td>
+              <a href={{response.restaurantURL}}>
+                {{response.restaurantName }}
+              </a>
+            </td>
+            <td>{{response.descriptions}}</td>
+            <td>
+              <button (click)="deleteResponse(response._id)" class="btn">
+                <i class="fa fa-trash fa-md"></i>
+              </button>
+            </td>
+          </tr>
+        </table>
+      </div>
     </div>
   </div>
 </div>

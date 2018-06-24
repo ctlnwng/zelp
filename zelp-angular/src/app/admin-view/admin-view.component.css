@@ -1,0 +1,20 @@
+.admin-view {
+  font-size: 14px;
+}
+
+li.active {
+  border-color: #9053a2;
+  background-color: #9053a2;
+}
+
+li.list-header {
+  background-color: #404040;
+  border-color: #404040;
+  color: white;
+  font-weight: 700;
+}
+
+button.danger {
+  color: #ba212b;
+  font-weight: 700;
+}
