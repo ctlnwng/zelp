@@ -18,6 +18,10 @@ function findUserByCredentials(credentials) {
     });
 }
 
+function findAdmin() {
+  return userModel.find({role: "0"});
+}
+
 function createUser(user) {
     return userModel.create(user);
 }
@@ -40,7 +44,8 @@ var api = {
     findUserById: findUserById,
     findUserByCredentials: findUserByCredentials,
     updateUser: updateUser,
-    deleteUser: deleteUser
+    deleteUser: deleteUser,
+    findAdmin: findAdmin
 };
 
 module.exports = api;
