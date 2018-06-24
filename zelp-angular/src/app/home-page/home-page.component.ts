@@ -39,6 +39,10 @@ export class HomePageComponent implements OnInit {
     return this.favoritePostsId.has(postId);
   }
 
+  filterPosts(pid) {
+    this.posts = this.posts.filter(post => post._id != pid);
+  }
+
   ngOnInit() {
     this.loggedInService.currentMessage.subscribe(
       loggedIn => (this.loggedIn = loggedIn)

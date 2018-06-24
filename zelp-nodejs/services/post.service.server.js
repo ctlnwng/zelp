@@ -51,6 +51,8 @@ module.exports = function(app) {
                 favModel.deleteFavoriteByPost(pid);
                 responseModel.deleteResponseByPost(pid);
                 res.json(posts);
+            } else {
+                res.json({ conflict: true });
             }}, err => res.sendStatus(400));
     }
 };

@@ -27,7 +27,7 @@
       <br/>
       <ul class="list-group">
         <li *ngFor="let post of posts" class="list-group-item">
-          <app-post-list-item [post]="post"></app-post-list-item>
+          <app-post-list-item (postDeleted)="filterPosts($event)" [userRole]="userRole" [post]="post"></app-post-list-item>
         </li>
       </ul>
     </div>
@@ -46,5 +46,4 @@
       </ul>
     </div>
   </div>
-
 </div>
