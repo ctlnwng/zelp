@@ -27,12 +27,11 @@ function createPost(post) {
 
 // DELETE
 
-function deletePost(pid, userId) {
+function deletePost(pid, userId, role) {
+    if (role == "0") {
+        return postModel.deleteOne({ _id: pid });
+    }
   return postModel.deleteOne({ _id: pid, author: userId });
-}
-
-function forceDeletePost(pid) {
-  return postModel.remove({ _id: pid });
 }
 
 var api = {
@@ -40,8 +39,7 @@ var api = {
   findAllPosts: findAllPosts,
   findPostById: findPostById,
   deletePost: deletePost,
-  findPostWithInput: findPostWithInput,
-  forceDeletePost: forceDeletePost
+  findPostWithInput: findPostWithInput
 };
 
 module.exports = api;

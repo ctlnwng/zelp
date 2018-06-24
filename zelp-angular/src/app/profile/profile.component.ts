@@ -25,7 +25,7 @@ export class ProfileComponent implements OnInit {
       return;
     }
 
-    if (this.user.username === "admin") {
+    if (this.userRole !== "Admin" && this.user.username === "admin") {
       this.alertService.error("The username 'admin' cannot be taken", false);
       return;
     }

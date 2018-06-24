@@ -47,7 +47,8 @@ export class PostServiceClient {
 
   deletePost(postId) {
     return fetch(API_URL + "post/" + postId, {
-      method: "delete"
+      method: "delete",
+      credentials: "include"
     }).then(response => response.json());
   }
 
