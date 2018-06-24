@@ -50,22 +50,21 @@ module.exports = function(app) {
     });
   }
 
-  function createAdmin(req, res) {
-    if (
-      userModel.findUserByCredentials({ username: "admin", password: "admin" })
-        .length === 0
-    ) {
-      var user = {
-        username: "admin",
-        password: "admin",
-        role: "0"
-      };
-      userModel.createUser(user).then(function(user) {
-        res.send(user);
-      });
+    function createAdmin(req, res){
+        userModel.findAdmin().then(result => {if(result.length < 1){
+            var user = {
+                username: "admin",
+                password: "admin",
+                role: "0"
+            }
+            userModel.createUser(user).then(function (user) {
+                res.send(user);
+            });
+        } else {
+            res.sendStatus(409)
+        }})
     }
-    res.sendStatus(409);
-  }
+  
 
   function deleteUser(req, res) {
     var userId = req.params["userId"];
