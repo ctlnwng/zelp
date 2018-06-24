@@ -31,7 +31,7 @@
 
   <br/>
 
-  <!-- user/post list and table -->
+  <!--user list-->
   <div class="row">
     <div *ngIf="viewOption == 0" class="col-2">
       <ul class="list-group">
@@ -44,6 +44,7 @@
       </ul>
     </div>
 
+    <!--post list table-->
     <div *ngIf="viewOption == 1" class="col-3">
       <ul class="list-group">
         <li class="list-group-item list-header">Posts</li>
@@ -54,6 +55,7 @@
       </ul>
     </div>
 
+    <!--users table-->
     <div *ngIf="userView" class="col-10">
       <h4>Edit User Information</h4>
       <br/>
@@ -138,6 +140,7 @@
       </form>
     </div>
 
+    <!--posts table-->
     <div *ngIf="postView" class="col-9">
       <h4>Post Information</h4>
       <br/>
@@ -158,6 +161,7 @@
         </tr>
       </table>
 
+      <!--responses table-->
       <div *ngIf="postView && responsesForPost.length > 0">
         <h4>Response Information</h4>
         <br/>
@@ -186,5 +190,4 @@
       </div>
     </div>
   </div>
-
 </div>

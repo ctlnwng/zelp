@@ -16,6 +16,15 @@ import { DataServiceClient } from "../services/data.service.client";
 })
 export class PostComponent implements OnInit {
   showResponseForm = false;
+  post: Post = new Post();
+  authorUsername: String;
+  postId: number;
+  responses: Response[] = [];
+
+  loggedIn: boolean;
+  favorite: boolean;
+  userRole = "";
+
   constructor(
     private responseService: ResponseServiceClient,
     private postService: PostServiceClient,
@@ -29,15 +38,6 @@ export class PostComponent implements OnInit {
     this.route.params.subscribe(params => this.loadPost(params["postId"]));
   }
 
-  post: Post = new Post();
-  authorUsername: String;
-  postId: number;
-  responses: Response[] = [];
-
-  loggedIn: boolean;
-  favorite: boolean;
-  userRole = "";
-
   loadPost(postId) {
     this.postService.findPostById(postId).then(post => {
       this.postId = postId;
@@ -46,7 +46,7 @@ export class PostComponent implements OnInit {
         .findUserById(post.author)
         .then(user => (this.authorUsername = user.username))
         .then(() => this.loadResponses())
-        // IDEA: fetching from the server might be slower but be more useful
+        // IDEA: fetching from the server might be slower but more useful
         .then(() => {
           if (this.loggedIn) {
             this.data.currentFavorites.subscribe(favorites => {
@@ -85,9 +85,9 @@ export class PostComponent implements OnInit {
       .then(() => (this.favorite = !this.favorite))
       .then(() => {
         if (this.favorite) {
-          this.alertService.success("Added to favorite!", false);
+          this.alertService.success("Added to favorites!", false);
         } else {
-          this.alertService.success("Removed from favorite!", false);
+          this.alertService.success("Removed from favorites", false);
         }
       });
   }

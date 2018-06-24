@@ -2,7 +2,6 @@ import { Component } from "@angular/core";
 import { OnInit } from "@angular/core";
 import { User } from "../models/user.model.client";
 import { UserServiceClient } from "../services/user.service.client";
-import { Router } from "@angular/router";
 import { AlertServiceClient } from "../services/alert.service.client";
 
 @Component({
@@ -13,8 +12,7 @@ import { AlertServiceClient } from "../services/alert.service.client";
 export class ProfileComponent implements OnInit {
   constructor(
     private service: UserServiceClient,
-    private alertService: AlertServiceClient,
-    private router: Router
+    private alertService: AlertServiceClient
   ) {}
 
   user: User = new User();
@@ -22,13 +20,13 @@ export class ProfileComponent implements OnInit {
   userRole: string;
 
   updateUser() {
-    if(this.userRole === "Admin" && this.user.username !== "admin") {
-      this.alertService.error("C'mon, Admin is a special name! Don't try to change!", false);
+    if (this.userRole === "Admin" && this.user.username !== "admin") {
+      this.alertService.error("The username 'admin' cannot be changed", false);
       return;
     }
 
-    if(this.user.username === "admin") {
-      this.alertService.error("C'mon, Admin is a special name! Don't try to own that name!", false);
+    if (this.user.username === "admin") {
+      this.alertService.error("The username 'admin' cannot be taken", false);
       return;
     }
 
@@ -45,7 +43,6 @@ export class ProfileComponent implements OnInit {
   }
 
   logout() {
-    // this.service.logout().then(() => this.router.navigate(["login"]));
     this.service.logout();
   }
 

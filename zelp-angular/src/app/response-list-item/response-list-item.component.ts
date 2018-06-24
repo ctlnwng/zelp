@@ -24,7 +24,7 @@ export class ResponseListItemComponent implements OnInit {
 
   vote(type) {
     if (!this.loggedIn) {
-      this.alertService.error("You need to be logged in to vote", false);
+      this.alertService.error("You must be logged in to vote", false);
       return;
     }
 
@@ -36,11 +36,11 @@ export class ResponseListItemComponent implements OnInit {
     this.responseService.vote(type, this.response._id).then(response => {
       if (response.conflict) {
         this.alertService.error(
-          "You've already voted (You could still change your vote)",
+          "You've already voted (feel free to change your vote)",
           false
         );
       } else if (response.status === 404) {
-        this.alertService.error("Invalid Credentials", false);
+        this.alertService.error("Invalid credentials", false);
       } else {
         this.response = response;
         this.alertService.success("Vote successful", false);
@@ -51,9 +51,12 @@ export class ResponseListItemComponent implements OnInit {
   delete() {
     this.responseService.deleteResponse(this.response._id).then(response => {
       if (response.conflict === true) {
-        this.alertService.error("This response wasn't made by you", false);
+        this.alertService.error(
+          "You can only delete your own responses",
+          false
+        );
       } else {
-        this.alertService.success("Response was deleted successfully", false);
+        this.alertService.success("Response deleted successfully!", false);
       }
     });
   }

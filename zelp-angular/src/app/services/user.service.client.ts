@@ -2,6 +2,7 @@ const API_URL = "http://localhost:4000/api/";
 // const API_URL = "https://cs4550-zelp-nodejs.herokuapp.com/api/";
 
 export class UserServiceClient {
+  // GET
 
   findAllUsers() {
     return fetch(API_URL + "user", {
@@ -22,6 +23,8 @@ export class UserServiceClient {
       });
     });
   }
+
+  // POST
 
   logout() {
     return fetch(API_URL + "logout", {
@@ -78,6 +81,17 @@ export class UserServiceClient {
     }).then(response => response.json());
   }
 
+  // DELETE
+
+  deleteUser(userId) {
+    return fetch(API_URL + "user/" + userId, {
+      method: "delete",
+      credentials: "include"
+    });
+  }
+
+  // PUT
+
   updateUser(id, username, password, first, last, email) {
     const user = {
       username: username,
@@ -94,12 +108,5 @@ export class UserServiceClient {
         "content-type": "application/json"
       }
     });
-  }
-
-  deleteUser(userId) {
-    return fetch(API_URL + 'user/' + userId, {
-      method: 'delete',
-      credentials: 'include'
-    })
   }
 }

@@ -2,12 +2,16 @@ const API_URL = "http://localhost:4000/api/";
 // const API_URL = "https://cs4550-zelp-nodejs.herokuapp.com/api/";
 
 export class PostServiceClient {
+  // GET
+
   findAllPosts() {
     return fetch(API_URL + "post").then(response => response.json());
   }
   findPostById(postID) {
     return fetch(API_URL + "post/" + postID).then(response => response.json());
   }
+
+  // POST
 
   createPost(title, description, restaurant) {
     let post;
@@ -39,19 +43,15 @@ export class PostServiceClient {
     }).then(response => response.json());
   }
 
+  // DELETE
+
   deletePost(postId) {
     return fetch(API_URL + "post/" + postId, {
       method: "delete"
     }).then(response => response.json());
   }
 
-  //TODO maybe move the functions below to favorite service
-  addToFavorite(postId) {
-    return fetch(API_URL + "users/" + postId + "/favorite", {
-      method: "post",
-      credentials: "include"
-    });
-  }
+  // FAVORITES
 
   findPostsForUser() {
     return fetch(API_URL + "users/favorite", {
@@ -60,6 +60,14 @@ export class PostServiceClient {
       return response.text().then(function(text) {
         return text ? JSON.parse(text) : {};
       });
+    });
+  }
+
+  //TODO maybe move the functions below to a favorites service
+  addToFavorite(postId) {
+    return fetch(API_URL + "users/" + postId + "/favorite", {
+      method: "post",
+      credentials: "include"
     });
   }
 }

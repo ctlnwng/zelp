@@ -13,17 +13,17 @@ import { Restaurant } from "../models/restaurant.model.client";
 export class SearchComponent implements OnInit {
   @Output() messageEvent = new EventEmitter<any>();
 
+  searchForm: FormGroup;
+  restaurant: Restaurant = new Restaurant();
+  submitted = false;
+  searchable = false;
+
   constructor(
     private formBuilder: FormBuilder,
     private service: SearchServiceClient,
     private router: Router,
     private alertService: AlertServiceClient
   ) {}
-
-  searchForm: FormGroup;
-  restaurant: Restaurant = new Restaurant();
-  submitted = false;
-  searchable = false;
 
   searchRestaurant(name, location) {
     this.submitted = true;
@@ -45,7 +45,7 @@ export class SearchComponent implements OnInit {
     this.searchable = false;
     this.searchForm.reset();
     this.submitted = false;
-    // Not really necessary but it is proper to do it.
+    // not really necessary
     this.restaurant = new Restaurant();
     this.sendMessage();
   }
@@ -54,14 +54,14 @@ export class SearchComponent implements OnInit {
     return this.searchForm.controls;
   }
 
+  sendMessage() {
+    this.messageEvent.emit(this.restaurant);
+  }
+
   ngOnInit() {
     this.searchForm = this.formBuilder.group({
       name: ["", Validators.required],
       location: ["", [Validators.required, Validators.minLength(6)]]
     });
-  }
-
-  sendMessage() {
-    this.messageEvent.emit(this.restaurant);
   }
 }

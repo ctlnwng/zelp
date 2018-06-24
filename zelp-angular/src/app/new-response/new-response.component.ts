@@ -23,12 +23,6 @@ export class NewResponseComponent implements OnInit {
     private formBuilder: FormBuilder
   ) {}
 
-  ngOnInit() {
-    this.responseForm = this.formBuilder.group({
-      description: ["", Validators.required]
-    });
-  }
-
   receiveMessage($event) {
     this.restaurant = $event;
   }
@@ -41,7 +35,7 @@ export class NewResponseComponent implements OnInit {
       return;
     }
 
-    // Stop if there exists invalid form
+    // stop if form is invalid
     if (this.responseForm.invalid) {
       return;
     }
@@ -62,5 +56,11 @@ export class NewResponseComponent implements OnInit {
 
   get form() {
     return this.responseForm.controls;
+  }
+
+  ngOnInit() {
+    this.responseForm = this.formBuilder.group({
+      description: ["", Validators.required]
+    });
   }
 }

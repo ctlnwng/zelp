@@ -28,21 +28,21 @@ export class RegisterComponent implements OnInit {
     console.log([username, password, verifyPassword]);
 
     if (password !== verifyPassword) {
-      this.alertService.error("password needs to match!");
+      this.alertService.error("Passwords do not match");
       return;
     }
 
     if (this.role == "") {
-      this.alertService.error("Please select a role.");
+      this.alertService.error("Please select a role");
       return;
     }
 
-    // Stop if there exists invalid form
+    // stop if invalid form exists
     if (this.registerForm.invalid) {
       return;
     }
 
-    // No invalid form so proceed
+    // proceed if form is valid
     this.service
       .createUser(username, password, this.role)
       .then(
@@ -59,6 +59,12 @@ export class RegisterComponent implements OnInit {
     return this.registerForm.controls;
   }
 
+  success() {
+    this.router
+      .navigate(["login"])
+      .then(() => this.alertService.success("Registration successful!", false));
+  }
+
   // initial setting
   ngOnInit() {
     this.registerForm = this.formBuilder.group({
@@ -66,11 +72,5 @@ export class RegisterComponent implements OnInit {
       password: ["", [Validators.required, Validators.minLength(6)]],
       verifyPassword: ["", Validators.required]
     });
-  }
-
-  success() {
-    this.router
-      .navigate(["login"])
-      .then(() => this.alertService.success("Registration successful!", false));
   }
 }
