@@ -54,13 +54,13 @@ module.exports = function(app) {
                 res.send(user);
             });
         } else {
-            res.send(409)
+            res.sendStatus(409)
         }})
     }
 
     function findAllUsers(req, res) {
         if(req.session["currentUser"].role !== "0") {
-            res.send(404);
+            res.sendStatus(404);
         }
         userModel.findAllUsers().then(users =>res.send(users));
     }
