@@ -3,6 +3,7 @@ import { UserServiceClient } from "../services/user.service.client";
 import { Response } from "../models/response.model.client";
 import { ResponseServiceClient } from "../services/response.service.client";
 import { AlertServiceClient } from "../services/alert.service.client";
+import { User } from "../models/user.model.client";
 
 @Component({
   selector: "app-response-list-item",
@@ -15,6 +16,7 @@ export class ResponseListItemComponent implements OnInit {
   @Input() userRole: string;
 
   authorUsername: String;
+  currentUserId: String;
 
   constructor(
     private userService: UserServiceClient,
@@ -62,6 +64,9 @@ export class ResponseListItemComponent implements OnInit {
   }
 
   ngOnInit() {
+    this.userService.profile().then(user => {
+      this.currentUserId = user._id;
+    });
     this.userService
       .findUserById(this.response.userId)
       .then(user => (this.authorUsername = user.username));
