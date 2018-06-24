@@ -44,7 +44,7 @@ module.exports = function(app) {
     }
 
     function createAdmin(req, res){
-        if( userModel.findUserByCredentials({username:"admin", password:"admin"}).length === 0) {
+        userModel.findAdmin().then(result => {if(result.length < 1){
             var user = {
                 username: "admin",
                 password: "admin",
@@ -53,8 +53,9 @@ module.exports = function(app) {
             userModel.createUser(user).then(function (user) {
                 res.send(user);
             });
-        }
-        res.sendStatus(409);
+        } else {
+            res.send(409)
+        }})
     }
 
     function findAllUsers(req, res) {
