@@ -1,8 +1,9 @@
 <div class="container admin-view">
   <h3>Manage Users and Posts</h3>
   <br/>
-  <div class="row container-fluid">
 
+  <!-- select type dropdowns -->
+  <div class="row container-fluid">
     <div class="form-group">
       <select (change)="setView($event.target.value)" style="margin-right: 20px">
         <option disabled selected>Select View</option>
@@ -29,13 +30,15 @@
   </div>
 
   <br/>
+
+  <!-- user/post list and table -->
   <div class="row">
     <div *ngIf="viewOption == 0" class="col-2">
       <ul class="list-group">
         <li class="list-group-item list-header">Users</li>
         <li class="list-group-item" *ngFor="let user of displayUser" (click)="selectUser(user)" [ngClass]="{'active' : user._id == userId}">
           {{user.username}}
-          <i (click)="deleteUser(user._id)" class="fa fa-times fa-md float-right remove">
+          <i (click)="deleteUser(user._id)" class="fa fa-times fa-md float-right">
           </i>
         </li>
       </ul>
@@ -46,7 +49,7 @@
         <li class="list-group-item list-header">Posts</li>
         <li class="list-group-item" *ngFor="let post of displayPost" (click)="selectPost(post)" [ngClass]="{'active' : post._id == postId}">
           {{post.title}}
-          <i (click)="deletePost(post._id)" class="fa fa-times fa-md float-right remove"></i>
+          <i (click)="deletePost(post._id)" class="fa fa-times fa-md float-right"></i>
         </li>
       </ul>
     </div>
@@ -55,7 +58,7 @@
       <h4>Edit User Information</h4>
       <br/>
       <form [formGroup]="registerForm">
-        <table width="75%" class="table admin-table">
+        <table width="100%" class="table">
           <tr>
             <th>Username</th>
             <th>Password</th>
@@ -101,11 +104,11 @@
             <td>
               <button *ngIf="!userUpdate" (click)="create(createForm.username.value, createForm.password.value, createForm.firstName.value,
                                         createForm.lastName.value, createForm.email.value)" class="btn">
-                <i class="fa fa-plus fa-lg"></i>
+                <i class="fa fa-plus fa-md"></i>
               </button>
               <button *ngIf="userUpdate" (click)="updateUser(createForm.username.value, createForm.password.value, createForm.firstName.value,
                                         createForm.lastName.value, createForm.email.value)" class="btn">
-                <i class="fa fa-check fa-lg"></i>
+                <i class="fa fa-check fa-md"></i>
               </button>
             </td>
             <td>
@@ -122,12 +125,12 @@
             <td>{{role(user.role)}}</td>
             <th>
               <button (click)="updateSetUp()" class="btn">
-                <i class="fa fa-edit fa-lg"></i>
+                <i class="fa fa-edit fa-md"></i>
               </button>
             </th>
             <td>
               <button (click)="deleteUser(user._id)" class="btn">
-                <i class="fa fa-trash fa-lg"></i>
+                <i class="fa fa-trash fa-md"></i>
               </button>
             </td>
           </tr>
@@ -138,7 +141,7 @@
     <div *ngIf="postView" class="col-9">
       <h4>Post Information</h4>
       <br/>
-      <table width="75%" class="table">
+      <table width="100%" class="table">
         <tr>
           <th>Title</th>
           <th>Author</th>
@@ -154,31 +157,34 @@
           <td>{{type(post.type)}}</td>
         </tr>
       </table>
+
+      <div *ngIf="postView && responsesForPost.length > 0">
+        <h4>Response Information</h4>
+        <br/>
+        <table width="100%" class="table">
+          <tr>
+            <th>Author</th>
+            <th>Restaurant Name</th>
+            <th>Description</th>
+            <th></th>
+          </tr>
+          <tr *ngFor="let response of responsesForPost">
+            <td>{{username(response.userId)}}</td>
+            <td>
+              <a href={{response.restaurantURL}}>
+                {{response.restaurantName }}
+              </a>
+            </td>
+            <td>{{response.descriptions}}</td>
+            <td>
+              <button (click)="deleteResponse(response._id)" class="btn">
+                <i class="fa fa-trash fa-md"></i>
+              </button>
+            </td>
+          </tr>
+        </table>
+      </div>
     </div>
   </div>
-  <div>
-    <div *ngIf="postView && responsesForPost.length > 0">
-      <h2>Response Information</h2>
-      <table width="75%" class="table-bordered" style="text-align:center">
-        <tr>
-          <th>Author</th>
-          <th>Restaurant Name</th>
-          <th>Description</th>
-          <th></th>
-        </tr>
-        <tr *ngFor="let response of responsesForPost">
-          <td>{{username(response.userId)}}</td>
-          <td>
-            <a href={{response.restaurantURL}}>
-              {{response.restaurantName }}
-            </a>
-          </td>
-          <td>{{response.descriptions}}</td>
-          <td>
-            <button (click)="deleteResponse(response._id)" class="btn-danger btn">Delete</button>
-          </td>
-        </tr>
-      </table>
-    </div>
-  </div>
+
 </div>

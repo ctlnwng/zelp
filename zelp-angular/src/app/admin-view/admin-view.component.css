@@ -1,3 +1,7 @@
+.admin-view {
+  font-size: 14px;
+}
+
 li.active {
   border-color: #9053a2;
   background-color: #9053a2;
@@ -8,10 +12,6 @@ li.list-header {
   border-color: #404040;
   color: white;
   font-weight: 700;
-}
-
-.admin-view {
-  font-size: 14px;
 }
 
 button.danger {
