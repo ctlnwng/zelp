@@ -3,5 +3,7 @@ export class Post {
   author: string;
   title: string;
   description: string;
+  type: string;
+  restaurantName: string;
   responses: string[];
 }

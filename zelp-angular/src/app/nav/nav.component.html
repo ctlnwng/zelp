@@ -17,6 +17,10 @@
       </form>
     </ul>
     <ul class="navbar-nav">
+      <li *ngIf="isAdmin" class="nav-item">
+        <a class="nav-link" routerLink="/admin-view">Admin View</a>
+      </li>
+
       <li *ngIf="loggedIn" class="nav-item">
         <a class="nav-link" routerLink="/profile">Profile</a>
       </li>
@@ -31,6 +35,5 @@
     <div *ngIf="loggedIn" style="padding-left: 0.5rem; padding-right: 0.5rem">
       <a (click)="logout()" routerLink="/login">Logout</a>
     </div>
-
   </div>
 </nav>

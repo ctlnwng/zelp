@@ -8,6 +8,7 @@ import { PostComponent } from "./post/post.component";
 import { SearchComponent } from "./search/search.component";
 import {RestaurantComponent} from './restaurant/restaurant.component';
 import {SearchResultComponent} from './search-result/search-result.component';
+import {AdminViewComponent} from './admin-view/admin-view.component';
 
 const appRoutes: Routes = [
   { path: "", redirectTo: "home", pathMatch: "full" },
@@ -15,6 +16,7 @@ const appRoutes: Routes = [
   { path: "login", component: LoginComponent },
   { path: "register", component: RegisterComponent },
   { path: "profile", component: ProfileComponent },
+  { path: "admin-view", component: AdminViewComponent },
   { path: "new-post", component: NewPostComponent },
   { path: "post/:postId", component: PostComponent },
   { path: "post/:postId/new-response", component: PostComponent },

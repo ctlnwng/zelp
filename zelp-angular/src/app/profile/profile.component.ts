@@ -22,6 +22,16 @@ export class ProfileComponent implements OnInit {
   userRole: string;
 
   updateUser() {
+    if(this.userRole === "Admin" && this.user.username !== "admin") {
+      this.alertService.error("C'mon, Admin is a special name! Don't try to change!", false);
+      return;
+    }
+
+    if(this.user.username === "admin") {
+      this.alertService.error("C'mon, Admin is a special name! Don't try to own that name!", false);
+      return;
+    }
+
     this.service
       .updateUser(
         this.userId,

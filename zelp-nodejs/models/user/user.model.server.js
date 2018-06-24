@@ -5,37 +5,42 @@ var userSchema = require("./user.schema.server");
 var userModel = mongoose.model("UserModel", userSchema);
 
 function findUserById(userId) {
-  return userModel.findById(userId);
+    return userModel.findById(userId);
 }
 
 function findUserByCredentials(credentials) {
-  return userModel.findOne(credentials, {
-    username: 1,
-    firstName: 1,
-    lastName: 1,
-    email: 1,
-    role: 1
-  });
+    return userModel.findOne(credentials, {
+        username: 1,
+        firstName: 1,
+        lastName: 1,
+        email: 1,
+        role: 1
+    });
 }
 
 function createUser(user) {
-  return userModel.create(user);
+    return userModel.create(user);
 }
 
 function findAllUsers() {
-  return userModel.find();
+    return userModel.find();
 }
 
 function updateUser(userId, newUser) {
-  return userModel.findByIdAndUpdate(userId, newUser);
+    return userModel.findByIdAndUpdate(userId, newUser);
+}
+
+function deleteUser(userId) {
+    return userModel.remove({_id: userId});
 }
 
 var api = {
-  createUser: createUser,
-  findAllUsers: findAllUsers,
-  findUserById: findUserById,
-  findUserByCredentials: findUserByCredentials,
-  updateUser: updateUser
+    createUser: createUser,
+    findAllUsers: findAllUsers,
+    findUserById: findUserById,
+    findUserByCredentials: findUserByCredentials,
+    updateUser: updateUser,
+    deleteUser: deleteUser
 };
 
 module.exports = api;

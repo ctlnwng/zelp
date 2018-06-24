@@ -52,7 +52,6 @@ export class RegisterComponent implements OnInit {
   }
 
   setRole(role) {
-    console.log(role);
     this.role = role;
   }
 
