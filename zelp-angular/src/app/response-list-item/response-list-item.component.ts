@@ -1,4 +1,4 @@
-import { Component, OnInit, Input } from "@angular/core";
+import { Component, OnInit, Input, Output, EventEmitter } from "@angular/core";
 import { UserServiceClient } from "../services/user.service.client";
 import { Response } from "../models/response.model.client";
 import { ResponseServiceClient } from "../services/response.service.client";
@@ -14,6 +14,8 @@ export class ResponseListItemComponent implements OnInit {
   @Input() response: Response;
   @Input() loggedIn: boolean;
   @Input() userRole: string;
+
+  @Output() responseDeleted = new EventEmitter<String>();
 
   authorUsername: String;
   currentUserId: String;
@@ -59,6 +61,7 @@ export class ResponseListItemComponent implements OnInit {
         );
       } else {
         this.alertService.success("Response deleted successfully!", false);
+        this.responseDeleted.emit("responseDeleted");
       }
     });
   }

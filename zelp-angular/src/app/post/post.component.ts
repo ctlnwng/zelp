@@ -59,6 +59,10 @@ export class PostComponent implements OnInit {
     });
   }
 
+  reloadResponses(event) {
+    this.loadResponses();
+  }
+
   createResponse() {
     // this is unncecessary since we've already made parent-child relationship for post and new response.
     this.router.navigate(["post", this.postId, "new-response"]);
