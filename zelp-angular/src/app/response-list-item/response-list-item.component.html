@@ -1,4 +1,4 @@
-<i *ngIf="currentUserId == response.userId" (click)="delete()" class="fa fa-times fa-lg float-right remove">
+<i *ngIf="currentUserId == response.userId || userRole == '0'" (click)="delete()" class="fa fa-times fa-lg float-right remove">
 </i>
 <div class="row">
   <div class="col-1 vote">
