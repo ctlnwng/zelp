@@ -6,6 +6,9 @@ module.exports = function(app) {
     app.post("/api/logout", logout);
     app.post("/api/login", login);
     app.put("/api/user/:userId", updateUser);
+    // FIXME need to change later
+    app.get("/api/admin/create", createAdmin);
+    app.delete("/api/user/:userId", deleteUser);
 
     var userModel = require("../models/user/user.model.server");
 
@@ -36,27 +39,48 @@ module.exports = function(app) {
     function createUser(req, res) {
         var user = req.body;
         userModel.createUser(user).then(function(user) {
-            req.session["currentUser"] = user;
             res.send(user);
         });
     }
 
-    function findAllUsers(req, res) {
-        userModel.findAllUsers().then(function(users) {
-            res.send(users);
-        });
+    function createAdmin(req, res){
+        if( userModel.findUserByCredentials({username:"admin", password:"admin"}).length === 0) {
+            var user = {
+                username: "admin",
+                password: "admin",
+                role: "0"
+            }
+            userModel.createUser(user).then(function (user) {
+                res.send(user);
+            });
+        }
+        res.sendStatus(409);
     }
 
-    function updateUser(req, res) {s
+    function findAllUsers(req, res) {
+        if(req.session["currentUser"].role !== "0") {
+            res.send(404);
+        }
+        userModel.findAllUsers().then(users =>res.send(users));
+    }
+
+    function updateUser(req, res) {
         var userId = req.params["userId"];
         var user = req.body;
         var newUser = {
             ...user,
             _id: userId
         };
-        req.session["currentUser"] = newUser;
+        if(req.session["currentUser"].role !== "0") {
+            req.session["currentUser"] = newUser;
+        }
         userModel.updateUser(userId, newUser).then(function(user) {
             res.send(user);
         });
+    }
+
+    function deleteUser(req, res) {
+        var userId = req.params["userId"];
+        userModel.deleteUser(userId).then(response => res.send(response))
     }
 };

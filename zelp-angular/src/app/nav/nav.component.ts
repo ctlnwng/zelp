@@ -16,6 +16,8 @@ import {LoggedinServiceClient} from '../services/loggedin.service.client';
 export class NavComponent implements OnInit {
   searchForm: FormGroup;
   loggedIn: boolean;
+  isAdmin: boolean;
+
   submitted = false;
   posts: Post[] = [];
 
@@ -62,6 +64,7 @@ export class NavComponent implements OnInit {
   logout() {
     this.service.logout();
     this.loggedInService.changeMessage(false);
+    this.isAdmin = false;
     localStorage.clear();
   }
 
@@ -72,6 +75,7 @@ export class NavComponent implements OnInit {
     this.loggedInService.currentMessage.subscribe(loggedIn => this.loggedIn = loggedIn);
     this.data.currentMessage
       .subscribe(message => this.message = message);
+    this.loggedInService.currentUserRole.subscribe(role => this.isAdmin = (role === "0"));
 
   }
 }

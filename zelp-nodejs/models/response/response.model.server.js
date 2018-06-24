@@ -18,7 +18,11 @@ function findResponsesByPostId(pid) {
     return responseModel.find({postId: pid});
 }
 
-function deleteResponse(responseId, userId) {
+function deleteResponse(responseId, userId, role) {
+    // Admin can delete any response
+    if(role == "0") {
+        return responseModel.deleteOne({_id: responseId});
+    }
     // FIXME filter out responses first (might not need if findOneAndRemove works
     return responseModel.deleteOne({_id: responseId, userId: userId});
 }
