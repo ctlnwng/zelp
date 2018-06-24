@@ -185,17 +185,19 @@ export class AdminViewComponent implements OnInit {
   }
 
   deletePost(postId) {
-    this.alertService.error(
-      "Need to implement delete Post on backend first",
-      false
-    );
+    this.postService.deletePost(postId).then(posts =>
+    {if (posts.status != 400) {
+      this.posts = this.posts.filter(post => post._id != postId);
+      this.displayPost = this.displayPost.filter(post => post._id != postId);
+    }}
+    )
   }
 
   deleteResponse(rid) {
     this.responseService.deleteResponse(rid).then(response => {
-      this.responseService
-        .findResponseByPostId(this.postId)
-        .then(responses => (this.responsesForPost = responses));
+      {if (response.status != 400) {
+        this.responsesForPost = this.responsesForPost.filter(response => response._id != rid);
+      }}
     });
   }
 

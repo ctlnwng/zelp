@@ -33,7 +33,7 @@ function deleteFavoriteByPost(post) {
 }
 
 
-module.exports = {
+var api = {
     createFavorite: createFavorite,
     unFavorite: unFavorite,
     findFavorite: findFavorite,
@@ -41,3 +41,5 @@ module.exports = {
     findFavoriteById: findFavoriteById,
     deleteFavoriteByPost: deleteFavoriteByPost
 };
+
+module.exports = api;
