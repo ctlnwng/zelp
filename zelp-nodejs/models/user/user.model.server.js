@@ -1,46 +1,52 @@
-// CRUD operations
-
 var mongoose = require("mongoose");
 var userSchema = require("./user.schema.server");
 var userModel = mongoose.model("UserModel", userSchema);
 
+// GET
+
 function findUserById(userId) {
-    return userModel.findById(userId);
+  return userModel.findById(userId);
 }
 
 function findUserByCredentials(credentials) {
-    return userModel.findOne(credentials, {
-        username: 1,
-        firstName: 1,
-        lastName: 1,
-        email: 1,
-        role: 1
-    });
-}
-
-function createUser(user) {
-    return userModel.create(user);
+  return userModel.findOne(credentials, {
+    username: 1,
+    firstName: 1,
+    lastName: 1,
+    email: 1,
+    role: 1
+  });
 }
 
 function findAllUsers() {
-    return userModel.find();
+  return userModel.find();
 }
 
-function updateUser(userId, newUser) {
-    return userModel.findByIdAndUpdate(userId, newUser);
+// CREATE
+
+function createUser(user) {
+  return userModel.create(user);
 }
+
+// DELETE
 
 function deleteUser(userId) {
-    return userModel.remove({_id: userId});
+  return userModel.remove({ _id: userId });
+}
+
+// UPDATE
+
+function updateUser(userId, newUser) {
+  return userModel.findByIdAndUpdate(userId, newUser);
 }
 
 var api = {
-    createUser: createUser,
-    findAllUsers: findAllUsers,
-    findUserById: findUserById,
-    findUserByCredentials: findUserByCredentials,
-    updateUser: updateUser,
-    deleteUser: deleteUser
+  createUser: createUser,
+  findAllUsers: findAllUsers,
+  findUserById: findUserById,
+  findUserByCredentials: findUserByCredentials,
+  updateUser: updateUser,
+  deleteUser: deleteUser
 };
 
 module.exports = api;
