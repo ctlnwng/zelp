@@ -232,7 +232,7 @@ export class AdminViewComponent implements OnInit {
         this.registerForm.reset();});
   }
 
-  cancelUpdate() {
+  clear() {
     this.userUpdate = false;
     this.submitted = false;
     this.registerForm.reset();
@@ -249,7 +249,16 @@ export class AdminViewComponent implements OnInit {
     this.userRole = this.user.role;
   }
 
+  deletePost(postId) {
+    this.alertService.error("Need to implement delete Post on backend first", false);
+  }
 
+  deleteResponse(rid) {
+    this.responseService.deleteResponse(rid).then(response => {
+      this.responseService.findResponseByPostId(this.postId)
+        .then(responses => this.responsesForPost = responses);
+    });
+  }
 
   setRole(role) {
     this.userRole = role;
@@ -258,9 +267,4 @@ export class AdminViewComponent implements OnInit {
   get createForm() {
     return this.registerForm.controls;
   }
-
-  check() {
-
-  }
-
 }
