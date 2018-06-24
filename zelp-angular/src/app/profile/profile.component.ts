@@ -27,7 +27,7 @@ export class ProfileComponent implements OnInit {
       return;
     }
 
-    if(this.user.username !== "admin") {
+    if(this.user.username === "admin") {
       this.alertService.error("C'mon, Admin is a special name! Don't try to own that name!", false);
       return;
     }

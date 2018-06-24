@@ -97,6 +97,9 @@ export class UserServiceClient {
   }
 
   deleteUser(userId) {
-
+    return fetch(API_URL + 'user/' + userId, {
+      method: 'delete',
+      credentials: 'include'
+    })
   }
 }

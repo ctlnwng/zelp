@@ -31,7 +31,7 @@
             (click)="selectUser(user)"
             [ngClass]="{'active' : user._id == userId}">
           {{user.username}}
-          <i (click)="check()" class="fa fa-times fa-lg float-right remove">
+          <i (click)="deleteUser(user._id)" class="fa fa-times fa-lg float-right remove">
           </i>
         </li>
       </ul>
@@ -94,9 +94,12 @@
               <option value="1">Regular Foodie</option>
               <option value="2">Restaurant Owner</option>
             </select></td>
-            <td><button (click)="create(createForm.username.value, createForm.password.value, createForm.firstName.value,
-                                        createForm.lastName.value, createForm.email.value)" class="btn-info btn">Create</button></td>
-            <td><button (click)="check()" class="btn-danger btn">Clear</button></td>
+            <td><button *ngIf="!userUpdate" (click)="create(createForm.username.value, createForm.password.value, createForm.firstName.value,
+                                        createForm.lastName.value, createForm.email.value)" class="btn-info btn">Create</button>
+              <button *ngIf="userUpdate" (click)="updateUser(createForm.username.value, createForm.password.value, createForm.firstName.value,
+                                        createForm.lastName.value, createForm.email.value)" class="btn-info btn">Update</button></td>
+            <td><button *ngIf="!userUpdate" (click)="check()" class="btn-danger btn">Clear</button>
+              <button *ngIf="userUpdate" (click)="cancelUpdate()" class="btn-danger btn">Cancel</button></td>
           </tr>
           <tr>
             <td>{{user.username}}</td>
@@ -105,8 +108,8 @@
             <td>{{user.lastName}}</td>
             <td>{{user.email}}</td>
             <td>{{role(user.role)}}</td>
-            <th><button (click)="check()" class="btn-info btn">Update</button></th>
-            <td><button (click)="check()" class="btn-danger btn">Delete</button></td>
+            <th><button (click)="updateSetUp()" class="btn-info btn">Update</button></th>
+            <td><button (click)="deleteUser(user._id)" class="btn-danger btn">Delete</button></td>
           </tr>
         </table>
       </form>

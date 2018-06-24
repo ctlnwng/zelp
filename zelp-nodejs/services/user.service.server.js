@@ -8,7 +8,7 @@ module.exports = function(app) {
     app.put("/api/user/:userId", updateUser);
     // FIXME need to change later
     app.get("/api/admin/create", createAdmin);
-    app.delete("api/user/:userId", deleteUser);
+    app.delete("/api/user/:userId", deleteUser);
 
     var userModel = require("../models/user/user.model.server");
 
@@ -71,7 +71,9 @@ module.exports = function(app) {
             ...user,
             _id: userId
         };
-        req.session["currentUser"] = newUser;
+        if(req.session["currentUser"].role !== "0") {
+            req.session["currentUser"] = newUser;
+        }
         userModel.updateUser(userId, newUser).then(function(user) {
             res.send(user);
         });

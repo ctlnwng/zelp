@@ -19,6 +19,7 @@ export class AdminViewComponent implements OnInit {
   registerForm: FormGroup;
   userRole = "";
   submitted = false;
+  userUpdate = false;
 
   users = [];
   displayUser = [];
@@ -71,6 +72,9 @@ export class AdminViewComponent implements OnInit {
     this.user = user;
     this.userView = true;
     this.postView = false;
+    this.userUpdate = false;
+    this.submitted = false;
+    this.registerForm.reset();
   }
 
   selectPost(post) {
@@ -166,8 +170,85 @@ export class AdminViewComponent implements OnInit {
     this.users.push(user);
     this.displayUser.push(user);
     this.submitted = false;
+    this.registerForm.reset();
+    this.userRole = "";
     this.alertService.success("User created successfully!", false);
   }
+
+  deleteUser(userId) {
+    this.userService.deleteUser(userId)
+      .then(response => {if (response.status != 400) {
+        this.users = this.users.filter(user => user._id != userId);
+        this.displayUser = this.displayUser.filter(user => user._id != userId);
+      }});
+  }
+
+  updateUser(username, password, firstName, lastName, email) {
+    this.submitted = true;
+    // Stop if there exists invalid form
+    if (this.registerForm.invalid) {
+      return;
+    }
+
+    if(this.user.username === "admin") {
+      this.alertService.error("C'mon, Admin is a special name! Don't try to own that name!", false);
+      return;
+    }
+
+    var index = this.users.indexOf(this.user);
+    var index2 = this.displayUser.indexOf(this.user);
+
+    var updatedUser = {
+      _id: this.user._id,
+      username: username,
+      password: password,
+      firstName: firstName,
+      lastName: lastName,
+      email: email,
+      role: this.user.role
+    }
+
+    if(index > -1){
+      this.users[index] = updatedUser; // will update item
+    }
+    if(index2 > -1){
+      this.displayUser[index2] = updatedUser; // will update item
+    }
+
+    this.user = updatedUser;
+
+    this.userService
+      .updateUser(
+        this.user._id,
+        username,
+        password,
+        firstName,
+        lastName,
+        email
+      )
+      .then(response => {this.alertService.success("User updated!", false)
+        this.userUpdate = false;
+        this.submitted = false;
+        this.registerForm.reset();});
+  }
+
+  cancelUpdate() {
+    this.userUpdate = false;
+    this.submitted = false;
+    this.registerForm.reset();
+  }
+
+  updateSetUp() {
+    this.userUpdate = true;
+    this.registerForm.setValue({
+      username: this.user.username,
+      password: this.user.password,
+      firstName: this.user.firstName,
+      lastName: this.user.lastName,
+      email: this.user.email})
+    this.userRole = this.user.role;
+  }
+
 
 
   setRole(role) {
