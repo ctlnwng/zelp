@@ -38,7 +38,6 @@ export class ResponseListItemComponent implements OnInit {
     }
 
     this.responseService.vote(type, this.response._id).then(response => {
-      console.log(response);
       if (response.conflict) {
         this.alertService.error(
           "You've already voted (feel free to change your vote)",
