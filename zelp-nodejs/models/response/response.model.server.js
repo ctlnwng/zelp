@@ -83,6 +83,14 @@ function updateVote(rid, userId, vote) {
     );
 }
 
+function deleteVote(rid, userId) {
+    return responseModel.findOneAndUpdate(
+        { _id: rid },
+        { $pull: { "votes": {userId: userId}}},
+        { new: true }
+    );
+}
+
 var api = {
     createResponse: createResponse,
     findAllResponses: findAllResponses,
@@ -94,6 +102,7 @@ var api = {
     findUserVote: findUserVote,
     addVote: addVote,
     updateVote: updateVote,
+    deleteVote: deleteVote,
     deleteResponseByPost: deleteResponseByPost
 };
 
