@@ -1,6 +1,7 @@
 module.exports = function(app) {
     app.get("/api/post", findAllPosts);
     app.get("/api/post/:pid", findPostById);
+    app.get("/api/post/user/:id", findPostByUser);
     app.get("/api/post/contains/:input", findPostWithInput);
     app.post("/api/post", createPost);
     app.delete("/api/post/:pid", deletePost);
@@ -27,6 +28,13 @@ module.exports = function(app) {
         postModel.findPostById(id).then(function(post) {
             res.json(post);
         });
+    }
+
+    function findPostByUser(req, res) {
+        var id = req.params["id"];
+
+        postModel.findPostByUser(id)
+            .then(resp => res.json(resp));
     }
 
     function createPost(req, res) {

@@ -1,4 +1,4 @@
-<i *ngIf="currentUserId === post.author || userRole == '0'" (click)="delete()" class="fa fa-times fa-lg float-right remove">
+<i *ngIf="(currentUserId === post.author || userRole == '0') && able" (click)="delete()" class="fa fa-times fa-lg float-right remove">
 </i>
 <div class="d-flex justify-content-between">
   <h5>

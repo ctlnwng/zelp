@@ -5,6 +5,8 @@ import { UserServiceClient } from "../services/user.service.client";
 import { AlertServiceClient } from "../services/alert.service.client";
 import {LoggedinServiceClient} from '../services/loggedin.service.client';
 import {Router} from '@angular/router';
+import {PostServiceClient} from '../services/post.service.client';
+import {Post} from '../models/post.model.client';
 
 @Component({
   selector: "app-profile",
@@ -15,12 +17,14 @@ export class ProfileComponent implements OnInit {
   constructor(
     private service: UserServiceClient,
     private alertService: AlertServiceClient,
+    private postService: PostServiceClient,
     private loggedInService: LoggedinServiceClient,
     private router: Router
   ) {}
 
   user: User = new User();
   userId: string;
+  role: string;
   userRole: string;
   loggedIn = false;
 
@@ -61,10 +65,6 @@ export class ProfileComponent implements OnInit {
     this.alertService.success("User updated!", false)
   }
 
-  logout() {
-    this.service.logout();
-  }
-
   ngOnInit() {
     this.loggedInService.currentMessage.subscribe(loggedIn => this.loggedIn = loggedIn);
 
@@ -78,6 +78,7 @@ export class ProfileComponent implements OnInit {
     this.service.profile().then(user => {
       this.user = user;
       this.userId = user._id;
+      this.role = user.role;
 
       switch (user.role) {
         case "0":
@@ -93,5 +94,5 @@ export class ProfileComponent implements OnInit {
           this.userRole = "";
       }
     });
-  }
+      }
 }

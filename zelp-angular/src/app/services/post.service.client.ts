@@ -10,6 +10,9 @@ export class PostServiceClient {
   findPostById(postID) {
     return fetch(API_URL + "post/" + postID).then(response => response.json());
   }
+  findPostByUserId(id) {
+    return fetch(API_URL + "post/user/" + id).then(response => response.json());
+  }
 
   // POST
 

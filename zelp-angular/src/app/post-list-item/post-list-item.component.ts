@@ -12,6 +12,7 @@ import {AlertServiceClient} from '../services/alert.service.client';
 export class PostListItemComponent implements OnInit {
   @Input() post: Post;
   @Input() userRole: string;
+  @Input() able:boolean;
 
   currentUserId: string;
   authorUsername: string;

@@ -284,7 +284,7 @@ export class AdminViewComponent implements OnInit {
     }
     this.registerForm = this.formBuilder.group({
       username: ["", Validators.required],
-      password: ["", [Validators.required, Validators.minLength(6)]],
+      password: ["", [Validators.required, Validators.minLength(0)]],
       firstName: [""],
       lastName: [""],
       email: [""]

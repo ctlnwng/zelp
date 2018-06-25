@@ -47,7 +47,7 @@ module.exports = function(app) {
       var user = req.body;
       userModel.findUserByUsername(user.username).then(checkUser => {
           if(checkUser.length !== 0) {
-              res.send(409)
+              res.sendStatus(409)
           } else {
               userModel.createUser(user)
                   .then(function (user) {
@@ -92,7 +92,7 @@ module.exports = function(app) {
         if(beforeUpdate.username !== newUser.username) {
             userModel.findUserByUsername(user.username).then(checkUser => {
                 if(checkUser.length !== 0) {
-                    res.send(409)
+                    res.sendStatus(409)
                 } else {
                     req.session["currentUser"] = newUser;
                     userModel.updateUser(userId, newUser).then(function(user) {

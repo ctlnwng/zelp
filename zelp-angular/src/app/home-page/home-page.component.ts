@@ -13,6 +13,7 @@ import { DataServiceClient } from "../services/data.service.client";
 })
 export class HomePageComponent implements OnInit {
   posts: Post[] = [];
+  myPosts: Post[] = [];
   favorites;
   loggedIn: boolean;
   userRole: string;
@@ -35,12 +36,9 @@ export class HomePageComponent implements OnInit {
     }
   }
 
-  isFavorite(postId) {
-    return this.favoritePostsId.has(postId);
-  }
-
   filterPosts(pid) {
     this.posts = this.posts.filter(post => post._id != pid);
+    this.myPosts = this.myPosts.filter(post => post._id != pid);
   }
 
   ngOnInit() {
@@ -52,6 +50,14 @@ export class HomePageComponent implements OnInit {
     );
     this.service.findAllPosts().then(posts => (this.posts = posts));
     if (this.loggedIn) {
+
+      this.userService.profile().then(user => {
+        this.postService.findPostByUserId(user._id)
+          .then(posts => {
+            this.myPosts = posts
+          });
+      });
+
       this.postService
         .findPostsForUser()
         .then(favorites => (this.favorites = favorites))
