@@ -25,8 +25,6 @@ export class RegisterComponent implements OnInit {
   register(username, password, verifyPassword) {
     this.submitted = true;
 
-    console.log([username, password, verifyPassword]);
-
     if (password !== verifyPassword) {
       this.alertService.error("Passwords do not match");
       return;
@@ -46,7 +44,7 @@ export class RegisterComponent implements OnInit {
     this.service
       .createUser(username, password, this.role)
       .then(
-        data => this.success(),
+        data => this.success(data),
         error => this.alertService.error(error, false)
       );
   }
@@ -59,7 +57,11 @@ export class RegisterComponent implements OnInit {
     return this.registerForm.controls;
   }
 
-  success() {
+  success(data) {
+    if (data.status === 409) {
+      this.alertService.error("username is already taken", false);
+      return;
+    }
     this.router
       .navigate(["login"])
       .then(() => this.alertService.success("Registration successful!", false));

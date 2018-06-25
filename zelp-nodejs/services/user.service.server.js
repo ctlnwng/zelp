@@ -44,10 +44,18 @@ module.exports = function(app) {
   }
 
   function createUser(req, res) {
-    var user = req.body;
-    userModel.createUser(user).then(function(user) {
-      res.send(user);
-    });
+      var user = req.body;
+      userModel.findUserByUsername(user.username).then(checkUser => {
+          if(checkUser.length !== 0) {
+              res.send(409)
+          } else {
+              userModel.createUser(user)
+                  .then(function (user) {
+                      req.session['currentUser'] = user;
+                      res.send(user);
+                  })
+          }
+      });
   }
 
     function createAdmin(req, res){
@@ -71,18 +79,32 @@ module.exports = function(app) {
     userModel.deleteUser(userId).then(response => res.send(response));
   }
 
-  function updateUser(req, res) {
-    var userId = req.params["userId"];
-    var user = req.body;
-    var newUser = {
-      ...user,
-      _id: userId
-    };
-    if (req.session["currentUser"].role !== "0") {
-      req.session["currentUser"] = newUser;
+    function updateUser(req, res) {
+        var userId = req.params["userId"];
+        var user = req.body;
+
+        var beforeUpdate = req.session["currentUser"];
+        var newUser = {
+            ...user,
+            _id: userId
+        };
+
+        if(beforeUpdate.username !== newUser.username) {
+            userModel.findUserByUsername(user.username).then(checkUser => {
+                if(checkUser.length !== 0) {
+                    res.send(409)
+                } else {
+                    req.session["currentUser"] = newUser;
+                    userModel.updateUser(userId, newUser).then(function(user) {
+                        res.send(user);
+                    });
+                }
+            })
+        } else {
+            req.session["currentUser"] = newUser;
+            userModel.updateUser(userId, newUser).then(function (user) {
+                res.send(user);
+            });
+        }
     }
-    userModel.updateUser(userId, newUser).then(function(user) {
-      res.send(user);
-    });
-  }
 };

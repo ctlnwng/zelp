@@ -8,6 +8,10 @@ function findUserById(userId) {
   return userModel.findById(userId);
 }
 
+function findUserByUsername(username) {
+    return userModel.find({username: username})
+}
+
 function findUserByCredentials(credentials) {
   return userModel.findOne(credentials, {
     username: 1,
@@ -48,6 +52,7 @@ var api = {
     createUser: createUser,
     findAllUsers: findAllUsers,
     findUserById: findUserById,
+    findUserByUsername: findUserByUsername,
     findUserByCredentials: findUserByCredentials,
     updateUser: updateUser,
     deleteUser: deleteUser,

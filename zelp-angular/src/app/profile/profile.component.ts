@@ -25,6 +25,11 @@ export class ProfileComponent implements OnInit {
   loggedIn = false;
 
   updateUser() {
+    if (!this.user.username) {
+      this.alertService.error('Username is required!', false);
+      return;
+    }
+
     if (this.userRole === "Admin" && this.user.username !== "admin") {
       this.alertService.error("The username 'admin' cannot be changed", false);
       return;
@@ -44,7 +49,16 @@ export class ProfileComponent implements OnInit {
         this.user.lastName,
         this.user.email
       )
-      .then(response => this.alertService.success("User updated!", false));
+      .then(response => this.updateSuccess(response),
+        err => this.alertService.error(err, false));
+  }
+
+  updateSuccess(response) {
+    if (response.status === 409) {
+      this.alertService.error("username is already taken", false);
+      return;
+    }
+    this.alertService.success("User updated!", false)
   }
 
   logout() {
