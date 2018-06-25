@@ -109,7 +109,7 @@
                 <i class="fa fa-plus fa-md"></i>
               </button>
               <button *ngIf="userUpdate" (click)="updateUser(createForm.username.value, createForm.password.value, createForm.firstName.value,
-                                        createForm.lastName.value, createForm.email.value)" class="btn">
+                                        createForm.lastName.value, createForm.email.value, this.userRole)" class="btn">
                 <i class="fa fa-check fa-md"></i>
               </button>
             </td>

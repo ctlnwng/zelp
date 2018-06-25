@@ -92,13 +92,14 @@ export class UserServiceClient {
 
   // PUT
 
-  updateUser(id, username, password, first, last, email) {
+  updateUser(id, username, password, first, last, email, role) {
     const user = {
       username: username,
       password: password,
       firstName: first,
       lastName: last,
-      email: email
+      email: email,
+      role: role
     };
     return fetch(API_URL + "user/" + id, {
       body: JSON.stringify(user),

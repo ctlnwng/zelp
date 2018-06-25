@@ -51,7 +51,8 @@ export class ProfileComponent implements OnInit {
         this.user.password,
         this.user.firstName,
         this.user.lastName,
-        this.user.email
+        this.user.email,
+        this.userRole
       )
       .then(response => this.updateSuccess(response),
         err => this.alertService.error(err, false));

@@ -180,6 +180,7 @@ export class AdminViewComponent implements OnInit {
       if (response.status != 400) {
         this.users = this.users.filter(user => user._id != userId);
         this.displayUser = this.displayUser.filter(user => user._id != userId);
+        this.userView = false;
       }
     });
   }
@@ -189,6 +190,7 @@ export class AdminViewComponent implements OnInit {
     {if (posts.status != 400) {
       this.posts = this.posts.filter(post => post._id != postId);
       this.displayPost = this.displayPost.filter(post => post._id != postId);
+      this.postView = false;
     }}
     )
   }
@@ -215,11 +217,16 @@ export class AdminViewComponent implements OnInit {
     this.userRole = this.user.role;
   }
 
-  updateUser(username, password, firstName, lastName, email) {
+  updateUser(username, password, firstName, lastName, email, role) {
     this.submitted = true;
 
     // stop if form is invalid
     if (this.registerForm.invalid) {
+      return;
+    }
+
+    if (this.userRole !== "1" && this.userRole !== "2") {
+      this.alertService.error("Please set roles for the user", false);
       return;
     }
 
@@ -238,7 +245,7 @@ export class AdminViewComponent implements OnInit {
       firstName: firstName,
       lastName: lastName,
       email: email,
-      role: this.user.role
+      role: this.userRole
     };
 
     if (index > -1) {
@@ -251,7 +258,7 @@ export class AdminViewComponent implements OnInit {
     this.user = updatedUser;
 
     this.userService
-      .updateUser(this.user._id, username, password, firstName, lastName, email)
+      .updateUser(this.user._id, username, password, firstName, lastName, email, role)
       .then(response => {
         this.alertService.success("User updated!", false);
         this.userUpdate = false;
